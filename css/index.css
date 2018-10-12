@@ -8,7 +8,9 @@ th, td { /* table elements 表格元素 */
 }
 *{margin:0;padding:0}
 
-li{list-style:none}
+li{
+    list-style:none;
+}
 
 img{vertical-align:top;border:none}
 
@@ -21,10 +23,173 @@ button, input, select, textarea { /* for ie */
 .body{
     list-style: none;
 }
+.mt10{
+    margin-top: 10px;
+}
+.active{
+    border-bottom: 2px solid #fff;
+}
 
 
 .banner{
     width: 100%;
     height: 800px;
     background:url(../images/bg.png)center no-repeat;
+    padding-top: 40px;
 } 
+.changeToken{
+    text-align: center;
+}
+.howMuch{
+    text-align: center;
+}
+.btn-toolbar{
+    display: inline-flex;
+}
+
+.text_1{
+    color: #fff;
+    font-size: 16px;
+}
+.order{
+    width: 34%;
+    display: inline-block;
+}
+.get{
+    width: 26%;
+    display: inline-block;
+}
+.orderList{
+    width: 58%;
+    margin: auto;
+    background-color: #1c233f;
+    padding: 25px 0;
+    border-radius: 3px;
+    text-align: center;
+}
+.cl-4{
+    width: 33%;
+}
+.word1{
+    font-size: 13px;
+    color: #898a8c;
+}
+.number{
+    font-size: 34px;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 10px;
+}
+/* 进度条样式 */
+#text{
+    color: #fff;
+}
+#box {
+    position: relative;
+    width: 650px;
+    height: 50px;
+    margin: 50px auto 0;
+}
+
+#bg {
+    height: 18px;
+    margin-top: 19px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#bgcolor {
+    background: #5889B2;
+    width: 325px;
+    height: 18px;
+    border-radius: 5px;
+}
+
+#bt {
+    width: 34px;
+    height: 34px;
+    background-color: #fff;
+    border-radius: 17px;
+    overflow: hidden;
+    position: absolute;
+    left: 0px;
+    margin-left: -17px;
+    top: 8px;
+    cursor: pointer;
+/* 初始化 */
+    font-size: 20px;
+    text-align: center;
+    line-height: 34px;
+    font-weight: 800;
+    left: 325px;
+}
+
+#text {
+    width: 200px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 2em;
+}
+
+
+
+.check{
+    margin: auto;
+}
+
+/* tablelist */
+.tableList{
+    width: 80%;
+    margin: auto;
+}
+.tabs{
+    display: flex;
+    background-color: #1c233f;
+    border-bottom: 1px solid #333853;
+    font-size: 22px;
+    color: #fff;
+    margin-top: 60px;
+}
+.tabs>li{
+    margin-left: 50px;
+    padding: 17px 5px;
+    cursor: pointer;
+}
+table{
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 20px;
+}
+thead{
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+th{
+    background-color: #1d233e;
+    color: #989a99;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+}
+tbody{
+}
+td{
+    color: #fff;
+    padding: 15px 14px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow:hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+.win{
+    background-color: #334e47;/* 获奖的背景颜色 */
+}
+.lose{
+    background-color: #4c2d2e;/* 未获奖的背景颜色*/
+}
+
