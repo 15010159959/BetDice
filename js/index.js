@@ -55,6 +55,7 @@
 
             $('#odds').html(Number(98 / (parseInt(left / 6.5) - 1)).toFixed(3) + 'x');//赔率计算
             $('#percent').html(Number( (parseInt(left / 6.5) / 98) * 100).toFixed(2) + '%' );//胜率计算
+            $('#may_get_money').val(Number( ($('#odds').html() * $("#money").val()).toFixed(4))); //可能获得的奖金
 
         }
     });
@@ -74,6 +75,7 @@
             $('#myNumber').html(parseInt(left / 6.5));
             $('#odds').html(Number(98 / (parseInt(left / 6.5) - 1)).toFixed(3) + 'x');//赔率计算
             $('#percent').html(Number( (parseInt(left / 6.5) / 98) * 100).toFixed(2) + '%' );//胜率计算
+            $('#may_get_money').html(Number( ($('#odds').html()*$("#money").val()).toFixed(4))); //获得的奖金
         }
     });
 
