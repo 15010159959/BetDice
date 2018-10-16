@@ -4,13 +4,13 @@
 
     // 投注金额
     $('#Half').click(function () {
-        $("#money").val($("#money").val() / 2);
+        $("#money").val(($("#money").val() / 2).toFixed(4));
     })
     $('#Double').click(function () {
         if ($("#money").val() > 4999) {
             $("#money").val('5000');
         } else {
-            $("#money").val($("#money").val() * 2);
+            $("#money").val(($("#money").val() * 2).toFixed(4));
         }
     })
     $('#Max').click(function () {
@@ -154,7 +154,7 @@
     // };
 
     var roll_by_scatter = function () {
-        eoss.transfer(account.name, "yangshun2532", "0.0001 EOS", $('#myNumber').html())
+        eoss.transfer(account.name, "yangshun2532", $("#money").val() + ' EOS' , $('#myNumber').html())
             .then((resp) => {
                 console.log(resp);
                 $("#loading").modal("hide");
