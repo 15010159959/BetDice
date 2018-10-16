@@ -52,11 +52,11 @@ button, input, select, textarea { /* for ie */
     font-size: 16px;
 }
 .order{
-    width: 34%;
+    width: 40%;
     display: inline-block;
 }
 .get{
-    width: 26%;
+    width: 21%;
     display: inline-block;
 }
 .orderList{
@@ -132,6 +132,59 @@ button, input, select, textarea { /* for ie */
     line-height: 2em;
 }
 
+
+.balance{
+    width: 60%;
+    height: 100px;
+    margin: 30px auto;
+    font-size: 20px;
+    color: #989a99;
+    line-height: 100px;
+    position: relative;
+}
+
+.balanceEos{
+    display: inline-block;
+    float: left;
+}
+.balanceBetDice{
+    display: inline-block;
+    float: right;
+}
+
+#result{
+    width: 60%;
+    height: 80px;
+    line-height: 80px;
+    left: 20%;
+    background-color: #1c233f;
+    border-radius:10px; 
+    font-size: 22px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+}
+.result_animation{
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+    animation-name: run;
+    animation-duration: 3s;
+}
+@keyframes run {
+    0% {
+        top: 50%;
+        opacity: 0;
+    }
+    90% {
+        top: 0%;
+        opacity: 1;
+    }
+    100% {
+        top: 0%;
+        opacity: 1;
+    }
+}
 
 
 .check{
