@@ -8,7 +8,7 @@
     })
     $('#Double').click(function () {
         if ($("#money").val() > 4999) {
-            $("#money").val('5000' + ' EOS');
+            $("#money").val('5000');
         } else {
             $("#money").val(parseInt($("#money").val()) * 2);
         }
