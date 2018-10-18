@@ -5,19 +5,27 @@
     // 投注金额
     // 投注金额
     $('#Half').click(function () {
-        $("#money").val($("#money").val() / 2);
-        $("#money").val(($("#money").val() / 2).toFixed(4));
+        var money = $("#money").val() /2
+        if (money > balanceEos){
+            money = balanceEos
+        }else if (money < 0.1){
+            money = 0.1
+        }
+        $("#money").val(money);
     })
     $('#Double').click(function () {
-        if ($("#money").val() > 4999) {
-            $("#money").val('5000');
-        } else {
-            $("#money").val($("#money").val() * 2);
-            $("#money").val(($("#money").val() * 2).toFixed(4));
+        var money = $("#money").val() * 2
+
+        console.log(money)
+        if (money > balanceEos){
+            money = balanceEos
+        }else if (money < 0.1){
+            money = 0.1
         }
+        $("#money").val(money);
     })
     $('#Max').click(function () {
-        $("#money").val('5000');
+        $("#money").val(balanceEos);
     })
 
 
@@ -88,6 +96,7 @@
     var eoss = null;
     var requiredFields = null;
     var tpAccount = null;
+    var balanceEos = 0;
     // var money = $("#money").val();    // 钱
     // var myNumber = $('#myNumber').text();  //投注的数字
 
@@ -184,7 +193,9 @@
     var get_current_balance = function () {
         eoss.getCurrencyBalance('eosio.token', account.name).then(function (resp) {
             console.log("get_current_balance",resp);
-            $('#balanceEos').text(resp[0]);
+            balanceEos = resp[0]
+            $('#balanceEos').text(balanceEos);
+
         });
     };
     //获取账户合约币余额
@@ -263,7 +274,7 @@
 
     // play
     $('#login').click(function () {
-        if (account != null) return;
+        //if (account != null) return;
         $(".modal.loading").modal("show");
         init_scatter();
     })
