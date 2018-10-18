@@ -3,14 +3,17 @@
     // var myNumber =$('#myNumber').html(); //获取投注的数字
 
     // 投注金额
+    // 投注金额
     $('#Half').click(function () {
-        $("#money").val(parseInt($("#money").val()) / 2);
+        $("#money").val($("#money").val() / 2);
+        $("#money").val(($("#money").val() / 2).toFixed(4));
     })
     $('#Double').click(function () {
         if ($("#money").val() > 4999) {
-            $("#money").val('5000' + ' EOS');
+            $("#money").val('5000');
         } else {
-            $("#money").val(parseInt($("#money").val()) * 2);
+            $("#money").val($("#money").val() * 2);
+            $("#money").val(($("#money").val() * 2).toFixed(4));
         }
     })
     $('#Max').click(function () {
