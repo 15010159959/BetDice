@@ -4,13 +4,13 @@
 
     // 投注金额
     $('#Half').click(function () {
-        $("#money").val(($("#money").val() / 2).toFixed(4));
+        $("#money").val(parseInt($("#money").val()) / 2);
     })
     $('#Double').click(function () {
         if ($("#money").val() > 4999) {
-            $("#money").val('5000');
+            $("#money").val('5000' + ' EOS');
         } else {
-            $("#money").val(($("#money").val() * 2).toFixed(4));
+            $("#money").val(parseInt($("#money").val()) * 2);
         }
     })
     $('#Max').click(function () {
@@ -55,7 +55,6 @@
 
             $('#odds').html(Number(98 / (parseInt(left / 6.5) - 1)).toFixed(3) + 'x');//赔率计算
             $('#percent').html(Number( (parseInt(left / 6.5) / 98) * 100).toFixed(2) + '%' );//胜率计算
-            $('#may_get_money').val(Number( ($('#odds').html() * $("#money").val()).toFixed(4))); //可能获得的奖金
 
         }
     });
@@ -75,7 +74,6 @@
             $('#myNumber').html(parseInt(left / 6.5));
             $('#odds').html(Number(98 / (parseInt(left / 6.5) - 1)).toFixed(3) + 'x');//赔率计算
             $('#percent').html(Number( (parseInt(left / 6.5) / 98) * 100).toFixed(2) + '%' );//胜率计算
-            $('#may_get_money').html(Number( ($('#odds').html()*$("#money").val()).toFixed(4))); //获得的奖金
         }
     });
 
@@ -91,31 +89,67 @@
     // var myNumber = $('#myNumber').text();  //投注的数字
 
     var a = document.getElementById("#result");
+  
+    var hideLoading = function(){
+        console.log("hideLoading")
+        $("#loading").modal("hide");
+    }
 
+    var showLoading = function(){
 
+    }
+    
     var init_scatter = function () {
+        if (account != null) return;
         if (eoss != null) return;
         if (tpAccount != null) return;
+        
+        var that = this
+        // 判断是否登录
         if (1) {
-            if (!('scatter' in window)) {
-                alert("没有找到Scatter.");
-            } else {
-                scatter.getIdentity({
-                    accounts: [{
-                        chainId: network.chainId,
-                        blockchain: network.blockchain
-                    }]
-                })
+            var checkCount = 0
+            var checkInterval = setInterval(function(){
+                console.log(checkCount)
+                if ( typeof(scatter) == undefined){
+                    return 
+                }else{
+
+                    clearInterval(checkInterval)
+                    
+                    scatter.getIdentity({
+                        accounts: [{
+                            chainId: network.chainId,
+                            blockchain: network.blockchain
+                        }]
+                    })
                     .then(identity => {
                         setIdentity(identity);
-                        // get_current_balance();
-                        $("#loading").modal("hide");
+                        get_current_balance();
+                        
+                        if (account){
+                            $("#login").hide();
+                            $('.nickname').html(account.name);
+                        }
+                        
                     })
                     .catch(err => {
-                        $("#loading").modal("hide");
+                        
                         alert("Scatter 初始化失败.");
                     });
-            }
+
+                    hideLoading()
+                }
+                
+                if (checkCount > 5){
+                    clearInterval(checkInterval)
+                    hideLoading()
+
+                    alert("加载Scatter失败若未安装请先安装.");
+                }
+
+                checkCount++
+            }, 500)
+
         } else {
             //移动端
             tpConnected = tp.isConnected();
@@ -127,39 +161,41 @@
                 });
             } else {
                 alert("请下载TokenPocket") //待完善
-                $("#loading").modal("hide");
+                hideLoading()
             }
         }
     };
     var setIdentity = function (identity) {
 
         account = identity.accounts.find(acc => acc.blockchain === 'eos');
+
+        console.log("account", account)
         eoss = scatter.eos(network, Eos, {});
         requiredFields = {
             accounts: [network]
         };
-        // get_current_balance();
+        //get_current_balance();
     };
 
     //获取账户eos余额
     var get_current_balance = function () {
-        this.eoss.getCurrencyBalance('eosio.token', this.account.name).then(function (resp) {
-            console.log(resp);
-            $('#balanceEos').text();
+        eoss.getCurrencyBalance('eosio.token', account.name).then(function (resp) {
+            console.log("get_current_balance",resp);
+            $('#balanceEos').text(resp[0]);
         });
     };
     //获取账户合约币余额
     // var get_current_balance = function () {
-    //     this.eoss.getCurrencyBalance('yangshun2534', this.account.name).then(function (resp) {
+    //     this.eoss.getCurrencyBalance('yangshun2534', account.name).then(function (resp) {
     //         console.log(resp);
     //     });
     // };
 
     var roll_by_scatter = function () {
-        eoss.transfer(account.name, "yangshun2532", $("#money").val() + ' EOS' , $('#myNumber').html())
+        eoss.transfer(account.name, "yangshun2532", "0.0001 EOS", $('#myNumber').html())
             .then((resp) => {
                 console.log(resp);
-                $("#loading").modal("hide");
+                hideLoading()
                 function TraversalObject(obj) {
                     for (var a in obj) {
                         if (a == "random_roll") {
@@ -188,11 +224,11 @@
 
             })
             .catch((err) => {
-                $("#loading").modal("hide");
+                hideLoading()
                 console.log(JSON.stringify(err));
 
             });
-        $("#loading").modal("hide");
+        hideLoading()
     };
 
 
@@ -217,8 +253,15 @@
     // play
     $('#play').click(function () {
         $(".modal.loading").modal("show");
-        init_scatter();
+        //init_scatter();
         roll_by_scatter();
         get_current_balance();
+    })
+
+    // play
+    $('#login').click(function () {
+        if (account != null) return;
+        $(".modal.loading").modal("show");
+        init_scatter();
     })
 })(jQuery);

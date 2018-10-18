@@ -246,3 +246,10 @@ td{
     background-color: #4c2d2e;/* 未获奖的背景颜色*/
 }
 
+.nickname{
+    font-weight: 200;
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
