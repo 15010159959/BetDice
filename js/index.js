@@ -7,8 +7,9 @@
     $('#Half').click(function () {
         if($("#money").val() == 0.0001){
             $("#money").val('0.0001');
+        }else{
+            $("#money").val(($("#money").val() / 2).toFixed(4));
         }
-        $("#money").val(($("#money").val() / 2).toFixed(4));
     })
     $('#Double').click(function () {
         if ($("#money").val() > 4999) {
