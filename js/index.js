@@ -278,4 +278,18 @@
         $(".modal.loading").modal("show");
         init_scatter();
     })
+
+    //betdata
+    $('#allBet').click(function(){
+        $('#allBet').addClass('active');
+        $('#myBet').removeClass('active');
+        $('#allBetData').removeClass('hidden');
+        $('#myBetData').addClass('hidden');
+    })
+    $('#myBet').click(function(){
+        $('#myBet').addClass('active');
+        $('#allBet').removeClass('active');
+        $('#allBetData').addClass('hidden');
+        $('#myBetData').removeClass('hidden');
+    })
 })(jQuery);

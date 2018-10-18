@@ -125,8 +125,8 @@
             </div>
             <div class="tableList">
                 <ul class="tabs">
-                    <li class="active">所有投注</li>
-                    <li>我的投注</li>
+                    <li class="active" id="allBet">所有投注</li>
+                    <li id="myBet">我的投注</li>
                 </ul>
                 <table>
                     <thead>
@@ -139,7 +139,7 @@
                             <th style="width: 15%;">奖金</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  id="allBetData" class="">
                         <tr class="win">
                             <td>12121</td>
                             <td>1212112121</td>
@@ -165,7 +165,34 @@
                             <td>22</td>
                         </tr>
                     </tbody>
+                    <tbody id="myBetData" class="hidden">
+                            <tr class="win">
+                                <td>121sd21</td>
+                                <td>121ss2112121</td>
+                                <td>2ss2</td>
+                                <td>2ss22</td>
+                                <td>2ss2</td>
+                                <td>2ss2</td>
+                            </tr>
+                            <tr class="lose">
+                                <td>1ss2121</td>
+                                <td>1ss212112121</td>
+                                <td>2ss2</td>
+                                <td>2ss22</td>
+                                <td>2ss2</td>
+                                <td>2ss2</td>
+                            </tr>
+                            <tr class="win">
+                                <td>12121</td>
+                                <td>1212112121</td>
+                                <td>22</td>
+                                <td>222</td>
+                                <td>22</td>
+                                <td>22</td>
+                            </tr>
+                        </tbody>
                 </table>
+                
             </div>
         </div>
 
