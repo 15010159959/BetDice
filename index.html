@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">    
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
     <title>BetDice</title>
 
 </head>
@@ -15,172 +14,159 @@
 <body>
     <div>
         <!-- header -->
-        <div class="header">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="#">BetDice</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">BetDice</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                        <button type="button" class="btn btn-primary">幸运抽奖</button>
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">邀请好友
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">玩法介绍</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">DICE</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    language
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">中文</a>
-                                    <a class="dropdown-item" href="#">英文 </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <button type="button" class="btn btn-primary" id="login">登录</button>
-                        <div class="nickname"></div>
-                    </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <button type="button" class="btn btn-primary">幸运抽奖</button>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">邀请好友
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">玩法介绍</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">DICE</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                language
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">中文</a>
+                                <a class="dropdown-item" href="#">英文 </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn btn-primary">登录</button>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>  
 
         <!-- container -->
         <div class="banner">
-            <div>
-                <!-- choice token -->
-                <div class="changeToken">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary">EOS</button>
-                        <button type="button" class="btn btn-secondary">BetDice</button>
+            <!-- choice token -->
+            <div class="center" style="padding-top: 20px;">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary">EOS</button>
+                    <button type="button" class="btn btn-secondary">BetDice</button>
+                </div>
+            </div>
+            <!-- how much input -->
+            <div class="bet container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="text_1 col-md-12 text-center">投注金额</div>
+                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="input-group">
+                                    <input id="money" type="text" class="form-control" value="0.0001" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-secondary active" >EOS</button>
+                                        <button type="button" class="btn btn-secondary" id="Half">1/2</button>
+                                        <button type="button" class="btn btn-secondary" id="Double">2X</button>
+                                        <button type="button" class="btn btn-secondary" id="Max">MAX</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="text_1 col-md-12 text-center">获奖金额</div>
+                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="input-group">
+                                    <input  id="may_get_money" type="text" class="form-control" value="0.0002" aria-label="Input group example" aria-describedby="btnGroupAddon" disabled="true" />
+                                    <button type="button" class="btn btn-secondary active" >EOS</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- how much input -->
-                <div class="howMuch container">
-                    <div class=" order ">
-                        <div class="text_1">投注金额</div>
-                        <div class="btn-toolbar mb-3 mt10" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="input-group">
-                                <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                            </div>
-                            <div class="btn-group mr-2" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-secondary active" >EOS</button>
-                                <button type="button" class="btn btn-secondary" id="Half">1/2</button>
-                                <button type="button" class="btn btn-secondary" id="Double">2X</button>
-                                <button type="button" class="btn btn-secondary" id="Max">MAX</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" get ">
-                        <div class="text_1">获奖金额</div>
-                        <div class="btn-toolbar mb-3 mt10" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="input-group">
-                                <input type="text" class="form-control" value="0.0002" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- data show -->
-                    <ul class="orderList row ">
-                        <li class="cl-4">
-                            <div class="word1">小于该数获胜</div>
-                            <div class="number" id="myNumber">50</div>
-                        </li>
-                        <li class="cl-4">
-                            <div class="word1">赔率</div>
-                            <div class="number" id="odds">1.001x</div>
-                        </li>
-                        <li class="cl-4">
-                            <div class="word1">中奖概率</div>
-                            <div class="number" id="percent">99%</div>
-                        </li>
-                    </ul>
-                    <div id="box">
-                        <div id="bg">
+                <!-- data show -->
+                <ul class="orderList row">
+                    <li class="info col-md-4">
+                        <div class="word1">小于该数获胜</div>
+                        <div class="number" id="myNumber">50</div>
+                    </li>
+                    <li class="info col-md-4">
+                        <div class="word1">赔率</div>
+                        <div class="number" id="odds">1.001x</div>
+                    </li>
+                    <li class="info col-md-4">
+                        <div class="word1">中奖概率</div>
+                        <div class="number" id="percent">99%</div>
+                    </li>
+                </ul>
+                <div id="box" class="container">
+                    <div class="row">
+                        <div id="bg" class="col-md-8">
                             <div id="bgcolor"></div>
                         </div>
                         <div id="bt">50</div>
-                        <!-- <div id="result_bt">22</div> -->
                     </div>
-                    <button type="button" class="btn btn-primary check" id="play">掷骰子</button>
-                    <div class="balance">
-                        <div class="balanceEos shake-hard">EOS余额 : <span id="balanceEos"> 50 </span> EOS</div>
-                        <div class="balanceBetDice">BetDice余额 : <span id="balanceBetDice"> 1000</span> BetDice</div>
-                        <div id="result" class=" ">结果是 <i id="random">22</i>,您获得了<i id="get_money">1</i></div>
-                    </div>
-
-                    
-
                 </div>
+
+                <div class="balance container">
+                    <div class="row">
+                        <div class="center col-md-6">
+                            <button type="button" class="btn btn-primary" id="play">掷骰子</button>
+                        </div>
+                        <div class="info col-md-9 center">
+                            <div class="row">
+                                <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 : <span id="balanceEos"> 50 </span> EOS</div>
+                                <div class="balanceBetDice col-md-6 text-center">BetDice余额 : <span id="balanceBetDice"> 1000</span> BetDice</div>
+                            </div>
+                        </div>
+                        <div id="result" class="col-md-12">结果是 <i id="random">22</i>,您获得了<i id="get_money">1</i></div>
+                    </div>
+                </div> 
             </div>
-            <div class="tableList">
-                <ul class="tabs">
-                    <li class="active" id="allBet">所有投注</li>
-                    <li id="myBet">我的投注</li>
-                </ul>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 14%;">时间</th>
-                            <th style="width: 8%;">投注者</th>
-                            <th style="width: 12%;">小于该号码获胜</th>
-                            <th style="width: 12%;">投注</th>
-                            <th style="width: 8%;">开奖号码</th>
-                            <th style="width: 15%;">奖金</th>
-                        </tr>
-                    </thead>
-                    <tbody  id="allBetData" class="">
-                        <tr class="win">
-                            <td>12121</td>
-                            <td>1212112121</td>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>22</td>
-                            <td>22</td>
-                        </tr>
-                        <tr class="lose">
-                            <td>12121</td>
-                            <td>1212112121</td>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>22</td>
-                            <td>22</td>
-                        </tr>
-                        <tr class="win">
-                            <td>12121</td>
-                            <td>1212112121</td>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>22</td>
-                            <td>22</td>
-                        </tr>
-                    </tbody>
-                    <tbody id="myBetData" class="hidden">
+        </div>
+
+        <div class="banner">
+            <div class="container">
+                <div class="row">
+                    <ul class="tabs">
+                        <li class="active">所有投注</li>
+                        <li>我的投注</li>
+                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 14%;">时间</th>
+                                <th style="width: 8%;">投注者</th>
+                                <th style="width: 12%;">小于该号码获胜</th>
+                                <th style="width: 12%;">投注</th>
+                                <th style="width: 8%;">开奖号码</th>
+                                <th style="width: 15%;">奖金</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <tr class="win">
-                                <td>121sd21</td>
-                                <td>121ss2112121</td>
-                                <td>2ss2</td>
-                                <td>2ss22</td>
-                                <td>2ss2</td>
-                                <td>2ss2</td>
+                                <td>12121</td>
+                                <td>1212112121</td>
+                                <td>22</td>
+                                <td>222</td>
+                                <td>22</td>
+                                <td>22</td>
                             </tr>
                             <tr class="lose">
-                                <td>1ss2121</td>
-                                <td>1ss212112121</td>
-                                <td>2ss2</td>
-                                <td>2ss22</td>
-                                <td>2ss2</td>
-                                <td>2ss2</td>
+                                <td>12121</td>
+                                <td>1212112121</td>
+                                <td>22</td>
+                                <td>222</td>
+                                <td>22</td>
+                                <td>22</td>
                             </tr>
                             <tr class="win">
                                 <td>12121</td>
@@ -191,8 +177,8 @@
                                 <td>22</td>
                             </tr>
                         </tbody>
-                </table>
-                
+                    </table>
+                </div>
             </div>
         </div>
 

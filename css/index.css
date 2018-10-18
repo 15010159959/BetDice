@@ -1,131 +1,186 @@
-body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
-dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
-pre, /* text formatting elements 文本格式元素 */
-fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
-th, td { /* table elements 表格元素 */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+/* structural elements 结构元素 */
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+/* list elements 列表元素 */
+
+pre,
+/* text formatting elements 文本格式元素 */
+
+fieldset,
+lengend,
+button,
+input,
+textarea,
+/* form elements 表单元素 */
+
+th,
+td {
+    /* table elements 表格元素 */
     margin: 0;
     padding: 0;
 }
-*{margin:0;padding:0}
 
-li{
-    list-style:none;
+* {
+    margin: 0;
+    padding: 0
 }
 
-img{vertical-align:top;border:none}
-
-/* 设置默认字体 */
-body,
-button, input, select, textarea { /* for ie */
-    /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
-    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; /* 用 ascii 字符表示，使得在任何编码下都无问题 */
-}
-.body{
+li {
     list-style: none;
 }
-.mt10{
+
+img {
+    vertical-align: top;
+    border: none
+}
+
+/* 设置默认字体 */
+
+body,
+button,
+input,
+select,
+textarea {
+    /* for ie */
+    /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    /* 用 ascii 字符表示，使得在任何编码下都无问题 */
+}
+
+.body {
+    list-style: none;
+}
+
+.mt10 {
     margin-top: 10px;
 }
-.active{
+
+.active {
     border-bottom: 2px solid #fff;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
 
-
-.banner{
+.banner {
     width: 100%;
-    background:url(../images/bg.png)center no-repeat;
-    padding-top: 40px;
-    padding-bottom: 40px;
-} 
-.changeToken{
-    text-align: center;
+    background: url(../images/bg.png) no-repeat;
 }
-.howMuch{
-    text-align: center;
+
+.bet {
+    margin-top: 20px;
 }
-.btn-toolbar{
+
+.info {
+    padding: 10px 0px;
+}
+
+.changeToken {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.btn-toolbar {
     display: inline-flex;
 }
 
-.text_1{
+.text_1 {
     color: #fff;
     font-size: 16px;
+    padding: 10px;
 }
-.order{
-    width: 40%;
+
+.order {
     display: inline-block;
 }
-.get{
-    width: 21%;
+
+.get {
     display: inline-block;
 }
-.orderList{
-    width: 58%;
+
+.orderList {
     margin: auto;
     background-color: #1c233f;
-    padding: 25px 0;
     border-radius: 3px;
     text-align: center;
 }
-.cl-4{
-    width: 33%;
+
+.info {
+    padding: 25px 0;
 }
-.word1{
+
+.word1 {
     font-size: 13px;
     color: #898a8c;
 }
-.number{
+
+.number {
     font-size: 34px;
     font-weight: 600;
     color: #fff;
     margin-top: 10px;
 }
+
 /* 进度条样式 */
-#text{
+
+#text {
     color: #fff;
 }
+
 #box {
     position: relative;
-    width: 650px;
-    height: 50px;
-    margin: 50px auto 0;
+    margin: 50px auto;
 }
 
 #bg {
     height: 18px;
-    margin-top: 19px;
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
+    margin: 0 auto;
+    padding: 0;
 }
 
 #bgcolor {
     background: #5889B2;
-    width: 325px;
-    height: 18px;
+    height: 20px;
     border-radius: 5px;
+    width: 50%;
 }
 
 #bt {
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
     background-color: #fff;
     border-radius: 17px;
     overflow: hidden;
     position: absolute;
-    left: 0px;
-    margin-left: -17px;
-    top: 8px;
+    left: 50%;
+    margin-left: -15px;
+    top: 50%;
+    margin-top: -15px;
     cursor: pointer;
-/* 初始化 */
-    font-size: 20px;
+    /* 初始化 */
+    font-size: 16px;
     text-align: center;
-    line-height: 34px;
+    line-height: 30px;
     font-weight: 800;
-    left: 325px;
 }
 
 #text {
@@ -135,45 +190,40 @@ button, input, select, textarea { /* for ie */
     line-height: 2em;
 }
 
-
-.balance{
-    width: 60%;
-    height: 100px;
-    margin: 30px auto;
-    font-size: 20px;
+.balance {
+    font-size: 16px;
     color: #989a99;
-    line-height: 100px;
+    line-height: 50px;
     position: relative;
 }
 
-.balanceEos{
-    display: inline-block;
-    float: left;
-}
-.balanceBetDice{
-    display: inline-block;
-    float: right;
+.center {
+    margin: 0 auto;
+    text-align: center;
 }
 
-#result{
+#result {
     width: 60%;
-    height: 80px;
     line-height: 80px;
     left: 20%;
     background-color: #1c233f;
-    border-radius:10px; 
+    border-radius: 10px;
     font-size: 22px;
     color: #fff;
     position: absolute;
     top: 50%;
     opacity: 0;
 }
-.result_animation{
-    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+
+.result_animation {
+    -webkit-animation-name: example;
+    /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 3s;
+    /* Safari 4.0 - 8.0 */
     animation-name: run;
     animation-duration: 3s;
 }
+
 @keyframes run {
     0% {
         top: 50%;
@@ -189,70 +239,72 @@ button, input, select, textarea { /* for ie */
     }
 }
 
-
-.check{
-    margin: auto;
+.check {
+    margin: 0 auto;
 }
 
 /* tablelist */
-.tableList{
+
+.tableList {
     width: 80%;
     margin: auto;
 }
-.tabs{
+
+.tabs {
     display: flex;
     background-color: #1c233f;
     border-bottom: 1px solid #333853;
-    font-size: 22px;
+    font-size: 18px;
     color: #fff;
-    margin-top: 60px;
 }
-.tabs>li{
+
+.tabs>li {
     margin-left: 50px;
     padding: 17px 5px;
     cursor: pointer;
 }
-table{
+
+table {
     border: none;
     background-color: transparent;
     padding: 0;
     width: 100%;
     margin-bottom: 20px;
 }
-thead{
+
+thead {
     display: table-header-group;
     vertical-align: middle;
     border-color: inherit;
 }
-th{
+
+th {
     background-color: #1d233e;
     color: #989a99;
-    height: 45px;
     line-height: 45px;
     text-align: center;
 }
-tbody{
-}
-td{
+
+tbody {}
+
+td {
     color: #fff;
     padding: 15px 14px;
     font-size: 14px;
     overflow: hidden;
-    text-overflow:hidden;
+    text-overflow: hidden;
     white-space: nowrap;
     text-align: center;
 }
-.win{
-    background-color: #334e47;/* 获奖的背景颜色 */
-}
-.lose{
-    background-color: #4c2d2e;/* 未获奖的背景颜色*/
+
+.win {
+    background-color: #334e47;
+    /* 获奖的背景颜色 */
 }
 
-.nickname{
+.nickname {
     font-weight: 200;
     color: #fff;
     font-size: 1rem;
     line-height: 1.2;
 }
-
