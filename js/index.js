@@ -5,14 +5,15 @@
     // 投注金额
     // 投注金额
     $('#Half').click(function () {
-        $("#money").val($("#money").val() / 2);
+        if($("#money").val() == 0.0001){
+            $("#money").val('0.0001');
+        }
         $("#money").val(($("#money").val() / 2).toFixed(4));
     })
     $('#Double').click(function () {
         if ($("#money").val() > 4999) {
             $("#money").val('5000');
         } else {
-            $("#money").val($("#money").val() * 2);
             $("#money").val(($("#money").val() * 2).toFixed(4));
         }
     })
