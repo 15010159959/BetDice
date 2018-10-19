@@ -222,9 +222,14 @@
                 console.log( resp );
                 hideLoading()
 
-                var roll = resp.processed.action_traces[ 0 ].inline_traces[ 4 ].act.data.result.random_roll
-                console.log( "random_roll ", roll )
-                $( "#get_money" ).text( roll );
+                var inline_traces = resp.processed.action_traces[ 0 ].inline_traces
+                var i = inline_traces.length -1
+                var roll = inline_traces[ i ].act.data.result.random_roll
+                var payout = inline_traces[ i ].act.data.result.payout
+
+                console.log( "random_roll ", roll , " payout ", payout)
+                $("#random_roll").text(roll)
+                $( "#get_money" ).text( payout );
                 $( "#result" ).addClass( "result_animation" );
                 setTimeout( '$("#result").removeClass("result_animation");', 4000 );
                 get_current_balance();
@@ -298,7 +303,7 @@
     } )
 
     checkLogin();
-    
+
     // progressbar.js@1.0.0 version is used
     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
     var cpu = new ProgressBar.Circle( "#cpu", {
