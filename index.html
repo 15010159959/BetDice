@@ -47,7 +47,8 @@
                             </div>
                         </li>
                     </ul>
-                    <button type="button" class="btn btn-primary">登录</button>
+                    <button type="button" class="btn btn-primary" id="login">登录</button>
+                    <div class="nickname"></div>
                 </div>
             </div>
         </nav>  
@@ -69,7 +70,7 @@
                             <div class="text_1 col-md-12 text-center">投注金额</div>
                             <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
                                 <div class="input-group">
-                                    <input id="money" type="text" class="form-control" value="0.0001" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-secondary active" >EOS</button>
                                         <button type="button" class="btn btn-secondary" id="Half">1/2</button>
@@ -85,7 +86,7 @@
                             <div class="text_1 col-md-12 text-center">获奖金额</div>
                             <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
                                 <div class="input-group">
-                                    <input  id="may_get_money" type="text" class="form-control" value="0.0002" aria-label="Input group example" aria-describedby="btnGroupAddon" disabled="true" />
+                                    <input  id="may_get_money" type="text" class="form-control" value="0.2" aria-label="Input group example" aria-describedby="btnGroupAddon" disabled="true" />
                                     <button type="button" class="btn btn-secondary active" >EOS</button>
                                 </div>
                             </div>
@@ -123,8 +124,8 @@
                         </div>
                         <div class="info col-md-9 center">
                             <div class="row">
-                                <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 : <span id="balanceEos"> 50 </span> EOS</div>
-                                <div class="balanceBetDice col-md-6 text-center">BetDice余额 : <span id="balanceBetDice"> 1000</span> BetDice</div>
+                                <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 : <span id="balanceEos">  </span> </div>
+                                <div class="balanceBetDice col-md-6 text-center">BetDice余额 : <span id="balanceBetDice"> </span> </div>
                             </div>
                         </div>
                         <div id="result" class="col-md-12">结果是 <i id="random">22</i>,您获得了<i id="get_money">1</i></div>

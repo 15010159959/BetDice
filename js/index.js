@@ -51,8 +51,9 @@
         statu = false;
     } );
     $box.mousemove( function ( e ) {
-        min = 0;
         max = $( "#bg" ).width() - 30;
+        min = max/100;
+
         if ( statu ) {
             left = e.pageX - ox;
             if ( left < min ) {
@@ -67,9 +68,11 @@
             ratio = left * 100 / max;
             $bt.html( parseInt( ratio ) );
             $( '#myNumber' ).html( parseInt( ratio ) );
-            $( '#odds' ).html( Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 ) + 'x' );//赔率计算
+            
+            var odds = Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 )
+            $( '#odds' ).html( odds + 'x' );//赔率计算
             $( '#percent' ).html( Number( ( parseInt( ratio ) / 98 ) * 100 ).toFixed( 2 ) + '%' );//胜率计算
-            $( '#may_get_money' ).val( Number( ( $( '#odds' ).html() * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
+            $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
         }
     } );
     $bg.click( function ( e ) {
@@ -91,9 +94,12 @@
             ratio = left * 100 / max;
             $bt.html( parseInt( ratio ) );
             $( '#myNumber' ).html( parseInt( ratio ) );
-            $( '#odds' ).html( Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 ) + 'x' );//赔率计算
+            var odds = Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 )
+            $( '#odds' ).html( odds + 'x' );//赔率计算
             $( '#percent' ).html( Number( ( parseInt( ratio ) / 98 ) * 100 ).toFixed( 2 ) + '%' );//胜率计算
-            $( '#may_get_money' ).val( Number( ( $( '#odds' ).html() * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
+            $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
+
+
         }
     } );
 
@@ -131,10 +137,9 @@
             var checkCount = 0
             var checkInterval = setInterval( function () {
                 console.log( checkCount )
-                if ( typeof ( scatter ) == undefined ) {
+                if ( typeof ( scatter ) == "undefined" ) {
                     return
                 } else {
-
                     clearInterval( checkInterval )
 
                     scatter.getIdentity( {
@@ -203,7 +208,8 @@
         eoss.getCurrencyBalance( 'eosio.token', account.name ).then( function ( resp ) {
             console.log( "get_current_balance", resp );
             balanceEos = resp[ 0 ]
-            $( '#balanceEos' ).text( balanceEos );
+            $('#balanceEos' ).text( balanceEos );
+            $('#balanceBetDice').text( resp[ 1 ])
 
         } );
     };
@@ -215,35 +221,21 @@
     // };
 
     var roll_by_scatter = function () {
-        eoss.transfer( account.name, "yangshun2532", "0.0001 EOS", $( '#myNumber' ).html() )
+        var money = $( "#money" ).val()
+        money = parseInt(money*10000)/10000
+        money = money.toFixed(4)
+        
+        eoss.transfer( account.name, "yangshun2532", money+" EOS", $( '#myNumber' ).html() )
             .then( ( resp ) => {
                 console.log( resp );
                 hideLoading()
-                function TraversalObject ( obj ) {
-                    for ( var a in obj ) {
-                        if ( a == "random_roll" ) {
-                            console.log( obj[ a ] );
-                            $( "#random" ).text( obj[ a ] );
-                            break;
-                        };
-                        if ( typeof ( obj[ a ] ) == "object" ) {
-                            TraversalObject( obj[ a ] ); //递归遍历
-                        }
-                    }
-                    for ( var b in obj ) {
-                        if ( b == "payout" ) {
-                            console.log( obj[ b ] );
-                            $( "#get_money" ).text( obj[ b ] );
-                            $( "#result" ).addClass( "result_animation" );
-                            setTimeout( '$("#result").removeClass("result_animation");', 4000 );
-                            break;
-                        };
-                        if ( typeof ( obj[ b ] ) == "object" ) {
-                            TraversalObject( obj[ b ] ); //递归遍历
-                        }
-                    }
-                }
-                TraversalObject( resp );
+               
+                var roll = resp.processed.action_traces[0].inline_traces[4].act.data.result.random_roll
+                console.log("random_roll ", roll)
+                $( "#get_money" ).text( roll );
+                $( "#result" ).addClass( "result_animation" );
+                setTimeout( '$("#result").removeClass("result_animation");', 4000 );
+                get_current_balance();
 
             } )
             .catch( ( err ) => {
@@ -278,7 +270,6 @@
         $( ".modal.loading" ).modal( "show" );
         //init_scatter();
         roll_by_scatter();
-        get_current_balance();
     } )
 
     // play
