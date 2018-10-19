@@ -16,14 +16,17 @@
         <!-- header -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="#">BetDice</a>
+                <a class="navbar-brand" href="#">BetDice</a>              
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>                    
+                </button>                                         
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <button type="button" class="btn btn-primary">幸运抽奖</button>
+                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto;"><span>幸运抽奖</span></button>
+                    <div class="src-occupy">
+                        <div id="cpu"></div>
+                        <div id="net"></div>
+                    </div>
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="#">邀请好友
@@ -34,22 +37,14 @@
                             <a class="nav-link" href="#">玩法介绍</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">DICE</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                language
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">中文</a>
-                                <a class="dropdown-item" href="#">英文 </a>
-                            </div>
-                        </li>
+                            <a class="nav-link" href="#">红利</a>
+                        </li>                        
                     </ul>
-                    <button type="button" class="btn btn-primary" id="login">登录</button>
-                    <div class="nickname"></div>
-                </div>
+                    <div class="account">
+                        <button type="button" class="btn btn-primary btn-custom"><span>登录</span></button>
+                        <div class="nickname"></div>
+                    </div>                    
+                </div>                  
             </div>
         </nav>  
 
@@ -184,33 +179,27 @@
         </div>
 
         <!-- footer -->
-        <footer class="container-fluid foot-wrap " style="background-color: #1c233f; color: #72778d;">
+        <footer style="background-color: #1c233f; color: #72778d;">
             <!--采用container，使得页尾内容居中 -->
             <div class="container">
                 <div class="row">
-                    <div class="row-content col-lg-2 col-sm-4 col-xs-6">
+                    <div class="col-md-12 col-9" style="padding: 40px 0; margin: 0 auto;">
                         <h3>BetDice</h3>
-                        <ul>
-                            <li>
-                                <a href="#">联系我们</a>
-                            </li>
-                            <li>
-                                <a href="#">加入我们</a>
-                            </li>
-
-                        </ul>
                     </div>
-
+                    <hr class="col-md-12 col-9 center" style="background: #171932" />
+                    <div class="col-md-12 col-9" style="padding: 20px 0;line-height: 20px; margin: 0 auto; text-align: justify;">
+                        Please arrange your time reasonably, and do not over-indulge.
+                        <br/><br/>
+                        If you reside in a location where lottery, gambling, sports betting or betting over the internet is illegal, please do not click on anything related to these activities on this site. You must be 21 years of age to click on any betting or gambling related items even if it is legal to do so in your location. Recognising that the laws and regulations involving online gaming are different everywhere, readers are advised to check with the laws that exist within their own jurisdiction to ascertain the legality of the activities which are covered.
+                        <br/><br/>
+                        The games provided by BetDice are based on blockchain, fair and transparent. When you start playing these games, please note that online gambling and lottery is an entertainment vehicle and that it carries with it a certain degree of financial risk. Players should be aware of this risk, and govern themselves accordingly.
+                    </div>
+                    <hr class="col-md-12 col-9 center" style="background: #171932" />
+                    <div class="col-md-12 col-9 center text-center" style="padding: 20px 0;">Copyright &copy; 2018</div>
                 </div>
-                <!--/.row -->
             </div>
-            <!--/.container-->
-
-            <p align="center" style="margin-top: 20px;color:#878B91;">
-                Copyright &copy; 2018
-            </p>
-
         </footer>
+
           <!-- loading -->
           <div class="fade loading modal" data-backdrop=static id="loading">
                 <div class=modal-dialog>
@@ -224,6 +213,7 @@
 
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
+    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>        
     <script src="lib/eos.js"></script>
     <script src="js/config.js"></script>
     <script src="js/index.js"></script>

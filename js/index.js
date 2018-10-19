@@ -292,4 +292,43 @@
         $( '#allBetData' ).addClass( 'hidden' );
         $( '#myBetData' ).removeClass( 'hidden' );
     } )
+
+    // progressbar.js@1.0.0 version is used
+    // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+    var cpu = new ProgressBar.Circle( "#cpu", {
+        color: '#FFEA82',
+        trailColor: '#eee',
+        trailWidth: 1,
+        duration: 1400,
+        easing: 'bounce',
+        strokeWidth: 6,
+        from: { color: '#FFEA82', a: 0 },
+        to: { color: '#ED6A5A', a: 1 },
+        // Set default step function for all animate calls
+        step: function ( state, circle ) {
+            circle.path.setAttribute( 'stroke', state.color );
+            var value = Math.round( circle.value() * 100 );
+            circle.setText( "CPU: " + value + "%" );
+        }
+    } );
+    var net = new ProgressBar.Circle( "#net", {
+        color: '#FFEA82',
+        trailColor: '#eee',
+        trailWidth: 1,
+        duration: 1400,
+        easing: 'bounce',
+        strokeWidth: 6,
+        from: { color: '#FFEA82', a: 0 },
+        to: { color: '#ED6A5A', a: 1 },
+        // Set default step function for all animate calls
+        step: function ( state, circle ) {
+            circle.path.setAttribute( 'stroke', state.color );
+            var value = Math.round( circle.value() * 100 );
+            circle.setText( "NET: " + value + "%" );
+        }
+    } );
+    net.text.style.fontSize = '10px';
+    cpu.text.style.fontSize = '10px';
+    net.animate( 0.9 );  // Number from 0.0 to 1.0
+    cpu.animate( 0.5 );  // Number from 0.0 to 1.0
 } )( jQuery );
