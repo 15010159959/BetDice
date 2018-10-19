@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <title>BetDice</title>
 
@@ -16,11 +16,11 @@
         <!-- header -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="#">BetDice</a>              
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>                    
-                </button>                                         
+                <a class="navbar-brand" href="#">BetDice</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto;"><span>幸运抽奖</span></button>
                     <div class="src-occupy">
@@ -38,15 +38,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link bonus" href="#">红利</a>
-                        </li>                        
+                        </li>
                     </ul>
                     <div class="account">
                         <button type="button" class="btn btn-primary btn-custom" id="login"><span>登录</span></button>
                         <div class="nickname"></div>
-                    </div>                    
-                </div>                  
+                    </div>
+                </div>
             </div>
-        </nav>  
+        </nav>
 
         <!-- container -->
         <div class="banner">
@@ -63,11 +63,13 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="text_1 col-md-12 text-center">投注金额</div>
-                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar"
+                                aria-label="Toolbar with button groups">
                                 <div class="input-group">
-                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example"
+                                        aria-describedby="btnGroupAddon">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-secondary active" >EOS</button>
+                                        <button type="button" class="btn btn-secondary active">EOS</button>
                                         <button type="button" class="btn btn-secondary" id="Half">1/2</button>
                                         <button type="button" class="btn btn-secondary" id="Double">2X</button>
                                         <button type="button" class="btn btn-secondary" id="Max">MAX</button>
@@ -79,10 +81,12 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="text_1 col-md-12 text-center">获奖金额</div>
-                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar"
+                                aria-label="Toolbar with button groups">
                                 <div class="input-group">
-                                    <input  id="may_get_money" type="text" class="form-control" value="0.2" aria-label="Input group example" aria-describedby="btnGroupAddon" disabled="true" />
-                                    <button type="button" class="btn btn-secondary active" >EOS</button>
+                                    <input id="may_get_money" type="text" class="form-control" value="0.2" aria-label="Input group example"
+                                        aria-describedby="btnGroupAddon" disabled="true" />
+                                    <button type="button" class="btn btn-secondary active">EOS</button>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +100,7 @@
                     </li>
                     <li class="info col-md-4">
                         <div class="word1">赔率</div>
-                        <div class="number" id="odds">1.001x</div>
+                        <div class="number" id="odds">2.000x</div>
                     </li>
                     <li class="info col-md-4">
                         <div class="word1">中奖概率</div>
@@ -120,13 +124,15 @@
                         </div>
                         <div class="info col-md-9 center">
                             <div class="row">
-                                <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 : <span id="balanceEos">  </span> </div>
-                                <div class="balanceBetDice col-md-6 text-center">BetDice余额 : <span id="balanceBetDice"> </span> </div>
+                                <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 : <span id="balanceEos">
+                                    </span> </div>
+                                <div class="balanceBetDice col-md-6 text-center">BetDice余额 : <span id="balanceBetDice">
+                                    </span> </div>
                             </div>
                         </div>
                         <div id="result" class="col-md-12">结果是 <i id="random">22</i>,您获得了<i id="get_money">1</i></div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
 
@@ -190,10 +196,18 @@
                     <hr class="col-md-12 col-9 center" style="background: #171932" />
                     <div class="col-md-12 col-9" style="padding: 20px 0;line-height: 20px; margin: 0 auto; text-align: justify;">
                         Please arrange your time reasonably, and do not over-indulge.
-                        <br/><br/>
-                        If you reside in a location where lottery, gambling, sports betting or betting over the internet is illegal, please do not click on anything related to these activities on this site. You must be 21 years of age to click on any betting or gambling related items even if it is legal to do so in your location. Recognising that the laws and regulations involving online gaming are different everywhere, readers are advised to check with the laws that exist within their own jurisdiction to ascertain the legality of the activities which are covered.
-                        <br/><br/>
-                        The games provided by BetDice are based on blockchain, fair and transparent. When you start playing these games, please note that online gambling and lottery is an entertainment vehicle and that it carries with it a certain degree of financial risk. Players should be aware of this risk, and govern themselves accordingly.
+                        <br /><br />
+                        If you reside in a location where lottery, gambling, sports betting or betting over the
+                        internet is illegal, please do not click on anything related to these activities on this site.
+                        You must be 21 years of age to click on any betting or gambling related items even if it is
+                        legal to do so in your location. Recognising that the laws and regulations involving online
+                        gaming are different everywhere, readers are advised to check with the laws that exist within
+                        their own jurisdiction to ascertain the legality of the activities which are covered.
+                        <br /><br />
+                        The games provided by BetDice are based on blockchain, fair and transparent. When you start
+                        playing these games, please note that online gambling and lottery is an entertainment vehicle
+                        and that it carries with it a certain degree of financial risk. Players should be aware of this
+                        risk, and govern themselves accordingly.
                     </div>
                     <hr class="col-md-12 col-9 center" style="background: #171932" />
                     <div class="col-md-12 col-9 center text-center" style="padding: 20px 0;">Copyright &copy; 2018</div>
@@ -211,6 +225,7 @@
         </div>
 
         <!-- invite -->
+        <!--
         <div class="fade loading modal" data-backdrop=static id="loading">
             <div class=modal-dialog>
                 <div class=modal-body style="text-align: center;">
@@ -218,8 +233,9 @@
                 </div>
             </div>
         </div>  
-
+   -->
         <!-- bonus -->
+        <!--
         <div class="fade loading modal" data-backdrop=static id="loading">
             <div class=modal-dialog>
                 <div class=modal-body style="text-align: center;">
@@ -227,20 +243,22 @@
                 </div>
             </div>
         </div>    
-
+   -->
         <!-- introduction -->
+        <!--
         <div class="fade loading modal" data-backdrop=static id="loading">
             <div class=modal-dialog>
                 <div class=modal-body style="text-align: center;">
                     <img src=" images/loading-icon-1.gif" alt="">
                 </div>
             </div>
-        </div>                        
+        </div> 
+    -->
     </div>
 
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
-    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>        
+    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
     <script src="lib/eos.js"></script>
     <script src="js/config.js"></script>
     <script src="js/index.js"></script>

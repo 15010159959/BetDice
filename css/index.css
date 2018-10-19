@@ -202,12 +202,12 @@ textarea {
 }
 
 #bgcolor {
-    background: green;
+    background: #29f294;
     float: left;
 }
 
 #bgcolor-neg {
-    background: red;
+    background: #ee0060;
     float: right;
 }
 

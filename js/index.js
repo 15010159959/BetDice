@@ -106,9 +106,6 @@
         $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
     }
 
-
-
-
     // 定义玩法函数
     var account = null;
     var eoss = null;
@@ -125,10 +122,6 @@
         $( "#loading" ).modal( "hide" );
     }
 
-    var showLoading = function () {
-
-    }
-
     var init_scatter = function () {
         if ( account != null ) return;
         if ( eoss != null ) return;
@@ -140,7 +133,14 @@
             var checkCount = 0
             var checkInterval = setInterval( function () {
                 console.log( checkCount )
+                if ( checkCount > 5 ) {
+                    clearInterval( checkInterval )
+                    hideLoading()
+
+                    alert( "加载Scatter失败若未安装请先安装." );
+                }
                 if ( typeof ( scatter ) == "undefined" ) {
+                    checkCount++
                     return
                 } else {
                     clearInterval( checkInterval )
@@ -158,6 +158,7 @@
                             if ( account ) {
                                 $( "#login" ).hide();
                                 $( '.nickname' ).html( account.name );
+                                $("#play").text("掷骰子")
                             }
 
                         } )
@@ -167,13 +168,6 @@
                         } );
 
                     hideLoading()
-                }
-
-                if ( checkCount > 5 ) {
-                    clearInterval( checkInterval )
-                    hideLoading()
-
-                    alert( "加载Scatter失败若未安装请先安装." );
                 }
 
                 checkCount++
@@ -216,12 +210,7 @@
 
         } );
     };
-    //获取账户合约币余额
-    // var get_current_balance = function () {
-    //     this.eoss.getCurrencyBalance('yangshun2534', account.name).then(function (resp) {
-    //         console.log(resp);
-    //     });
-    // };
+
 
     var roll_by_scatter = function () {
         var money = $( "#money" ).val()
@@ -246,7 +235,6 @@
                 console.log( JSON.stringify( err ) );
 
             } );
-        hideLoading()
     };
 
 
@@ -268,10 +256,23 @@
     }
 
 
+    var checkLogin = function(){
+        if (account == null){
+            $("#play").text("登录中...")
+            //$(".modal.loading").modal("show");
+            init_scatter();
+            return true
+        }
+        return false;
+    }
     // play
     $( '#play' ).click( function () {
         $( ".modal.loading" ).modal( "show" );
         //init_scatter();
+
+        if(checkLogin()){
+            return 
+        }
         roll_by_scatter();
     } )
 
@@ -296,6 +297,8 @@
         $( '#myBetData' ).removeClass( 'hidden' );
     } )
 
+    checkLogin();
+    
     // progressbar.js@1.0.0 version is used
     // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
     var cpu = new ProgressBar.Circle( "#cpu", {
@@ -334,4 +337,6 @@
     cpu.text.style.fontSize = '10px';
     net.animate( 0.9 );  // Number from 0.0 to 1.0
     cpu.animate( 0.5 );  // Number from 0.0 to 1.0
+
+    
 } )( jQuery );
