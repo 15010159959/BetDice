@@ -29,19 +29,19 @@
                     </div>
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">邀请好友
+                            <a class="nav-link invite" href="#">邀请好友
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">玩法介绍</a>
+                            <a class="nav-link introduction" href="#">玩法介绍</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">红利</a>
+                            <a class="nav-link bonus" href="#">红利</a>
                         </li>                        
                     </ul>
                     <div class="account">
-                        <button type="button" class="btn btn-primary btn-custom"><span>登录</span></button>
+                        <button type="button" class="btn btn-primary btn-custom" id="login"><span>登录</span></button>
                         <div class="nickname"></div>
                     </div>                    
                 </div>                  
@@ -107,6 +107,7 @@
                     <div class="row">
                         <div id="bg" class="col-md-8">
                             <div id="bgcolor"></div>
+                            <div id="bgcolor-neg"></div>
                         </div>
                         <div id="bt">50</div>
                     </div>
@@ -200,15 +201,41 @@
             </div>
         </footer>
 
-          <!-- loading -->
-          <div class="fade loading modal" data-backdrop=static id="loading">
-                <div class=modal-dialog>
-                    <div class=modal-body style="text-align: center;">
-                        <img src=" images/loading-icon-1.gif" alt="">
-                    </div>
+        <!-- loading -->
+        <div class="fade loading modal" data-backdrop=static id="loading">
+            <div class=modal-dialog>
+                <div class=modal-body style="text-align: center;">
+                    <img src=" images/loading-icon-1.gif" alt="">
                 </div>
             </div>
-    
+        </div>
+
+        <!-- invite -->
+        <div class="fade loading modal" data-backdrop=static id="loading">
+            <div class=modal-dialog>
+                <div class=modal-body style="text-align: center;">
+                    <img src=" images/loading-icon-1.gif" alt="">
+                </div>
+            </div>
+        </div>  
+
+        <!-- bonus -->
+        <div class="fade loading modal" data-backdrop=static id="loading">
+            <div class=modal-dialog>
+                <div class=modal-body style="text-align: center;">
+                    <img src=" images/loading-icon-1.gif" alt="">
+                </div>
+            </div>
+        </div>    
+
+        <!-- introduction -->
+        <div class="fade loading modal" data-backdrop=static id="loading">
+            <div class=modal-dialog>
+                <div class=modal-body style="text-align: center;">
+                    <img src=" images/loading-icon-1.gif" alt="">
+                </div>
+            </div>
+        </div>                        
     </div>
 
     <script src="lib/jquery-3.3.1.min.js"></script>

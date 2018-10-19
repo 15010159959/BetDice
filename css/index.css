@@ -193,11 +193,22 @@ textarea {
     padding: 0;
 }
 
-#bgcolor {
-    background: #5889B2;
+#bgcolor,
+#bgcolor-neg {
     height: 20px;
     border-radius: 5px;
     width: 50%;
+    transition: width 0.2s ease;
+}
+
+#bgcolor {
+    background: green;
+    float: left;
+}
+
+#bgcolor-neg {
+    background: red;
+    float: right;
 }
 
 #bt {
@@ -217,6 +228,7 @@ textarea {
     text-align: center;
     line-height: 30px;
     font-weight: 800;
+    user-select: none;
 }
 
 #text {

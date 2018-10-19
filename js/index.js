@@ -28,6 +28,10 @@
         $( "#money" ).val( balanceEos );
     } )
 
+    $( ".introduction" ).on( "click", function () {
+
+    } );
+
 
     // 进度条数字获取  $bt.html( parseInt(left / 6.5));
     var $box = $( '#box' );
@@ -35,6 +39,7 @@
     var $result_bt = $( '#result_bt' ); //结果数字
     var $bg = $( '#bg' );
     var $bgcolor = $( '#bgcolor' );
+    var $bgcolor_neg = $( '#bgcolor-neg' );
     var $btn = $( '#bt' );
     var $text = $( '#text' );
     var statu = false;
@@ -42,37 +47,33 @@
     var lx = 0;
     var left = 0;
     var bgleft = 0;
-    $btn.mousedown( function ( e ) {
+    $btn.on( "mousedown", function ( e ) {
         lx = parseInt( $btn.css( "marginLeft" ) ) + $bg.width() / 2;
         ox = e.pageX - lx;
         statu = true;
     } );
-    $( document ).mouseup( function () {
+    $btn.on( "touchstart", function ( e ) {
+        lx = parseInt( $btn.css( "marginLeft" ) ) + $bg.width() / 2;
+        ox = e.touches[ 0 ].clientX - lx;
+        statu = true;
+    } );
+    $( document ).on( "mouseup touchend", function ( e ) {
         statu = false;
     } );
-    $box.mousemove( function ( e ) {
+    $( document ).on( "mousemove", function ( e ) {
         max = $( "#bg" ).width() - 30;
-        min = max/100;
+        min = max / 100;
 
         if ( statu ) {
-            left = e.pageX - ox;
-            if ( left < min ) {
-                left = min;
-            }
-            if ( left > max ) {
-                left = max;
-            }
-            width = left - $bg.width() / 2;
-            $btn.css( 'marginLeft', width );
-            $bgcolor.width( left );
-            ratio = left * 100 / max;
-            $bt.html( parseInt( ratio ) );
-            $( '#myNumber' ).html( parseInt( ratio ) );
-            
-            var odds = Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 )
-            $( '#odds' ).html( odds + 'x' );//赔率计算
-            $( '#percent' ).html( Number( ( parseInt( ratio ) / 98 ) * 100 ).toFixed( 2 ) + '%' );//胜率计算
-            $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
+            onChangeBet( e.pageX );
+        }
+    } );
+    $( document ).on( "touchmove", function ( e ) {
+        max = $( "#bg" ).width() - 30;
+        min = max / 100;
+
+        if ( statu ) {
+            onChangeBet( e.touches[ 0 ].clientX );
         }
     } );
     $bg.click( function ( e ) {
@@ -80,28 +81,30 @@
         max = $( "#bg" ).width() - 30;
         ox = $btn.offset().left - parseInt( $btn.css( "marginLeft" ) ) - $bg.width() / 2;
         if ( !statu ) {
-            left = e.pageX - ox;
-            console.log( e.pageX, ox, left );
-            if ( left < min ) {
-                left = min;
-            }
-            if ( left > max ) {
-                left = max;
-            }
-            width = left - $bg.width() / 2;
-            $btn.css( 'marginLeft', width );
-            $bgcolor.width( left );
-            ratio = left * 100 / max;
-            $bt.html( parseInt( ratio ) );
-            $( '#myNumber' ).html( parseInt( ratio ) );
-            var odds = Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 )
-            $( '#odds' ).html( odds + 'x' );//赔率计算
-            $( '#percent' ).html( Number( ( parseInt( ratio ) / 98 ) * 100 ).toFixed( 2 ) + '%' );//胜率计算
-            $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
-
-
+            onChangeBet( e.pageX );
         }
     } );
+
+    function onChangeBet ( x ) {
+        left = x - ox;
+        if ( left < min ) {
+            left = min;
+        }
+        if ( left > max ) {
+            left = max;
+        }
+        width = left - $bg.width() / 2;
+        $btn.css( 'marginLeft', width );
+        $bgcolor.width( left + 15 );
+        $bgcolor_neg.width( max - left + 15 );
+        ratio = left * 100 / max;
+        $bt.html( parseInt( ratio ) );
+        $( '#myNumber' ).html( parseInt( ratio ) );
+        var odds = Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 )
+        $( '#odds' ).html( odds + 'x' );//赔率计算
+        $( '#percent' ).html( Number( ( parseInt( ratio ) / 98 ) * 100 ).toFixed( 2 ) + '%' );//胜率计算
+        $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
+    }
 
 
 
@@ -208,8 +211,8 @@
         eoss.getCurrencyBalance( 'eosio.token', account.name ).then( function ( resp ) {
             console.log( "get_current_balance", resp );
             balanceEos = resp[ 0 ]
-            $('#balanceEos' ).text( balanceEos );
-            $('#balanceBetDice').text( resp[ 1 ])
+            $( '#balanceEos' ).text( balanceEos );
+            $( '#balanceBetDice' ).text( resp[ 1 ] )
 
         } );
     };
@@ -222,16 +225,16 @@
 
     var roll_by_scatter = function () {
         var money = $( "#money" ).val()
-        money = parseInt(money*10000)/10000
-        money = money.toFixed(4)
-        
-        eoss.transfer( account.name, "yangshun2532", money+" EOS", $( '#myNumber' ).html() )
+        money = parseInt( money * 10000 ) / 10000
+        money = money.toFixed( 4 )
+
+        eoss.transfer( account.name, "yangshun2532", money + " EOS", $( '#myNumber' ).html() )
             .then( ( resp ) => {
                 console.log( resp );
                 hideLoading()
-               
-                var roll = resp.processed.action_traces[0].inline_traces[4].act.data.result.random_roll
-                console.log("random_roll ", roll)
+
+                var roll = resp.processed.action_traces[ 0 ].inline_traces[ 4 ].act.data.result.random_roll
+                console.log( "random_roll ", roll )
                 $( "#get_money" ).text( roll );
                 $( "#result" ).addClass( "result_animation" );
                 setTimeout( '$("#result").removeClass("result_animation");', 4000 );
