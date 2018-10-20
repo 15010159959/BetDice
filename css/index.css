@@ -115,7 +115,7 @@ textarea {
 }
 
 .banner {
-    width: 100%;
+    /* width: 100%; */
     background: url(../images/bg.png) no-repeat;
 }
 
@@ -355,4 +355,89 @@ td {
     color: #fff;
     font-size: 1rem;
     line-height: 1.2;
+}
+
+.ranking{
+    max-width: 768px;
+    background-color: #1c233f;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    top: 7px;
+    z-index: 3;
+    color: #fff;
+}
+.ranking h2{
+    text-align: center;
+    color: #fff;
+    font-size: 19px;
+    padding: 19px 0;
+    margin: 0;
+}
+.ranking .table-header{
+    border-top: 2px solid #21294c;
+}
+.ranking .table-header > li{
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    color: #a2a4a6;
+    justify-content: space-between;
+    border-radius: 3px;
+}
+.ranking .table-list{
+    height: 400px;
+    overflow-y: auto;
+}
+.ranking .table-list > li{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: #a2a4a6;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    height: 45px;
+    padding-left: 7px;
+    background: #171c32;
+}
+.ranking .table-list li span{
+    flex: 1;
+    text-align: center;
+    padding: 0 5px;
+    color: #bebec3;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* .ranking .table-list li.top1 span:first-child {
+    background: url(/img/top1.png) 4px 4px no-repeat;
+} */
+.ranking div.flag {
+    width: 97px;
+    height: 97px;
+    background: url(/img/flag_ranking.png) no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.ranking div.flag .msg {
+    color: #fff;
+    -webkit-transform: rotate(-45deg) translate(-22%, -25%);
+    transform: rotate(-45deg) translate(-22%, -25%);
+}
+.ranking div.flag .msg p:first-child {
+    font-weight: 600;
+    font-size: 19px;
+}
+.ranking div.flag .msg p {
+    margin: 0;
+    text-align: center;
+    font-size: 12px;
+}
+.banner-data{
+    width: 90%;
+    margin: auto;
 }

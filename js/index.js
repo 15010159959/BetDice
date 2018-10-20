@@ -343,5 +343,20 @@
     net.animate( 0.9 );  // Number from 0.0 to 1.0
     cpu.animate( 0.5 );  // Number from 0.0 to 1.0
 
+
+    function countdown() {//倒计时
+        end_time=1508227190; //终止时间
+        var curr_time = parseInt(Date.parse(new Date())/1000);
+        var diff_time=parseInt(end_time-curr_time);// 倒计时时间差
+        var h = Math.floor(diff_time / 3600);
+        var m = Math.floor((diff_time / 60 % 60));
+        var s = Math.floor((diff_time % 60));
+        $('.timer').html(h + "时" + m + "分" + s + "秒");
+        if (diff_time<=0) {
+            $('.timer').html(0 + "时" + 0 + "分" + 0 + "秒");
+        };
+    }
+    countdown();
+    var start_time=setInterval('countdown()',1000);
     
 } )( jQuery );
