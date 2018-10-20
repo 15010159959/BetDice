@@ -31,16 +31,16 @@
                     </div>
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link invite" href="#">邀请好友
+                            <a class="nav-link btnInvite" href="#" data-toggle="modal" data-target="#invite">邀请好友
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link introduction" href="#">玩法介绍</a>
+                            <a class="nav-link btnIntro" href="#" data-toggle="modal" data-target="#introduction">玩法介绍</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link bonus" href="#">红利</a>
-                        </li>
+                            <a class="nav-link btnBonus" href="#" data-toggle="modal" data-target="#bonus">红利</a>
+                        </li>                        
                     </ul>
                     <div class="account">
                         <button type="button" class="btn btn-primary btn-custom" id="login">
@@ -54,226 +54,229 @@
 
         <!-- container -->
         <div class="banner ">
-            <div class="banner-data row">
-                <div class="left col-md-6">
-                    <!-- choice token -->
-                    <div class="center" style="padding-top: 20px;">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-secondary">EOS</button>
-                            <button type="button" class="btn btn-secondary">BetDice</button>
-                        </div>
-                    </div>
-                    <!-- how much input -->
-                    <div class="bet container">
-                        <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="text_1 col-md-12 text-center">投注金额</div>
-                                    <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="input-group">
-                                            <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-secondary active">EOS</button>
-                                                <button type="button" class="btn btn-secondary" id="Half">1/2</button>
-                                                <button type="button" class="btn btn-secondary" id="Double">2X</button>
-                                                <button type="button" class="btn btn-secondary" id="Max">MAX</button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 row">
+                        <div class="col-lg-6 col-md-12">
+                            <!-- choice token -->
+                            <div class="center" style="padding-top: 20px;">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary">EOS</button>
+                                    <button type="button" class="btn btn-secondary">BetDice</button>
+                                </div>
+                            </div>
+                            <!-- how much input -->
+                            <div class="bet container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="text_1 col-md-12 text-center">投注金额</div>
+                                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="input-group">
+                                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <button type="button" class="btn btn-secondary active">EOS</button>
+                                                        <button type="button" class="btn btn-secondary" id="Half">1/2</button>
+                                                        <button type="button" class="btn btn-secondary" id="Double">2X</button>
+                                                        <button type="button" class="btn btn-secondary" id="Max">MAX</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="text_1 col-md-12 text-center">获奖金额</div>
+                                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="input-group">
+                                                    <input id="may_get_money" type="text" class="form-control" value="0.2" aria-label="Input group example" aria-describedby="btnGroupAddon"
+                                                        disabled="true" />
+                                                    <button type="button" class="btn btn-secondary active">EOS</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="text_1 col-md-12 text-center">获奖金额</div>
-                                    <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="input-group">
-                                            <input id="may_get_money" type="text" class="form-control" value="0.2" aria-label="Input group example" aria-describedby="btnGroupAddon"
-                                                disabled="true" />
-                                            <button type="button" class="btn btn-secondary active">EOS</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- data show -->
-                        <ul class="orderList row">
-                            <li class="info col-md-4">
-                                <div class="word1">小于该数获胜</div>
-                                <div class="number" id="myNumber">50</div>
-                            </li>
-                            <li class="info col-md-4">
-                                <div class="word1">赔率</div>
-                                <div class="number" id="odds">2.000x</div>
-                            </li>
-                            <li class="info col-md-4">
-                                <div class="word1">中奖概率</div>
-                                <div class="number" id="percent">99%</div>
-                            </li>
-                        </ul>
-                        <div id="box" class="container">
-                            <div class="row">
-                                <div id="bg" class="col-md-8">
-                                    <div id="bgcolor"></div>
-                                    <div id="bgcolor-neg"></div>
-                                </div>
-                                <div id="bt">50</div>
-                            </div>
-                        </div>
-
-                        <div class="balance container">
-                            <div class="row">
-                                <div class="center col-md-6">
-                                    <button type="button" class="btn btn-primary" id="play">掷骰子</button>
-                                </div>
-                                <div class="info col-md-9 center">
+                                <!-- data show -->
+                                <ul class="orderList row">
+                                    <li class="info col-md-4">
+                                        <div class="word1">小于该数获胜</div>
+                                        <div class="number" id="myNumber">50</div>
+                                    </li>
+                                    <li class="info col-md-4">
+                                        <div class="word1">赔率</div>
+                                        <div class="number" id="odds">2.000x</div>
+                                    </li>
+                                    <li class="info col-md-4">
+                                        <div class="word1">中奖概率</div>
+                                        <div class="number" id="percent">99%</div>
+                                    </li>
+                                </ul>
+                                <div id="box" class="container">
                                     <div class="row">
-                                        <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 :
-                                            <span id="balanceEos">
-                                            </span>
+                                        <div id="bg" class="col-md-8">
+                                            <div id="bgcolor"></div>
+                                            <div id="bgcolor-neg"></div>
                                         </div>
-                                        <div class="balanceBetDice col-md-6 text-center">BetDice余额 :
-                                            <span id="balanceBetDice">
-                                            </span>
+                                        <div id="bt">50</div>
+                                    </div>
+                                </div>
+
+                                <div class="balance container">
+                                    <div class="row">
+                                        <div class="center col-md-6">
+                                            <button type="button" class="btn btn-primary" id="play">掷骰子</button>
+                                        </div>
+                                        <div class="info col-md-9 center">
+                                            <div class="row">
+                                                <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 :
+                                                    <span id="balanceEos">
+                                                    </span>
+                                                </div>
+                                                <div class="balanceBetDice col-md-6 text-center">BetDice余额 :
+                                                    <span id="balanceBetDice">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="result" class="col-md-12">结果是
+                                            <i id="random_roll"></i>, 您获得了
+                                            <i id="get_money"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="result" class="col-md-12">结果是
-                                    <i id="random_roll"></i>, 您获得了
-                                    <i id="get_money"></i>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="right col-md-6">
-                    <div class="ranking">
-                        <h2>今日排行榜
-                            <span class="timer">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="ranking">
+                                <h2>今日排行榜
+                                    <span class="timer">
 
-                            </span>
-                        </h2>
-                        <ul class="table-header " style="margin: 0px; padding: 0px;">
-                            <li class="t-header" style="height: 40px; padding: 6px 48px 0px;">
-                                <span style="text-align: center; flex: 0 0 52px; display: inline-block;">排名</span>
-                                <span>投注者</span>
-                                <span>总投注额</span>
-                                <span>奖励</span>
-                            </li>
-                        </ul>
-                        <ul id="" class="table-list data ">
-                            <li class="items top1">
-                                <span>1</span>
-                                <span>liketerryfox</span>
-                                <span>
-                                    <em style="font-weight: 600;">1,350,011.9047</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-weight: 600; color: rgb(41, 224, 141);">1000</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                            </li>
-                            <li class="items top47">
-                                <span>47</span>
-                                <span>upupeosmacan</span>
-                                <span>
-                                    <em style="font-weight: 600;">12,256.9500</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                            <li class="items top48">
-                                <span>48</span>
-                                <span>rauleosworld</span>
-                                <span>
-                                    <em style="font-weight: 600;">12,107.3000</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                            <li class="items top53">
-                                <span>53</span>
-                                <span>whateos12345</span>
-                                <span>
-                                    <em style="font-weight: 600;">9,519.7075</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                            <li class="items top53">
-                                <span>53</span>
-                                <span>whateos12345</span>
-                                <span>
-                                    <em style="font-weight: 600;">9,519.7075</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                            <li class="items top53">
-                                <span>53</span>
-                                <span>whateos12345</span>
-                                <span>
-                                    <em style="font-weight: 600;">9,519.7075</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                            <li class="items top53">
-                                <span>53</span>
-                                <span>whateos12345</span>
-                                <span>
-                                    <em style="font-weight: 600;">9,519.7075</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                            <li class="items top53">
-                                <span>53</span>
-                                <span>whateos12345</span>
-                                <span>
-                                    <em style="font-weight: 600;">9,519.7075</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                            <li class="items top53">
-                                <span>53</span>
-                                <span>whateos12345</span>
-                                <span>
-                                    <em style="font-weight: 600;">9,519.7075</em>
-                                    <em style="font-size: 12px; padding-left: 4px;">EOS</em>
-                                </span>
-                                <span>
-                                    <em style="font-size: 12px; padding-left: 4px;">-</em>
-                                </span>
-                            </li>
-                        </ul>
-                        <div class="flag">
-                            <a target="_blank" href="#">
-                                <div class="msg">
-                                    <p>2000</p>
-                                    <p>EOS大赠送</p>
+                                    </span>
+                                </h2>
+                                <ul class="table-header " style="margin: 0px; padding: 0px;">
+                                    <li class="t-header" style="height: 40px; padding: 6px 48px 0px;">
+                                        <span style="text-align: center; flex: 0 0 52px; display: inline-block;">排名</span>
+                                        <span>投注者</span>
+                                        <span>总投注额</span>
+                                        <span>奖励</span>
+                                    </li>
+                                </ul>
+                                <ul id="" class="table-list data ">
+                                    <li class="items top1">
+                                        <span>1</span>
+                                        <span>liketerryfox</span>
+                                        <span>
+                                            <em style="font-weight: 600;">1,350,011.9047</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-weight: 600; color: rgb(41, 224, 141);">1000</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top47">
+                                        <span>47</span>
+                                        <span>upupeosmacan</span>
+                                        <span>
+                                            <em style="font-weight: 600;">12,256.9500</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top48">
+                                        <span>48</span>
+                                        <span>rauleosworld</span>
+                                        <span>
+                                            <em style="font-weight: 600;">12,107.3000</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top53">
+                                        <span>53</span>
+                                        <span>whateos12345</span>
+                                        <span>
+                                            <em style="font-weight: 600;">9,519.7075</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top53">
+                                        <span>53</span>
+                                        <span>whateos12345</span>
+                                        <span>
+                                            <em style="font-weight: 600;">9,519.7075</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top53">
+                                        <span>53</span>
+                                        <span>whateos12345</span>
+                                        <span>
+                                            <em style="font-weight: 600;">9,519.7075</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top53">
+                                        <span>53</span>
+                                        <span>whateos12345</span>
+                                        <span>
+                                            <em style="font-weight: 600;">9,519.7075</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top53">
+                                        <span>53</span>
+                                        <span>whateos12345</span>
+                                        <span>
+                                            <em style="font-weight: 600;">9,519.7075</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                    <li class="items top53">
+                                        <span>53</span>
+                                        <span>whateos12345</span>
+                                        <span>
+                                            <em style="font-weight: 600;">9,519.7075</em>
+                                            <em style="font-size: 12px; padding-left: 4px;">EOS</em>
+                                        </span>
+                                        <span>
+                                            <em style="font-size: 12px; padding-left: 4px;">-</em>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <div class="flag">
+                                    <a target="_blank" href="#">
+                                        <div class="msg">
+                                            <p>2000</p>
+                                            <p>EOS大赠送</p>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="banner">
@@ -379,31 +382,171 @@
         </div>
 
         <!-- invite -->
-        <!--
-        <div class="fade loading modal" data-backdrop=static id="loading">
+        <div class="fade invite modal" data-backdrop=static id="invite">
             <div class=modal-dialog>
-                <div class=modal-body style="text-align: center;">
-                    <img src=" images/loading-icon-1.gif" alt="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="exampleModalLabel">立即邀請好友领取奖励</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <input id="inviteLink" type="text" class="form-control" value="https://betdice.one/?ref=" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary active" >EOS</button>
+                            </div>
+                        </div>
+                        <div class="reward">
+                            <div class="container"> 
+                                <div class="row">
+                                    <div class="col-md-12 text-left" style="padding: 20px 0 10px 0; font-size: 16px;">你的奖励:</div>
+                                    <div class="coins col-md-12">
+                                        <div class="eos col-md-12 text-left text" ><span>0.0000</span>EOS</div>
+                                        <div class="dice col-md-12 text-left text"><span>0.0000</span>DICE</div>
+                                    </div>
+                                    <button type="button center" class="btn btn-secondary col-md-12" style="background: #67c23a; border-color: #67c23a;">领取</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>  
    -->
         <!-- bonus -->
-        <!--
-        <div class="fade loading modal" data-backdrop=static id="loading">
-            <div class=modal-dialog>
-                <div class=modal-body style="text-align: center;">
-                    <img src=" images/loading-icon-1.gif" alt="">
+        <div class="fade bonus modal" data-backdrop=static id="bonus">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="border: none;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="container" style="margin-top: -45px;">	
+                        <ul  class="nav nav-pills">
+                            <li>
+                                <a  href="#1b" data-toggle="tab" class="active">红利池</a>
+                            </li>
+                            <li>
+                                <a href="#2b" data-toggle="tab">抵押</a>
+                            </li>
+                            <li>
+                                <a href="#3b" data-toggle="tab">我的余额</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content clearfix">
+                            <div class="tab-pane active" id="1b">
+                                <div class="container" style="padding: 0;">
+                                    <div class="row">
+                                        <div class="col-md-12 col-12 row item center">
+                                            <div class="col-md-6 col-12"><h5>当前分红池积累</h5></div>
+                                            <div class="col-md-6 col-12 text text-center">
+                                                下次分红:<span>00:00:00</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-12 row item center panel">
+                                            <div class="col-md-6 col-6 coin text"><span>0.0000</span>EOS</div>
+                                            <div class="col-md-6 col-6 allocate">
+                                                <div class="text">预估收益</div>
+                                                <div class="text"><span>0.0000</span>EOS</div>
+                                                <div class="text">每万DICE预期收益</div>
+                                                <div class="text"><span>0.0000</span>EOS</div>                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-12 row item center panel">
+                                            <div class="col-md-6 col-6 coin text"><span>0.0000</span>DICE</div>
+                                            <div class="col-md-6 col-6 allocate">
+                                                <div class="text">预估收益</div>
+                                                <div class="text"><span>0.0000</span>DICE</div>
+                                                <div class="text">每万DICE预期收益</div>
+                                                <div class="text"><span>0.0000</span>DICE</div>                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-12">* 每小時結算一次，依抵押比例進行紅利分配，所得的紅利會自動累積到您的餘額上。</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane mortage" id="2b">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12 col-12 center panel">
+                                            <div class="text"><span>0.0000</span>DICE</div>
+                                            <div class="text">(已抵押<span>0</span>/<span>100</span>的流通DICE)</div>
+                                        </div>
+                                        <div class="col-md-12 col-12 center panel">
+                                            <div class="text">可抵押<span>0.0000</span>DICE</div>
+                                            <div>
+                                                <div class="input-group">
+                                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <button type="button" class="btn btn-secondary active" disabled="true">DICE</button>
+                                                        <button type="button" class="btn btn-secondary active" >抵押</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-12 center panel">
+                                            <div class="text">已抵押<span>0.0000</span>DICE</div>
+                                            <div>
+                                                <div class="input-group">
+                                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <button type="button" class="btn btn-secondary active" disabled="true">DICE</button>
+                                                        <button type="button" class="btn btn-secondary active" >赎回</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-12">* 解除抵押需時24小時</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="3b">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12 col-12 center panel">
+                                            <div class="text"><span>0.0000</span>EOS</div>
+                                        </div>
+                                        <div class="col-md-12 col-12 center panel">
+                                            <div class="text"><span>0.0000</span>DICE</div>
+                                        </div>
+                                        <div class="col-md-12 col-12 center">
+                                            <button type="button" class="btn btn-secondary active">领取</button>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>    
    -->
         <!-- introduction -->
-        <!--
-        <div class="fade loading modal" data-backdrop=static id="loading">
-            <div class=modal-dialog>
-                <div class=modal-body style="text-align: center;">
-                    <img src=" images/loading-icon-1.gif" alt="">
+        <div class="fade introduction modal" data-backdrop=static id="introduction">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="exampleModalLabel">玩法介绍</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ol>
+                            <li>1. 準備好你的EOS 帳號，如果還未有EOS帳，可根據<a href="https://medium.com/dapppub/create-your-own-eos-account-easily-using-the-non-service-fee-dapp-signupeoseos-b15c5347f2fc" target="_blank">教程</a>創建</li>
+                            <li>2, 您需要透過Scatter 在網頁上操作帳號，如果還未有安裝Scatter，請<a href="https://get-scatter.com/" target="_blank">安裝Scatter</a></li>
+                            <li>3, 按下登入按鈕，透過Scatter 進行登入</li>
+                            <li>4, 選擇需要投注貨幣，您可使用EOS 或 DICE 投注</li>
+                            <li>5, 設置需要投注量</li>
+                            <li>6, 調整滑條投注骰子號碼上限，改變勝出機率</li>
+                            <li>7, 按下"擲骰子"按鈕進行投注，如果搖到骰子號碼小於投注骰子號碼上限，立即中獎</li>
+                            <li>** 由於遊戲都在EOS 的智能合約上執，因此遊戲保證公平，並不能作敝。我們透過獨有的加密技術，保證賽果不會被更改，請您放心下注。</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div> 

@@ -98,6 +98,29 @@ textarea {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
+.modal-content {
+    background: #444d54;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #ccc;
+}
+
+nav a,
+nav a:visited,
+nav a:active {
+    color: #7887a7 !important;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: white !important;
+}
+
+.modal .close {
+    color: white;
+}
+
 .body {
     list-style: none;
 }
@@ -271,6 +294,98 @@ textarea {
     /* Safari 4.0 - 8.0 */
     animation-name: run;
     animation-duration: 3s;
+}
+
+.reward span {
+    padding-right: 10px;
+}
+
+.reward .coins {
+    background: #333;
+    padding: 10px 0;
+    margin: 10px auto 20px auto;
+}
+
+.bonus ul li {
+    padding: 10px 0;
+    font-size: 16px;
+    line-height: 20px;
+    margin-right: 20px;
+}
+
+.bonus ul li a {
+    padding: 10px 0;
+    width: 40px;
+}
+
+.active {
+    border: none;
+}
+
+.bonus ul li a.active {
+    border-bottom: 2px solid white;
+}
+
+.bonus ul li a,
+.bonus ul li a:hover,
+.bonus ul li a:visited,
+.bonus ul li a:active {
+    color: white !important;
+    text-decoration: none;
+}
+
+.nav-pills>li>a {
+    border-radius: 4px 4px 0 0;
+}
+
+.tab-content {
+    color: white;
+    padding: 20px 0;
+}
+
+.item {
+    padding: 10px 0;
+}
+
+.item .coin {
+    text-align: center !important;
+    line-height: 96px;
+}
+
+.item .text {
+    text-align: right;
+}
+
+.mortage .text {
+    margin: 10px auto;
+}
+
+.text span {
+    padding: 0 10px;
+    color: greenyellow;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.show>.btn-secondary.dropdown-toggle {
+    background-color: rgb(235, 170, 65);
+    border-color: rgb(235, 170, 65);
+}
+
+.bonus .modal-content {
+    background-image: url(../images/dividend_bg_main.jpg);
+    background-size: cover;
+    padding-bottom: 0;
+}
+
+.bonus .panel {
+    background: url(../images/dividend_bg.gif) no-repeat;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.bonus .allocate {
+    background-color: rgba(255, 255, 255, .1);
 }
 
 @keyframes run {

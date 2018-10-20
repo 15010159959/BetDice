@@ -28,11 +28,6 @@
         $( "#money" ).val( balanceEos );
     } )
 
-    $( ".introduction" ).on( "click", function () {
-
-    } );
-
-
     // 进度条数字获取  $bt.html( parseInt(left / 6.5));
     var $box = $( '#box' );
     var $bt = $( '#bt' ); //选择的数
