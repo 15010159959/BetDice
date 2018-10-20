@@ -161,8 +161,8 @@
                                 $("#play").text("掷骰子")
                             }
 
-                            setInterval(function(){
-                                getBetList()
+                            setTimeout(function(){
+                                getBetCurrentId()
                             },1000 )
 
                         } )
@@ -247,29 +247,72 @@
     };
 
 
+    var bets = [];
     var currentId = 0;
+
+    var getBetCurrentId = function(){
+        eoss.getTableRows({
+            code: "yangshun2532",//EOS_CONFIG.contractName,
+            scope: "yangshun2532",//.contractName,
+            table: "global",
+            //table_key: "uint32",
+            //lower_bound:  currentId,
+            //upper_bound:  12,
+            //limit:  20,
+            json: true
+        }).then(data => {
+            console.log("getTableRows ",  data)
+
+            currentId = data.rows[0].current_id
+
+            currentId = currentId>20?currentId-20:-1;
+
+            getBetList()
+            
+            setInterval(function(){
+                getBetList()
+            }, 1000)
+        }).catch(e => {
+            console.error("getTableRows ", e);
+        });
+    }
     var getBetList = function(){
+        
         eoss.getTableRows({
             code: "yangshun2532",//EOS_CONFIG.contractName,
             scope: "yangshun2532",//.contractName,
             table: "bets",
+            //table_key: "uint32",
+            lower_bound:  currentId+1,
+            //upper_bound:  12,
+            limit:  20,
             json: true
         }).then(data => {
-            //console.log("getTableRows ", data)
+            console.log("getTableRows ",  data.rows,data.rows.length, bets.length)
 
+            var l = data.rows.length
+            var j = bets.length
+
+            for( i=j-l-1;i>=0;i--){
+                bets[i+l] = bets[i]
+            }
+
+            for(var i in data.rows){
+                bets[i] = data.rows[l-i-1];
+            }
             var html = ""
             maxId = currentId
-            for(var i in data.rows){
-                var row = data.rows[i]
+            for(var i in bets){
+                var row = bets[i]
                 //console.log("getTableRows ", row)
 
-                if (currentId < row.bet_id){
+                //if (currentId < row.bet_id){
 
                     var p = parseFloat(row.payout)
                     var s = p>0?'win':'list'
 
                     html += '<tr class="'+s+'">'+
-                            '<td>12121</td>'+
+                            '<td>'+row.bet_id+'</td>'+
                             '<td>'+row.player+'</td>'+
                             '<td>'+row.roll_under+'</td>'+
                             '<td>'+parseFloat(row.amount)+'</td>'+
@@ -278,9 +321,9 @@
                             '</tr>';
                     
                     maxId = row.bet_id>maxId?row.bet_id:maxId
-                }
+                //}
             }
-            $("#bet-list").append(html)
+            $("#bet-list").html(html)
 
             currentId = maxId
 
