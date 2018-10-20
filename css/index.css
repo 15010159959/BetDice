@@ -116,7 +116,8 @@ textarea {
 
 .banner {
     /* width: 100%; */
-    background: url(../images/bg.png) no-repeat;
+    background: url(../images/bg.png)repeat;
+    padding-bottom: 20px;
 }
 
 .bet {
@@ -419,7 +420,7 @@ td {
 .ranking div.flag {
     width: 97px;
     height: 97px;
-    background: url(/img/flag_ranking.png) no-repeat;
+    background: url(/images/flag_ranking.png) no-repeat;
     position: absolute;
     top: 0;
     left: 0;
