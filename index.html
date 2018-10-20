@@ -280,8 +280,8 @@
             <div class="container">
                 <div class="row">
                     <ul class="tabs">
-                        <li class="active">所有投注</li>
-                        <li>我的投注</li>
+                        <li class="active" id="allBet">所有投注</li>
+                        <li id="myBet">我的投注</li>
                     </ul>
                     <table>
                         <thead>
@@ -294,7 +294,7 @@
                                 <th style="width: 15%;">奖金</th>
                             </tr>
                         </thead>
-                        <tbody id="bet-list">
+                        <tbody id="bet-list" class="allBetData">
                             <!--
                             <tr class="win">
                                 <td>12121</td>
@@ -314,6 +314,26 @@
                             </tr>
                         -->
                         </tbody>
+                        <tbody id="bet-list" class="myBetData">
+                                <!--
+                                <tr class="win">
+                                    <td>12121</td>
+                                    <td>1212112121</td>
+                                    <td>22</td>
+                                    <td>222</td>
+                                    <td>22</td>
+                                    <td>22</td>
+                                </tr>
+                                <tr class="lose">
+                                    <td>12121</td>
+                                    <td>1212112121</td>
+                                    <td>22</td>
+                                    <td>222</td>
+                                    <td>22</td>
+                                    <td>22</td>
+                                </tr>
+                            -->
+                            </tbody>
                     </table>
                 </div>
             </div>
