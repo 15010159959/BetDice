@@ -161,10 +161,14 @@
                                 $("#play").text("掷骰子")
                             }
 
+                            setInterval(function(){
+                                getBetList()
+                            },1000 )
+
                         } )
                         .catch( err => {
-
-                            alert( "Scatter 初始化失败." );
+                            console.log(err)
+                            alert( "Scatter 初始化失败.", err );
                         } );
 
                     hideLoading()
@@ -208,7 +212,7 @@
             $( '#balanceEos' ).text( balanceEos );
             $( '#balanceBetDice' ).text( resp[ 1 ] )
 
-        } );
+        } );   
     };
 
 
@@ -237,14 +241,53 @@
             } )
             .catch( ( err ) => {
                 hideLoading()
-                console.log( JSON.stringify( err ) );
+                console.log( "err ",  JSON.stringify( err ) );
 
             } );
     };
 
 
+    var currentId = 0;
+    var getBetList = function(){
+        eoss.getTableRows({
+            code: "yangshun2532",//EOS_CONFIG.contractName,
+            scope: "yangshun2532",//.contractName,
+            table: "bets",
+            json: true
+        }).then(data => {
+            //console.log("getTableRows ", data)
 
+            var html = ""
+            maxId = currentId
+            for(var i in data.rows){
+                var row = data.rows[i]
+                //console.log("getTableRows ", row)
 
+                if (currentId < row.bet_id){
+
+                    var p = parseFloat(row.payout)
+                    var s = p>0?'win':'list'
+
+                    html += '<tr class="'+s+'">'+
+                            '<td>12121</td>'+
+                            '<td>'+row.player+'</td>'+
+                            '<td>'+row.roll_under+'</td>'+
+                            '<td>'+parseFloat(row.amount)+'</td>'+
+                            '<td>'+row.random_roll+'</td>'+
+                            '<td>'+p+'</td>'+
+                            '</tr>';
+                    
+                    maxId = row.bet_id>maxId?row.bet_id:maxId
+                }
+            }
+            $("#bet-list").append(html)
+
+            currentId = maxId
+
+        }).catch(e => {
+            console.error("getTableRows ", e);
+        });
+    }
 
     //保留4位小数并格式化输出（不足的部分补0）
     var fomatFloat = function ( value, n ) {
