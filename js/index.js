@@ -250,10 +250,6 @@
             code: "yangshun2532",//EOS_CONFIG.contractName,
             scope: "yangshun2532",//.contractName,
             table: "global",
-            //table_key: "uint32",
-            //lower_bound:  currentId,
-            //upper_bound:  12,
-            //limit:  20,
             json: true
         }).then(data => {
             console.log("getTableRows ",  data)
@@ -264,6 +260,8 @@
 
             getBetList()
             
+            getBetRanks()
+            return;
             setInterval(function(){
                 getBetList()
             }, 1000)
@@ -271,6 +269,57 @@
             console.error("getTableRows ", e);
         });
     }
+
+    var getBetRanks = function(){
+
+        /*
+        eoss.getAbi({
+            account_name:"yangshun2532"
+        }).then(data => {
+            console.log("getCode ",  data)
+
+        }).catch(e => {
+            console.error("getCode ", e);
+        });
+        */
+        
+        eoss.getTableRows({
+            code: "yangshun2532",//EOS_CONFIG.contractName,
+            scope: "yangshun2532",//.contractName,
+            table: "accinfo",
+            json: true
+        }).then(data => {
+            console.log("getAccinfo ",  data)
+
+            var html = '';
+            var rows = data.rows
+
+            rows.sort(function(a, b) {
+                return b.bet_amount_today-a.bet_amount_today;
+            })
+
+            for(var i in rows){
+                var k = parseInt(i) + 1;
+                var row = rows[i]
+                html += '<li class="items top'+k+'">'+
+                    '<span>'+k+'</span>'+
+                    '<span>'+row.user+'</span>'+
+                    '<span>'+
+                    '<em style="font-weight: 600;">'+parseFloat(row.bet_amount_today/10000)+'</em>'+
+                    '<em style="font-size: 12px; padding-left: 4px;">EOS</em>'+
+                    '</span>'+
+                    '<span>'+
+                    //'<em style="font-weight: 600; color: rgb(41, 224, 141);">1000</em>'+
+                    //'<em style="font-size: 12px; padding-left: 4px;">EOS</em>'+
+                    '</span>'+
+                    '</li>';
+            }
+            $("#bet-rank").html(html)
+        }).catch(e => {
+            console.error("getAccinfo ", e);
+        });
+    }
+
     var getBetList = function(){
         
         eoss.getTableRows({
