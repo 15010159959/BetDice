@@ -55,6 +55,8 @@
     $( document ).on( "mouseup touchend", function ( e ) {
         statu = false;
     } );
+
+    
     $( document ).on( "mousemove", function ( e ) {
         max = $( "#bg" ).width() - 30;
         min = max / 100;
@@ -82,12 +84,17 @@
 
     function onChangeBet ( x ) {
         left = x - ox;
-        if ( left < min ) {
-            left = min;
+
+        //max = max-min*3
+        if ( left < min*3 ) {
+            left = min*3;
         }
-        if ( left > max ) {
-            left = max;
+        if ( left > max-min*4 ) {
+            left = max-min*4;
         }
+
+       
+        console.log("max ", max)
         width = left - $bg.width() / 2;
         $btn.css( 'marginLeft', width );
         $bgcolor.width( left + 15 );
