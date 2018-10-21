@@ -213,10 +213,21 @@
             balanceEos = resp[ 0 ]
             $( '#balanceEos' ).text( balanceEos );
             $( '#eosBalance' ).text( balanceEos );
-            $( '#balanceBetDice' ).text( resp[ 1 ] );
-            $( '#betDiceBalance' ).text( resp[ 1 ] )
+            //$( '#balanceBetDice' ).text( resp[ 1 ] );
+            //$( '#betDiceBalance' ).text( resp[ 1 ] )
 
         } );   
+
+        eoss.getCurrencyBalance( 'yangshun2534', account.name ).then( function ( resp ) {
+            console.log( "get_current_balance", resp );
+            balanceEos = resp[ 0 ]
+            //$( '#balanceEos' ).text( balanceEos );
+            //$( '#eosBalance' ).text( balanceEos );
+            $( '#balanceBetDice' ).text( resp[ 0 ] );
+            $( '#betDiceBalance' ).text( resp[ 0 ] )
+
+        } );  
+
     };
 
 
