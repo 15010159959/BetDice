@@ -205,7 +205,9 @@
             console.log( "get_current_balance", resp );
             balanceEos = resp[ 0 ]
             $( '#balanceEos' ).text( balanceEos );
-            $( '#balanceBetDice' ).text( resp[ 1 ] )
+            $( '#eosBalance' ).text( balanceEos );
+            $( '#balanceBetDice' ).text( resp[ 1 ] );
+            $( '#betDiceBalance' ).text( resp[ 1 ] )
 
         } );   
     };
@@ -216,7 +218,7 @@
         money = parseInt( money * 10000 ) / 10000
         money = money.toFixed( 4 )
 
-        eoss.transfer( account.name, "yangshun2532", money + " EOS", $( '#myNumber' ).html() )
+        eoss.transfer( account.name, "yangshun2532", money + " EOS", $( '#myNumber' ).html() ) // 抵押 换成‘stake’  赎回unstaketoken
             .then( ( resp ) => {
                 console.log( resp );
                 hideLoading()
