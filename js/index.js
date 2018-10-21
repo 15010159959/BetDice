@@ -128,7 +128,7 @@
             var checkCount = 0
             var checkInterval = setInterval( function () {
                 console.log( checkCount )
-                if ( checkCount > 5 ) {
+                if ( checkCount > 10 ) {
                     clearInterval( checkInterval )
                     hideLoading()
 
@@ -328,7 +328,6 @@
             code: "yangshun2532",//EOS_CONFIG.contractName,
             scope: "yangshun2532",//.contractName,
             table: "bet",
-            //table_key: "uint32",
             lower_bound:  currentId+1,
             //upper_bound:  12,
             limit:  20,
