@@ -93,8 +93,6 @@
             left = max-min*4;
         }
 
-       
-        console.log("max ", max)
         width = left - $bg.width() / 2;
         $btn.css( 'marginLeft', width );
         $bgcolor.width( left + 15 );
@@ -147,6 +145,11 @@
                 } else {
                     clearInterval( checkInterval )
 
+                    eoss = scatter.eos( network, Eos, {} );
+                    setTimeout(function(){
+                        getBetCurrentId()
+                    },1000 )
+
                     scatter.getIdentity( {
                         accounts: [ {
                             chainId: network.chainId,
@@ -163,9 +166,10 @@
                                 $("#play").text("掷骰子")
                             }
 
-                            setTimeout(function(){
-                                getBetCurrentId()
-                            },1000 )
+                            get_cpu()
+                            setInterval(function(){
+                                get_cpu();
+                            }, 5000)
 
                         } )
                         .catch( err => {
@@ -227,8 +231,23 @@
             $( '#betDiceBalance' ).text( resp[ 0 ] )
 
         } );  
-
     };
+
+    var get_cpu = function(){
+        eoss.getAccount({
+            account_name:account.name
+        }).then(data => {
+            console.log("getAccout ",  data)
+            cp = parseInt(data.cpu_limit.used*100/data.cpu_limit.available)
+            np = parseInt(data.net_limit.used*100/data.net_limit.available)
+            
+            console.log(cp, np)
+            net.animate( np);  // Number from 0.0 to 1.0
+            cpu.animate( cp );
+        }).catch(e => {
+            console.error("getAccout ", e);
+        });
+    }
 
 
     var roll_by_scatter = function () {
@@ -495,8 +514,8 @@
     } );
     net.text.style.fontSize = '10px';
     cpu.text.style.fontSize = '10px';
-    net.animate( 0.9 );  // Number from 0.0 to 1.0
-    cpu.animate( 0.5 );  // Number from 0.0 to 1.0
+    net.animate( 0);  // Number from 0.0 to 1.0
+    cpu.animate( 0 );  // Number from 0.0 to 1.0
 
 
     function countdown() {//倒计时
