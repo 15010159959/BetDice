@@ -276,11 +276,12 @@
         eoss.getTableRows({
             code: "yangshun2532",//EOS_CONFIG.contractName,
             scope: "yangshun2532",//.contractName,
-            table: "bets",
+            table: "bet",
             //table_key: "uint32",
             lower_bound:  currentId+1,
             //upper_bound:  12,
             limit:  20,
+            //index_position:2,
             json: true
         }).then(data => {
             console.log("getTableRows ",  data.rows,data.rows.length, bets.length)
@@ -297,17 +298,22 @@
             }
             var html = ""
             maxId = currentId
+
             for(var i in bets){
                 var row = bets[i]
-                //console.log("getTableRows ", row)
-
-                //if (currentId < row.bet_id){
 
                     var p = parseFloat(row.payout)
                     var s = p>0?'win':'list'
+                    var d = new Date(row.timestamp)
+                    
+                    var t = d.getHours()>9?d.getHours():'0'+d.getHours()
+                    t += ':' 
+                    t +=  d.getMinutes()>9?d.getMinutes():'0'+d.getMinutes()
+                    t += ':'
+                    t +=  d.getSeconds()>9?d.getSeconds():'0'+d.getSeconds() 
 
                     html += '<tr class="'+s+'">'+
-                            '<td>'+row.bet_id+'</td>'+
+                            '<td>'+t+'</td>'+
                             '<td>'+row.player+'</td>'+
                             '<td>'+row.roll_under+'</td>'+
                             '<td>'+parseFloat(row.amount)+'</td>'+
@@ -316,7 +322,6 @@
                             '</tr>';
                     
                     maxId = row.bet_id>maxId?row.bet_id:maxId
-                //}
             }
             $("#bet-list").html(html)
 
@@ -377,6 +382,7 @@
         $( '.myBetData' ).addClass( 'hidden' );
     } )
     $( '#myBet' ).click( function () {
+        console.log('myBet')
         $( '#myBet' ).addClass( 'active' );
         $( '#allBet' ).removeClass( 'active' );
         $( '.allBetData' ).addClass( 'hidden' );
@@ -438,6 +444,6 @@
         };
     }
     countdown();
-    var start_time=setInterval('countdown()',1000);
+    var start_time=setInterval(countdown(),1000);
     
 } )( jQuery );
