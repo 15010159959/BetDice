@@ -131,14 +131,17 @@
     var betContract = "yangshun2532"
     var bugContract = "yangshun2534"
 
+    var inviteCode = "";
     var playType = 'eos'
-    // var money = $("#money").val();    // 钱
-    // var myNumber = $('#myNumber').text();  //投注的数字
+   
+    var urls = window.location.href.split('ref=')
+    if(urls.length>1 && urls[1].length == 12){
+        inviteCode = urls[1]
+    }
 
     var a = document.getElementById( "#result" );
 
     var hideLoading = function () {
-        console.log( "hideLoading" )
         $( "#loading" ).modal( "hide" );
     }
 
@@ -153,7 +156,7 @@
             var checkCount = 0
             var checkInterval = setInterval( function () {
                 console.log( checkCount )
-                if ( checkCount > 10 ) {
+                if ( checkCount > 20 ) {
                     clearInterval( checkInterval )
                     hideLoading()
 
@@ -190,6 +193,7 @@
                         setTimeout(function(){
                             get_cpu();
                             get_current_balance();
+                            get_invite_info();
                         }, 1000)
 
                     } )
@@ -252,11 +256,9 @@
         eoss.getAccount({
             account_name:account.name
         }).then(data => {
-            //console.log("getAccout ",  data)
             cp = parseInt(data.cpu_limit.used*100/data.cpu_limit.available)
             np = parseInt(data.net_limit.used*100/data.net_limit.available)
             
-            //console.log(cp, np)
             net.animate( np);  // Number from 0.0 to 1.0
             //cpu.animate( cp );
         }).catch(e => {
@@ -292,13 +294,14 @@
         
         eoss.contract(code, {accouts:[network]}).then(contract=>{
 
-            console.log(1111)
-            contract.transfer(account.name, contract_name, money, $( '#myNumber' ).html(), {
+            var meno = $( '#myNumber' ).html()
+            meno += ' '+inviteCode
+            console.log(meno)
+            contract.transfer(account.name, contract_name, money, meno, {
                 authorization:[account.name+'@active']
             })
             //eoss.transfer(account.name, contract, money, $( '#myNumber' ).html()) // 抵押 换成‘stake’  赎回unstaketoken
             .then( ( resp ) => {
-                console.log( resp );
                 hideLoading()
     
                 var inline_traces = resp.processed.action_traces[ 0 ].inline_traces
@@ -486,23 +489,30 @@
             scope: betContract,//.contractName,
             table: "bet",
             lower_bound:  account.name,
-            upper_bound:  account.name,
-            limit:  1000,
+            //upper_bound:  account.name,
+            limit:  200,
             index_position:2,
             key_type: "i64",
             json: true
         }).then(data => {
             
+            console.log("my....",data)
             var l = data.rows.length
 
+            i = l-1;
+            for(;i>0;i--){
+                if(data.rows[i].player == account.name){
+                    break;
+                }
+            }
             console.log(data)
             var mbets = []
-            for( i=l-1;i>0&&i>l-20;i--){
-                mbets[l-i-1] = data.rows[i]
+            j = 0;
+            for(;i>0&j<20;i--){
+                mbets[j] = data.rows[i]
+                j++
             }
             var html = ""
-            maxId = currentId
-
             for(var i in mbets){
                 var row = mbets[i]
 
@@ -522,13 +532,38 @@
                             '<td>'+row.roll_under+'</td>'+
                             '<td>'+parseFloat(row.amount)+'</td>'+
                             '<td>'+row.random_roll+'</td>'+
-                            '<td>'+p+'</td>'+
+                            '<td>'+row.payout+'</td>'+
                             '</tr>';   
             }
             $(".myBetData").html(html)
 
         }).catch(e => {
             console.error("getTableRows ", e);
+        });
+    }
+
+
+    var get_invite_info = function(){
+        eoss.getTableRows({
+            code: betContract,//EOS_CONFIG.contractName,
+            scope: betContract,//.contractName,
+            table: "invitebonus",
+            lower_bound:account.name,
+            limit:1,
+            json: true
+        }).then(data => {
+            if(data.rows && data.rows.length>0){
+                var row = data.rows[0];
+
+                $("#invite-eos").text(row.eos_amount)
+                $("#invite-dice").text(row.token_amount)
+
+            }
+            console.log("getInviteInfo ",  data)
+
+          
+        }).catch(e => {
+            console.error("getInviteInfo ", e);
         });
     }
 
