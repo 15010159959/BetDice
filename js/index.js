@@ -495,8 +495,6 @@
             key_type: "i64",
             json: true
         }).then(data => {
-            
-            console.log("my....",data)
             var l = data.rows.length
 
             i = l-1;
@@ -505,7 +503,6 @@
                     break;
                 }
             }
-            console.log(data)
             var mbets = []
             j = 0;
             for(;i>0&j<20;i--){
