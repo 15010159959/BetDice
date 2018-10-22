@@ -61,21 +61,21 @@
                             <!-- choice token -->
                             <div class="center" style="padding-top: 20px;">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-secondary">EOS</button>
-                                    <button type="button" class="btn btn-secondary">BetDice</button>
+                                    <button type="button" class="btn btn-secondary active" id="play-eos">EOS</button>
+                                    <button type="button" class="btn btn-secondary" id="play-dice">Dice</button>
                                 </div>
                             </div>
                             <!-- how much input -->
                             <div class="bet container">
                                 <div class="row justify-content-center">
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <div class="row">
                                             <div class="text_1 col-md-12 text-center">投注金额</div>
                                             <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
                                                 <div class="input-group">
                                                     <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <button type="button" class="btn btn-secondary active">EOS</button>
+                                                        <button type="button" class="btn btn-secondary active play-type">EOS</button>
                                                         <button type="button" class="btn btn-secondary" id="Half">1/2</button>
                                                         <button type="button" class="btn btn-secondary" id="Double">2X</button>
                                                         <button type="button" class="btn btn-secondary" id="Max">MAX</button>
@@ -84,14 +84,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="row">
                                             <div class="text_1 col-md-12 text-center">获奖金额</div>
                                             <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
                                                 <div class="input-group">
                                                     <input id="may_get_money" type="text" class="form-control" value="0.2" aria-label="Input group example" aria-describedby="btnGroupAddon"
                                                         disabled="true" />
-                                                    <button type="button" class="btn btn-secondary active">EOS</button>
+                                                    <button type="button" class="btn btn-secondary active play-type">EOS</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,16 +105,16 @@
                                     </li>
                                     <li class="info col-md-4">
                                         <div class="word1">赔率</div>
-                                        <div class="number" id="odds">2.000x</div>
+                                        <div class="number" id="odds">2.01x</div>
                                     </li>
                                     <li class="info col-md-4">
                                         <div class="word1">中奖概率</div>
-                                        <div class="number" id="percent">51.02%</div>
+                                        <div class="number" id="percent">49%</div>
                                     </li>
                                 </ul>
                                 <div id="box" class="container">
                                     <div class="row">
-                                        <div id="bg" class="col-md-8">
+                                        <div id="bg" class="col-md-12">
                                             <div id="bgcolor"></div>
                                             <div id="bgcolor-neg"></div>
                                         </div>
@@ -133,7 +133,7 @@
                                                     <span id="balanceEos">
                                                     </span>
                                                 </div>
-                                                <div class="balanceBetDice col-md-6 text-center">BetDice余额 :
+                                                <div class="balanceBetDice col-md-6 text-center">Dice余额 :
                                                     <span id="balanceBetDice">
                                                     </span>
                                                 </div>
@@ -344,7 +344,7 @@
                                             <div class="text">可抵押<span>0.0000</span>DICE</div>
                                             <div>
                                                 <div class="input-group">
-                                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                                    <input id="money" type="text" class="form-control" value="0.10" aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-secondary active" disabled="true">DICE</button>
                                                         <button type="button" class="btn btn-secondary active" >抵押</button>

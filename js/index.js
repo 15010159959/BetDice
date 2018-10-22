@@ -6,26 +6,41 @@
     // 投注金额
     $( '#Half' ).click( function () {
         var money = $( "#money" ).val() / 2
-        if ( money > balanceEos ) {
-            money = balanceEos
-        } else if ( money < 0.1 ) {
-            money = 0.1
+
+        bmax = playType == 'eos'? parseFloat(balanceEos) : parseFloat(balanceBetDice);
+        bmin = playType == 'eos'?0.1:100;
+        if ( money > bmax ) {
+            money = bmax
+        } else if ( money < bmin ) {
+            money = bmin
         }
         $( "#money" ).val( money );
     } )
     $( '#Double' ).click( function () {
         var money = $( "#money" ).val() * 2
 
+        bmax = playType == 'eos'? parseFloat(balanceEos) : parseFloat(balanceBetDice);
+        bmin = playType == 'eos'?0.1:100;
+
         console.log( money )
-        if ( money > balanceEos ) {
-            money = balanceEos
-        } else if ( money < 0.1 ) {
-            money = 0.1
+        if ( money > bmax ) {
+            money = bmax
+        } else if ( money < bmin ) {
+            money = bmin
         }
         $( "#money" ).val( money );
     } )
     $( '#Max' ).click( function () {
-        $( "#money" ).val( balanceEos );
+
+        bmax = playType == 'eos'? parseFloat(balanceEos) : parseFloat(balanceBetDice);
+        bmin = playType == 'eos'?0.1:100;
+
+        var money = bmax;
+        if ( money < bmin ) {
+            money = bmin
+        }
+
+        $( "#money" ).val( money );
     } )
 
     // 进度条数字获取  $bt.html( parseInt(left / 6.5));
@@ -74,8 +89,8 @@
         }
     } );
     $bg.click( function ( e ) {
-        min = 0;
         max = $( "#bg" ).width() - 30;
+        min = max / 100;
         ox = $btn.offset().left - parseInt( $btn.css( "marginLeft" ) ) - $bg.width() / 2;
         if ( !statu ) {
             onChangeBet( e.pageX );
@@ -86,8 +101,8 @@
         left = x - ox;
 
         //max = max-min*3
-        if ( left < min*3 ) {
-            left = min*3;
+        if ( left < min*2 ) {
+            left = min*2;
         }
         if ( left > max-min*4 ) {
             left = max-min*4;
@@ -100,10 +115,10 @@
         ratio = left * 100 / max;
         $bt.html( parseInt( ratio ) );
         $( '#myNumber' ).html( parseInt( ratio ) );
-        var odds = Number( 98 / ( parseInt( ratio ) - 1 ) ).toFixed( 3 )
+        var odds = Number( 98.5 / ( parseInt( ratio ) - 1 ) ).toFixed( 2 )
         $( '#odds' ).html( odds + 'x' );//赔率计算
-        $( '#percent' ).html( Number( ( parseInt( ratio ) / 98 ) * 100 ).toFixed( 2 ) + '%' );//胜率计算
-        $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 4 ) ) ); //可能获得的奖金
+        $( '#percent' ).html( parseInt( ( parseInt( ratio -1) /100 ) * 100 ) + '%' );//中奖概率计算
+        $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 2 ) ) ); //可能获得的奖金
     }
 
     // 定义玩法函数
@@ -112,6 +127,11 @@
     var requiredFields = null;
     var tpAccount = null;
     var balanceEos = 0;
+    var balanceBetDice = 0;
+    var betContract = "yangshun2532"
+    var bugContract = "yangshun2534"
+
+    var playType = 'eos'
     // var money = $("#money").val();    // 钱
     // var myNumber = $('#myNumber').text();  //投注的数字
 
@@ -164,6 +184,8 @@
                                 $( "#login" ).hide();
                                 $( '.nickname' ).html( account.name );
                                 $("#play").text("掷骰子")
+
+                                $("#inviteLink").val("https://betdice.one/?ref="+account.name)
                             }
 
                             get_cpu()
@@ -217,19 +239,13 @@
             balanceEos = resp[ 0 ]
             $( '#balanceEos' ).text( balanceEos );
             $( '#eosBalance' ).text( balanceEos );
-            //$( '#balanceBetDice' ).text( resp[ 1 ] );
-            //$( '#betDiceBalance' ).text( resp[ 1 ] )
-
         } );   
 
         eoss.getCurrencyBalance( 'yangshun2534', account.name ).then( function ( resp ) {
             console.log( "get_current_balance", resp );
-            balanceEos = resp[ 0 ]
-            //$( '#balanceEos' ).text( balanceEos );
-            //$( '#eosBalance' ).text( balanceEos );
-            $( '#balanceBetDice' ).text( resp[ 0 ] );
-            $( '#betDiceBalance' ).text( resp[ 0 ] )
-
+            balanceBetDice = resp[ 0 ]
+            $( '#balanceBetDice' ).text( balanceBetDice );
+            $( '#betDiceBalance' ).text(  balanceBetDice )
         } );  
     };
 
@@ -237,13 +253,13 @@
         eoss.getAccount({
             account_name:account.name
         }).then(data => {
-            console.log("getAccout ",  data)
+            //console.log("getAccout ",  data)
             cp = parseInt(data.cpu_limit.used*100/data.cpu_limit.available)
             np = parseInt(data.net_limit.used*100/data.net_limit.available)
             
-            console.log(cp, np)
+            //console.log(cp, np)
             net.animate( np);  // Number from 0.0 to 1.0
-            cpu.animate( cp );
+            //cpu.animate( cp );
         }).catch(e => {
             console.error("getAccout ", e);
         });
@@ -255,7 +271,26 @@
         money = parseInt( money * 10000 ) / 10000
         money = money.toFixed( 4 )
 
-        eoss.transfer( account.name, "yangshun2532", money + " EOS", $( '#myNumber' ).html() ) // 抵押 换成‘stake’  赎回unstaketoken
+        var contract = betContract;
+
+        if (playType == 'eos'){
+
+            if (money < 0.1 || money > parseFloat(balanceEos)){
+                
+                return 
+            }
+            money += " EOS"
+        }else{
+            if (money < 0.1 || money > parseFloat(balanceBetDice)){
+                
+                return 
+            }
+
+            contract = bugContract;
+            money += " BUG"
+        }
+        
+        eoss.transfer( account.name, contract, money, $( '#myNumber' ).html() ) // 抵押 换成‘stake’  赎回unstaketoken
             .then( ( resp ) => {
                 console.log( resp );
                 hideLoading()
@@ -267,7 +302,7 @@
 
                 console.log( "random_roll ", roll , " payout ", payout)
                 $("#random_roll").text(roll)
-                $( "#get_money" ).text( payout );
+                $( "#get_money" ).text( Number(payout).toFixed(2) );
                 $( "#result" ).addClass( "result_animation" );
                 setTimeout( '$("#result").removeClass("result_animation");', 4000 );
                 get_current_balance();
@@ -286,8 +321,8 @@
 
     var getBetCurrentId = function(){
         eoss.getTableRows({
-            code: "yangshun2532",//EOS_CONFIG.contractName,
-            scope: "yangshun2532",//.contractName,
+            code: betContract,//EOS_CONFIG.contractName,
+            scope: betContract,//.contractName,
             table: "global",
             json: true
         }).then(data => {
@@ -300,7 +335,11 @@
             getBetList()
             
             getBetRanks()
-            return;
+
+            setInterval(function(){
+                getBetRanks()
+            }, 10000)
+            
             setInterval(function(){
                 getBetList()
             }, 1000)
@@ -323,9 +362,9 @@
         */
         
         eoss.getTableRows({
-            code: "yangshun2532",//EOS_CONFIG.contractName,
-            scope: "yangshun2532",//.contractName,
-            table: "accinfo",
+            code: betContract,//EOS_CONFIG.contractName,
+            scope: betContract,//.contractName,
+            table: "accountinfo",
             json: true
         }).then(data => {
             console.log("getAccinfo ",  data)
@@ -362,8 +401,8 @@
     var getBetList = function(){
         
         eoss.getTableRows({
-            code: "yangshun2532",//EOS_CONFIG.contractName,
-            scope: "yangshun2532",//.contractName,
+            code: betContract,//EOS_CONFIG.contractName,
+            scope: betContract,//.contractName,
             table: "bet",
             lower_bound:  currentId+1,
             //upper_bound:  12,
@@ -371,7 +410,7 @@
             //index_position:2,
             json: true
         }).then(data => {
-            console.log("getTableRows ",  data.rows,data.rows.length, bets.length)
+            //console.log("getTableRows ",  data.rows,data.rows.length, bets.length)
 
             var l = data.rows.length
             var j = bets.length
@@ -476,6 +515,31 @@
         $( '.myBetData' ).removeClass( 'hidden' );
     } )
 
+    
+    $( '#play-eos' ).click( function () {
+        if(playType == 'eos'){
+            return 
+        }
+        playType = 'eos'
+        $("#play-eos").addClass('active')
+        $("#play-dice").removeClass('active')
+
+        $(".play-type").text('EOS')
+        $( "#money" ).val(0.10);
+    } );
+
+    $( '#play-dice' ).click( function () {
+        if(playType == 'dice'){
+            return 
+        }
+        playType = 'dice'
+        $("#play-dice").addClass('active')
+        $("#play-eos").removeClass('active')
+
+        $(".play-type").text('DICE')
+        $( "#money" ).val(100.00);
+    } );
+    
     checkLogin();
 
     // progressbar.js@1.0.0 version is used
