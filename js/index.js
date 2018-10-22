@@ -260,12 +260,11 @@
         eoss.getAccount({
             account_name:account.name
         }).then(data => {
-            console.log("cpu",data)
-            cp = data.cpu_limit.max == 0 ? 100: parseInt(data.cpu_limit.used*100/data.cpu_limit.max)
-            np =  data.net_limit.max == 0 ? 100:  parseInt(data.net_limit.used*100/data.net_limit.max)
+            cp = data.cpu_limit.max == 0 ? 1: data.cpu_limit.used/data.cpu_limit.max
+            np =  data.net_limit.max == 0 ? 1:  data.net_limit.used/data.net_limit.max
             
             net.animate( np);  // Number from 0.0 to 1.0
-            //cpu.animate( cp );
+            cpu.animate( cp );
         }).catch(e => {
             console.error("getAccout ", e);
         });
