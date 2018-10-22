@@ -171,7 +171,11 @@
                     eoss = scatter.eos( network, Eos, {} );
                     setTimeout(function(){
                         getBetCurrentId()
-                    },2000 )
+                    },10 )
+
+                    setTimeout(function(){
+                        getBetRanks()
+                    }, 10)
 
                     scatter.getIdentity( {
                         accounts: [ {
@@ -256,8 +260,9 @@
         eoss.getAccount({
             account_name:account.name
         }).then(data => {
-            cp = parseInt(data.cpu_limit.used*100/data.cpu_limit.available)
-            np = parseInt(data.net_limit.used*100/data.net_limit.available)
+            console.log("cpu",data)
+            cp = data.cpu_limit.max == 0 ? 100: parseInt(data.cpu_limit.used*100/data.cpu_limit.max)
+            np =  data.net_limit.max == 0 ? 100:  parseInt(data.net_limit.used*100/data.net_limit.max)
             
             net.animate( np);  // Number from 0.0 to 1.0
             //cpu.animate( cp );
@@ -356,14 +361,6 @@
             getBetList()
             getMyBetList()
 
-            
-            getBetRanks()
-
-            /*
-            setInterval(function(){
-                getBetRanks()
-            }, 10000)
-            */
             setInterval(function(){
                 getBetList()
             }, 1000)
