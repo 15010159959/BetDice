@@ -24,6 +24,21 @@ if(ENV === 'dev'){
     // remote testnet
     network = {
         blockchain: 'eos',
+        host: 'jungle.cryptolions.io',
+        port: 18888,
+        chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
+        protocol: "http"
+    };
+    options = {
+        broadcast: true,
+        sign: true,
+        chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
+        httpEndpoint: "http://jungle.cryptolions.io"
+    };
+} else if(ENV === 'testnet1'){
+    // remote testnet
+    network = {
+        blockchain: 'eos',
         host: 'jungle.eosio.cr',
         port: 443,
         chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",

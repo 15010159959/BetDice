@@ -22,7 +22,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto;">
+                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto; opacity: 0;">
                         <span>幸运抽奖</span>
                     </button>
                     <div class="src-occupy">
@@ -38,7 +38,7 @@
                         <li class="nav-item">
                             <a class="nav-link btnIntro" href="#" data-toggle="modal" data-target="#introduction">玩法介绍</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="display:none;">
                             <a class="nav-link btnBonus" href="#" data-toggle="modal" data-target="#bonus">红利</a>
                         </li>                        
                     </ul>
@@ -199,7 +199,7 @@
                         </thead>
                         <tbody id="bet-list" class="allBetData">
                         </tbody>
-                        <tbody id="bet-list" class="myBetData">
+                        <tbody id="bet-my-list" class="myBetData">
                             </tbody>
                     </table>
                 </div>
@@ -419,13 +419,15 @@
 
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
-    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+    <!--<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>-->
+    <script src="https://cdn.bootcss.com/progressbar.js/1.0.1/progressbar.min.js"></script>
     <script src="lib/eos.js"></script>
     <script src="js/config.js"></script>
     <script src="js/index.js"></script>
+    <!--
     <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-core.min.js"></script>
     <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs2.min.js"></script>
-
+    -->
 </body>
 
 </html>

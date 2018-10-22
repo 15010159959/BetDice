@@ -168,7 +168,7 @@
                     eoss = scatter.eos( network, Eos, {} );
                     setTimeout(function(){
                         getBetCurrentId()
-                    },1000 )
+                    },2000 )
 
                     scatter.getIdentity( {
                         accounts: [ {
@@ -176,28 +176,27 @@
                             blockchain: network.blockchain
                         } ]
                     } )
-                        .then( identity => {
-                            setIdentity( identity );
+                    .then( identity => {
+                        setIdentity( identity );
+
+                        if ( account ) {
+                            $( "#login" ).hide();
+                            $( '.nickname' ).html( account.name );
+                            $("#play").text("掷骰子")
+
+                            $("#inviteLink").val("https://betdice.one/?ref="+account.name)
+                        }
+
+                        setTimeout(function(){
+                            get_cpu();
                             get_current_balance();
+                        }, 1000)
 
-                            if ( account ) {
-                                $( "#login" ).hide();
-                                $( '.nickname' ).html( account.name );
-                                $("#play").text("掷骰子")
-
-                                $("#inviteLink").val("https://betdice.one/?ref="+account.name)
-                            }
-
-                            get_cpu()
-                            setInterval(function(){
-                                get_cpu();
-                            }, 5000)
-
-                        } )
-                        .catch( err => {
-                            console.log(err)
-                            alert( "Scatter 初始化失败.", err );
-                        } );
+                    } )
+                    .catch( err => {
+                        console.log(err)
+                        alert( "Scatter 初始化失败.", err );
+                    } );
 
                     hideLoading()
                 }
@@ -271,7 +270,8 @@
         money = parseInt( money * 10000 ) / 10000
         money = money.toFixed( 4 )
 
-        var contract = betContract;
+        var contract_name = betContract;
+        var code = "eosio.token"
 
         if (playType == 'eos'){
 
@@ -286,33 +286,51 @@
                 return 
             }
 
-            contract = bugContract;
             money += " BUG"
+            code = bugContract
         }
         
-        eoss.transfer( account.name, contract, money, $( '#myNumber' ).html() ) // 抵押 换成‘stake’  赎回unstaketoken
+        eoss.contract(code, {accouts:[network]}).then(contract=>{
+
+            console.log(1111)
+            contract.transfer(account.name, contract_name, money, $( '#myNumber' ).html(), {
+                authorization:[account.name+'@active']
+            })
+            //eoss.transfer(account.name, contract, money, $( '#myNumber' ).html()) // 抵押 换成‘stake’  赎回unstaketoken
             .then( ( resp ) => {
                 console.log( resp );
                 hideLoading()
-
+    
                 var inline_traces = resp.processed.action_traces[ 0 ].inline_traces
                 var i = inline_traces.length -1
                 var roll = inline_traces[ i ].act.data.result.random_roll
                 var payout = inline_traces[ i ].act.data.result.payout
-
+    
                 console.log( "random_roll ", roll , " payout ", payout)
                 $("#random_roll").text(roll)
-                $( "#get_money" ).text( Number(payout).toFixed(2) );
+                $( "#get_money" ).text( payout );
                 $( "#result" ).addClass( "result_animation" );
                 setTimeout( '$("#result").removeClass("result_animation");', 4000 );
                 get_current_balance();
-
+    
+                setTimeout(function(){
+                    get_cpu();
+                }, 1000)
+    
             } )
             .catch( ( err ) => {
                 hideLoading()
-                console.log( "err ",  JSON.stringify( err ) );
-
+                console.log( "err ", err, JSON.stringify( err ) );
+    
             } );
+        })
+        
+        
+        .catch( ( err ) => {
+            hideLoading()
+            console.log( "err ", err, JSON.stringify( err ) );
+
+        } );
     };
 
 
@@ -333,13 +351,16 @@
             currentId = currentId>20?currentId-20:-1;
 
             getBetList()
+            getMyBetList()
+
             
             getBetRanks()
 
+            /*
             setInterval(function(){
                 getBetRanks()
             }, 10000)
-            
+            */
             setInterval(function(){
                 getBetList()
             }, 1000)
@@ -430,7 +451,64 @@
 
                     var p = parseFloat(row.payout)
                     var s = p>0?'win':'list'
-                    var d = new Date(row.timestamp)
+                    var d = new Date(row.timestamp*1000)
+                    
+                    var t = d.getHours()>9?d.getHours():'0'+d.getHours()
+                    t += ':' 
+                    t +=  d.getMinutes()>9?d.getMinutes():'0'+d.getMinutes()
+                    t += ':'
+                    t +=  d.getSeconds()>9?d.getSeconds():'0'+d.getSeconds() 
+
+                    html += '<tr class="'+s+'">'+
+                            '<td>'+t+'</td>'+
+                            '<td>'+row.player+'</td>'+
+                            '<td>'+row.roll_under+'</td>'+
+                            '<td>'+parseFloat(row.amount)+'</td>'+
+                            '<td>'+row.random_roll+'</td>'+
+                            '<td>'+row.payout+'</td>'+
+                            '</tr>';
+                    
+                    maxId = row.bet_id>maxId?row.bet_id:maxId
+            }
+            $("#bet-list").html(html)
+
+            currentId = maxId
+
+        }).catch(e => {
+            console.error("getTableRows ", e);
+        });
+    }
+
+    var getMyBetList = function(){
+        
+        eoss.getTableRows({
+            code: betContract,//EOS_CONFIG.contractName,
+            scope: betContract,//.contractName,
+            table: "bet",
+            lower_bound:  account.name,
+            upper_bound:  account.name,
+            limit:  1000,
+            index_position:2,
+            key_type: "i64",
+            json: true
+        }).then(data => {
+            
+            var l = data.rows.length
+
+            console.log(data)
+            var mbets = []
+            for( i=l-1;i>0&&i>l-20;i--){
+                mbets[l-i-1] = data.rows[i]
+            }
+            var html = ""
+            maxId = currentId
+
+            for(var i in mbets){
+                var row = mbets[i]
+
+                    var p = parseFloat(row.payout)
+                    var s = p>0?'win':'list'
+                    var d = new Date(row.timestamp*1000)
                     
                     var t = d.getHours()>9?d.getHours():'0'+d.getHours()
                     t += ':' 
@@ -445,13 +523,9 @@
                             '<td>'+parseFloat(row.amount)+'</td>'+
                             '<td>'+row.random_roll+'</td>'+
                             '<td>'+p+'</td>'+
-                            '</tr>';
-                    
-                    maxId = row.bet_id>maxId?row.bet_id:maxId
+                            '</tr>';   
             }
-            $("#bet-list").html(html)
-
-            currentId = maxId
+            $(".myBetData").html(html)
 
         }).catch(e => {
             console.error("getTableRows ", e);
