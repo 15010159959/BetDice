@@ -15,6 +15,10 @@
             money = bmin
         }
         $( "#money" ).val( money );
+
+        var odds = parseFloat($("#odds").text())
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) ); //可能获得的奖金
+
     } )
     $( '#Double' ).click( function () {
         var money = $( "#money" ).val() * 2
@@ -29,6 +33,9 @@
             money = bmin
         }
         $( "#money" ).val( money );
+        var odds = parseFloat($("#odds").text())
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) ); //可能获得的奖金
+
     } )
     $( '#Max' ).click( function () {
 
@@ -41,7 +48,26 @@
         }
 
         $( "#money" ).val( money );
+        var odds = parseFloat($("#odds").text())
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) ); //可能获得的奖金
+
     } )
+
+    $("#money").change(function(){
+        var money = $( "#money" ).val();
+        bmax = playType == 'eos'? parseFloat(balanceEos) : parseFloat(balanceBetDice);
+        bmin = playType == 'eos'?0.1:100;
+
+        if ( money > bmax ) {
+            money = bmax
+        } else if ( money < bmin ) {
+            money = bmin
+        }
+
+        $( "#money" ).val(money);
+        var odds = parseFloat($("#odds").text())
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) );
+    })
 
     // 进度条数字获取  $bt.html( parseInt(left / 6.5));
     var $box = $( '#box' );
@@ -160,7 +186,7 @@
                     clearInterval( checkInterval )
                     hideLoading()
 
-                    alert( "加载Scatter失败若未安装请先安装." );
+                    showAlert('加载Scatter失败若未安装请先安装', false)
                 }
                 if ( typeof ( scatter ) == "undefined" ) {
                     checkCount++
@@ -177,6 +203,10 @@
                         getBetRanks()
                     }, 10)
 
+
+                    $( "#alertmsg" ).addClass( "result_animation" );
+                    setTimeout( '$("#alertmsg").removeClass("result_animation");', 4000 );
+
                     scatter.getIdentity( {
                         accounts: [ {
                             chainId: network.chainId,
@@ -186,6 +216,7 @@
                     .then( identity => {
                         setIdentity( identity );
 
+                        showSuccess('登录成功')
                         if ( account ) {
                             $( "#login" ).hide();
                             $( '.nickname' ).html( account.name );
@@ -203,7 +234,9 @@
                     } )
                     .catch( err => {
                         console.log(err)
-                        alert( "Scatter 初始化失败.", err );
+                        //alert( "Scatter 初始化失败.", err );
+
+                        showAlert('Scatter 初始化失败, 请刷新重试', true)
                     } );
 
                     hideLoading()
@@ -314,8 +347,20 @@
                 var payout = inline_traces[ i ].act.data.result.payout
     
                 console.log( "random_roll ", roll , " payout ", payout)
-                $("#random_roll").text(roll)
-                $( "#get_money" ).text( payout );
+                var res = '';
+
+                if (parseFloat(payout) > 0){
+                    res = '<div class="alert alert-success">'+
+                        '<strong>恭喜！</strong>结果是'+ 
+                        roll+', 您获得了'+payout+            
+                        '</div>';                        
+                }else{
+                    res = '<div class="alert alert-warning">'+
+                        '<strong>再接再厉！</strong>结果是'+ 
+                        roll+           
+                        '</div>'; 
+                }
+                $("#result").html(res);
                 $( "#result" ).addClass( "result_animation" );
                 setTimeout( '$("#result").removeClass("result_animation");', 4000 );
                 get_current_balance();
@@ -328,7 +373,8 @@
             .catch( ( err ) => {
                 hideLoading()
                 console.log( "err ", err, JSON.stringify( err ) );
-    
+
+                showAlert('执行失败'+err.message, false)
             } );
         })
         
@@ -574,7 +620,36 @@
         return s;
     }
 
+    var showSuccess = function(msg){
+        $( ".modal.alert-msg" ).modal( "show" );
 
+        var html = '<div  class="alert alert-success" style="padding:20px 0;">'+
+            msg+
+            '</div>';
+        $("#alert-msg").html(html)
+        setTimeout(function(){
+            $( "#alert-modal" ).modal( "hide" );
+        }, 1500)
+    }
+
+    var showAlert = function(msg, isShow){
+        $( ".modal.alert-msg" ).modal( "show" );
+
+        var html = '<div  class="alert alert-warning" style="padding:20px 0;">';
+        if(isShow == undefined || !isShow){
+            html += '<a href="#" class="close" data-dismiss="alert">x</a>';
+        }
+        
+        html += msg+'</div>';
+
+        console.log(html)
+        $("#alert-msg").html(html) 
+        if(isShow == undefined || !isShow){
+            setTimeout(function(){
+                $( "#alert-modal" ).modal( "hide" );
+            }, 2500)
+        }
+    }
     var checkLogin = function(){
         if (account == null){
             $("#play").text("登录中...")

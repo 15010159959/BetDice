@@ -17,8 +17,8 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="#">BetDice</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -38,9 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link btnIntro" href="#" data-toggle="modal" data-target="#introduction">玩法介绍</a>
                         </li>
-                        <li class="nav-item" style="display:none;">
+                        <li class="nav-item">
                             <a class="nav-link btnBonus" href="#" data-toggle="modal" data-target="#bonus">红利</a>
-                        </li>                        
+                        </li>
                     </ul>
                     <div class="account">
                         <button type="button" class="btn btn-primary btn-custom" id="login">
@@ -53,7 +53,7 @@
         </nav>
 
         <!-- container -->
-        <div class="banner ">
+        <div class="banner">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 row">
@@ -71,9 +71,11 @@
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="text_1 col-md-12 text-center">投注金额</div>
-                                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar"
+                                                aria-label="Toolbar with button groups">
                                                 <div class="input-group">
-                                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                                    <input id="money" type="text" class="form-control" value="0.1"
+                                                        aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-secondary active play-type">EOS</button>
                                                         <button type="button" class="btn btn-secondary" id="Half">1/2</button>
@@ -87,9 +89,11 @@
                                     <div class="col-md-4">
                                         <div class="row">
                                             <div class="text_1 col-md-12 text-center">获奖金额</div>
-                                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                            <div class="btn-toolbar mb-3 mt10 col-md-12 justify-content-center" role="toolbar"
+                                                aria-label="Toolbar with button groups">
                                                 <div class="input-group">
-                                                    <input id="may_get_money" type="text" class="form-control" value="0.2" aria-label="Input group example" aria-describedby="btnGroupAddon"
+                                                    <input id="may_get_money" type="text" class="form-control" value="0.2"
+                                                        aria-label="Input group example" aria-describedby="btnGroupAddon"
                                                         disabled="true" />
                                                     <button type="button" class="btn btn-secondary active play-type">EOS</button>
                                                 </div>
@@ -127,7 +131,7 @@
                                         <div class="center col-md-6">
                                             <button type="button" class="btn btn-primary" id="play">掷骰子</button>
                                         </div>
-                                        <div class="info col-md-9 center">
+                                        <div class="info col-md-12 center">
                                             <div class="row">
                                                 <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 :
                                                     <span id="balanceEos">
@@ -139,9 +143,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="result" class="col-md-12">结果是
-                                            <i id="random_roll"></i>, 您获得了
-                                            <i id="get_money"></i>
+                                        <div id="result" class="col-md-12">
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +202,7 @@
                         <tbody id="bet-list" class="allBetData">
                         </tbody>
                         <tbody id="bet-my-list" class="myBetData">
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -218,16 +220,24 @@
                     <div class="col-md-12 col-9" style="padding: 20px 0;line-height: 20px; margin: 0 auto; text-align: justify;">
                         Please arrange your time reasonably, and do not over-indulge.
                         <br />
-                        <br /> If you reside in a location where lottery, gambling, sports betting or betting over the internet
-                        is illegal, please do not click on anything related to these activities on this site. You must be
-                        21 years of age to click on any betting or gambling related items even if it is legal to do so in
-                        your location. Recognising that the laws and regulations involving online gaming are different everywhere,
-                        readers are advised to check with the laws that exist within their own jurisdiction to ascertain
+                        <br /> If you reside in a location where lottery, gambling, sports betting or betting over the
+                        internet
+                        is illegal, please do not click on anything related to these activities on this site. You must
+                        be
+                        21 years of age to click on any betting or gambling related items even if it is legal to do so
+                        in
+                        your location. Recognising that the laws and regulations involving online gaming are different
+                        everywhere,
+                        readers are advised to check with the laws that exist within their own jurisdiction to
+                        ascertain
                         the legality of the activities which are covered.
                         <br />
-                        <br /> The games provided by BetDice are based on blockchain, fair and transparent. When you start playing
-                        these games, please note that online gambling and lottery is an entertainment vehicle and that it
-                        carries with it a certain degree of financial risk. Players should be aware of this risk, and govern
+                        <br /> The games provided by BetDice are based on blockchain, fair and transparent. When you
+                        start playing
+                        these games, please note that online gambling and lottery is an entertainment vehicle and that
+                        it
+                        carries with it a certain degree of financial risk. Players should be aware of this risk, and
+                        govern
                         themselves accordingly.
                     </div>
                     <hr class="col-md-12 col-9 center" style="background: #171932" />
@@ -237,6 +247,14 @@
         </footer>
 
         <!-- loading -->
+        <div class="fade alert-msg modal" data-backdrop=static id="alert-modal">
+            <div class=modal-dialog>
+                <div class=modal-body style="text-align: center;" id="alert-msg">
+                    
+                </div>
+            </div>
+        </div>
+
         <div class="fade loading modal" data-backdrop=static id="loading">
             <div class=modal-dialog>
                 <div class=modal-body style="text-align: center;">
@@ -252,22 +270,23 @@
                     <div class="modal-header">
                         <h6 class="modal-title" id="exampleModalLabel">立即邀請好友领取奖励</h6>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="input-group">
-                            <input id="inviteLink" type="text" class="form-control" value="https://betdice.one/?ref=" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <input id="inviteLink" type="text" class="form-control" value="https://betdice.one/?ref="
+                                aria-label="Input group example" aria-describedby="btnGroupAddon">
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-secondary active" >EOS</button>
+                                <button type="button" class="btn btn-secondary active">EOS</button>
                             </div>
                         </div>
                         <div class="reward">
-                            <div class="container"> 
+                            <div class="container">
                                 <div class="row">
                                     <div class="col-md-12 text-left" style="padding: 20px 0 10px 0; font-size: 16px;">你的奖励:</div>
                                     <div class="coins col-md-12">
-                                        <div class="eos col-md-12 text-left text" ><span id="invite-eos">0.0000</span>EOS</div>
+                                        <div class="eos col-md-12 text-left text"><span id="invite-eos">0.0000</span>EOS</div>
                                         <div class="dice col-md-12 text-left text"><span id="invite-dice">0.0000</span>DICE</div>
                                     </div>
                                     <!--
@@ -279,21 +298,21 @@
                     </div>
                 </div>
             </div>
-        </div>  
-   -->
+        </div>
+        -->
         <!-- bonus -->
         <div class="fade bonus modal" data-backdrop=static id="bonus">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="border: none;">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="container" style="margin-top: -45px;">	
-                        <ul  class="nav nav-pills">
+                    <div class="container" style="margin-top: -45px;">
+                        <ul class="nav nav-pills">
                             <li>
-                                <a  href="#1b" data-toggle="tab" class="active">红利池</a>
+                                <a href="#1b" data-toggle="tab" class="active">红利池</a>
                             </li>
                             <li>
                                 <a href="#2b" data-toggle="tab">抵押</a>
@@ -308,7 +327,9 @@
                                 <div class="container" style="padding: 0;">
                                     <div class="row">
                                         <div class="col-md-12 col-12 row item center">
-                                            <div class="col-md-6 col-12"><h5>当前分红池积累</h5></div>
+                                            <div class="col-md-6 col-12">
+                                                <h5>当前分红池积累</h5>
+                                            </div>
                                             <div class="col-md-6 col-12 text text-center">
                                                 下次分红:<span>00:00:00</span>
                                             </div>
@@ -319,7 +340,7 @@
                                                 <div class="text">预估收益</div>
                                                 <div class="text"><span>0.0000</span>EOS</div>
                                                 <div class="text">每万DICE预期收益</div>
-                                                <div class="text"><span>0.0000</span>EOS</div>                                                
+                                                <div class="text"><span>0.0000</span>EOS</div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12 row item center panel">
@@ -328,7 +349,7 @@
                                                 <div class="text">预估收益</div>
                                                 <div class="text"><span>0.0000</span>DICE</div>
                                                 <div class="text">每万DICE预期收益</div>
-                                                <div class="text"><span>0.0000</span>DICE</div>                                                
+                                                <div class="text"><span>0.0000</span>DICE</div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">* 每小時結算一次，依抵押比例進行紅利分配，所得的紅利會自動累積到您的餘額上。</div>
@@ -346,10 +367,11 @@
                                             <div class="text">可抵押<span>0.0000</span>DICE</div>
                                             <div>
                                                 <div class="input-group">
-                                                    <input id="money" type="text" class="form-control" value="0.10" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                                    <input id="money" type="text" class="form-control" value="0.10"
+                                                        aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-secondary active" disabled="true">DICE</button>
-                                                        <button type="button" class="btn btn-secondary active" >抵押</button>
+                                                        <button type="button" class="btn btn-secondary active">抵押</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -358,10 +380,11 @@
                                             <div class="text">已抵押<span>0.0000</span>DICE</div>
                                             <div>
                                                 <div class="input-group">
-                                                    <input id="money" type="text" class="form-control" value="0.1" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                                                    <input id="money" type="text" class="form-control" value="0.1"
+                                                        aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-secondary active" disabled="true">DICE</button>
-                                                        <button type="button" class="btn btn-secondary active" >赎回</button>
+                                                        <button type="button" class="btn btn-secondary active">赎回</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -383,14 +406,14 @@
                                             <button type="button" class="btn btn-secondary active">领取</button>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>    
-   -->
+        </div>
+        -->
         <!-- introduction -->
         <div class="fade introduction modal" data-backdrop=static id="introduction">
             <div class="modal-dialog" role="document">
@@ -398,12 +421,13 @@
                     <div class="modal-header">
                         <h6 class="modal-title" id="exampleModalLabel">玩法介绍</h6>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <ol>
-                            <li>1. 準備好你的EOS 帳號，如果還未有EOS帳，可根據<a href="https://medium.com/dapppub/create-your-own-eos-account-easily-using-the-non-service-fee-dapp-signupeoseos-b15c5347f2fc" target="_blank">教程</a>創建</li>
+                            <li>1. 準備好你的EOS 帳號，如果還未有EOS帳，可根據<a href="https://medium.com/dapppub/create-your-own-eos-account-easily-using-the-non-service-fee-dapp-signupeoseos-b15c5347f2fc"
+                                    target="_blank">教程</a>創建</li>
                             <li>2, 您需要透過Scatter 在網頁上操作帳號，如果還未有安裝Scatter，請<a href="https://get-scatter.com/" target="_blank">安裝Scatter</a></li>
                             <li>3, 按下登入按鈕，透過Scatter 進行登入</li>
                             <li>4, 選擇需要投注貨幣，您可使用EOS 或 DICE 投注</li>
@@ -415,8 +439,8 @@
                     </div>
                 </div>
             </div>
-        </div> 
-    -->
+        </div>
+        -->
     </div>
 
     <script src="lib/jquery-3.3.1.min.js"></script>

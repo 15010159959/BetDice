@@ -275,17 +275,31 @@ nav a:hover {
 }
 
 #result {
-    width: 60%;
+    width: 100%;
     line-height: 80px;
-    left: 30%;
     background-color: #1c233f;
     border-radius: 10px;
-    font-size: 22px;
+    font-size: 20px;
     color: #fff;
     position: absolute;
     top: 50%;
     opacity: 0;
+    text-align: center;
 }
+
+.alert-banner{
+    position: absolute;
+    opacity: 0; 
+    top: 50%;
+}
+.alert-msg {
+    text-align: center;
+    vertical-align: middle;
+    padding: 30px 0px;
+    font-size: 14px;
+    margin: 0 100px;
+}
+
 
 .result_animation {
     -webkit-animation-name: example;
@@ -393,10 +407,12 @@ nav a:hover {
         top: 50%;
         opacity: 0;
     }
+
     90% {
         top: 0%;
         opacity: 1;
     }
+
     100% {
         top: 0%;
         opacity: 1;
@@ -474,7 +490,7 @@ td {
     line-height: 1.2;
 }
 
-.ranking{
+.ranking {
     max-width: 768px;
     background-color: #1c233f;
     position: relative;
@@ -484,17 +500,20 @@ td {
     z-index: 3;
     color: #fff;
 }
-.ranking h2{
+
+.ranking h2 {
     text-align: center;
     color: #fff;
     font-size: 19px;
     padding: 19px 0;
     margin: 0;
 }
-.ranking .table-header{
+
+.ranking .table-header {
     border-top: 2px solid #21294c;
 }
-.ranking .table-header > li{
+
+.ranking .table-header>li {
     display: flex;
     align-items: center;
     -webkit-box-align: center;
@@ -502,11 +521,13 @@ td {
     justify-content: space-between;
     border-radius: 3px;
 }
-.ranking .table-list{
+
+.ranking .table-list {
     height: 400px;
     overflow-y: auto;
 }
-.ranking .table-list > li{
+
+.ranking .table-list>li {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -519,7 +540,8 @@ td {
     padding-left: 7px;
     background: #171c32;
 }
-.ranking .table-list li span{
+
+.ranking .table-list li span {
     flex: 1;
     text-align: center;
     padding: 0 5px;
@@ -529,6 +551,7 @@ td {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 /* .ranking .table-list li.top1 span:first-child {
     background: url(/img/top1.png) 4px 4px no-repeat;
 } */
@@ -540,21 +563,25 @@ td {
     top: 0;
     left: 0;
 }
+
 .ranking div.flag .msg {
     color: #fff;
     -webkit-transform: rotate(-45deg) translate(-22%, -25%);
     transform: rotate(-45deg) translate(-22%, -25%);
 }
+
 .ranking div.flag .msg p:first-child {
     font-weight: 600;
     font-size: 19px;
 }
+
 .ranking div.flag .msg p {
     margin: 0;
     text-align: center;
     font-size: 12px;
 }
-.banner-data{
+
+.banner-data {
     width: 90%;
     margin: auto;
 }
