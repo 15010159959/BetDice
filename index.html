@@ -138,7 +138,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="balanceBetDice col-md-6 text-center">Dice余额 :
-                                                    <span id="balanceBetDice">
+                                                    <span class="balance-token-text">
                                                     </span>
                                                 </div>
                                             </div>
@@ -247,10 +247,10 @@
         </footer>
 
         <!-- loading -->
-        <div class="fade alert-msg modal" data-backdrop=static id="alert-modal">
+        <div class="fade alert-msg modal" data-backdrop=static id="alert-modal" style="z-index:200000;">
             <div class=modal-dialog>
                 <div class=modal-body style="text-align: center;" id="alert-msg">
-                    
+
                 </div>
             </div>
         </div>
@@ -335,21 +335,21 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12 row item center panel">
-                                            <div class="col-md-6 col-6 coin text"><span>0.0000</span>EOS</div>
+                                            <div class="col-md-6 col-6 coin text"><span class="bonus-eos-amount">0</span>EOS</div>
                                             <div class="col-md-6 col-6 allocate">
                                                 <div class="text">预估收益</div>
-                                                <div class="text"><span>0.0000</span>EOS</div>
+                                                <div class="text"><span class="bonus-eos-myearn">0</span>EOS</div>
                                                 <div class="text">每万DICE预期收益</div>
-                                                <div class="text"><span>0.0000</span>EOS</div>
+                                                <div class="text"><span class="bonus-eos-earn">0</span>EOS</div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12 row item center panel">
-                                            <div class="col-md-6 col-6 coin text"><span>0.0000</span>DICE</div>
+                                            <div class="col-md-6 col-6 coin text"><span class="bonus-token-amount">0</span>DICE</div>
                                             <div class="col-md-6 col-6 allocate">
                                                 <div class="text">预估收益</div>
-                                                <div class="text"><span>0.0000</span>DICE</div>
+                                                <div class="text"><span class="bonus-token-myearn">0</span>DICE</div>
                                                 <div class="text">每万DICE预期收益</div>
-                                                <div class="text"><span>0.0000</span>DICE</div>
+                                                <div class="text"><span class="bonus-token-earn">0</span>DICE</div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">* 每小時結算一次，依抵押比例進行紅利分配，所得的紅利會自動累積到您的餘額上。</div>
@@ -360,35 +360,51 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-12 col-12 center panel">
-                                            <div class="text"><span>0.0000</span>DICE</div>
-                                            <div class="text">(已抵押<span>0</span>/<span>100</span>的流通DICE)</div>
+                                            <!--<div class="text"><span>0.0000</span>DICE</div>-->
+                                            <div class="text">全網已抵押<span class="stake-token-amount">0</span> <!--(/<span>100</span>的流通DICE)--></div>
                                         </div>
                                         <div class="col-md-12 col-12 center panel">
-                                            <div class="text">可抵押<span>0.0000</span>DICE</div>
+                                            <div class="text">可抵押<span class="balance-token-text"></span></div>
                                             <div>
                                                 <div class="input-group">
-                                                    <input id="money" type="text" class="form-control" value="0.10"
+                                                    <input id="stake-money" type="text" class="form-control" value="100"
                                                         aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-secondary active" disabled="true">DICE</button>
-                                                        <button type="button" class="btn btn-secondary active">抵押</button>
+                                                        <button type="button" class="btn btn-secondary active" id="stake">抵押</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12 center panel">
-                                            <div class="text">已抵押<span>0.0000</span>DICE</div>
+                                            <div class="text">已抵押<span class="unstake-token">0.0000</span>DICE</div>
                                             <div>
                                                 <div class="input-group">
-                                                    <input id="money" type="text" class="form-control" value="0.1"
+                                                    <input id="unstake-money" type="text" class="form-control" value="0"
                                                         aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-secondary active" disabled="true">DICE</button>
-                                                        <button type="button" class="btn btn-secondary active">赎回</button>
+                                                        <button type="button" class="btn btn-secondary active" id="unstake">赎回</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-12 col-12 center panel" id="release-item" style="display:none;">
+                                            <div class="text">赎回中
+                                                <span class="release-token">0.0000</span>DICE
+                                                <span></span>剩余时间:
+                                                <span class="release-time"> 00:00:00</span>
+                                            </div>
+                                            <div>
+                                                <div class="text">
+                                                    <button type="button" class="btn btn-secondary active" id="releasestake">重新抵押</button>
+                                                    <span></span>
+                                                    <button type="button" class="btn btn-info active" id="takeoutstake">领取</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-12 col-12">* 解除抵押需時24小時</div>
                                     </div>
                                 </div>
@@ -397,13 +413,13 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-12 col-12 center panel">
-                                            <div class="text"><span id="eosBalance"></span></div>
+                                            <div class="text"><span class="bonus-eos-money"></span></div>
                                         </div>
                                         <div class="col-md-12 col-12 center panel">
-                                            <div class="text"><span id="betDiceBalance"></span></div>
+                                            <div class="text"><span class="bonus-token-money"></span></div>
                                         </div>
                                         <div class="col-md-12 col-12 center">
-                                            <button type="button" class="btn btn-secondary active">领取</button>
+                                            <button type="button" class="btn btn-secondary active" id="takeout">领取</button>
                                         </div>
                                     </div>
                                 </div>

@@ -225,11 +225,18 @@
                             $("#inviteLink").val("https://betdice.one/?ref="+account.name)
                         }
 
+                        get_bonuspool();
+
+                        setTimeout(function(){
+                            
+                            get_current_balance();
+
+                        }, 1000)
+
                         setTimeout(function(){
                             get_cpu();
-                            get_current_balance();
                             get_invite_info();
-                        }, 1000)
+                        }, 5000)
 
                     } )
                     .catch( err => {
@@ -278,14 +285,12 @@
             console.log( "get_current_balance", resp );
             balanceEos = resp[ 0 ]
             $( '#balanceEos' ).text( balanceEos );
-            $( '#eosBalance' ).text( balanceEos );
         } );   
 
         eoss.getCurrencyBalance( 'yangshun2534', account.name ).then( function ( resp ) {
             console.log( "get_current_balance", resp );
             balanceBetDice = resp[ 0 ]
-            $( '#balanceBetDice' ).text( balanceBetDice );
-            $( '#betDiceBalance' ).text(  balanceBetDice )
+            $( '.balance-token-text' ).text( balanceBetDice );
         } );  
     };
 
@@ -416,7 +421,7 @@
 
     var getBetRanks = function(){
 
-        /*
+        
         eoss.getAbi({
             account_name:"yangshun2532"
         }).then(data => {
@@ -425,7 +430,7 @@
         }).catch(e => {
             console.error("getCode ", e);
         });
-        */
+        
         
         eoss.getTableRows({
             code: betContract,//EOS_CONFIG.contractName,
@@ -620,6 +625,291 @@
         return s;
     }
 
+
+    var bonus_eos_amount, bonus_token_amount, bonus_stake_amount;
+    var get_bonuspool = function(){
+        eoss.getTableRows({
+            code: betContract,//EOS_CONFIG.contractName,
+            scope: betContract,//.contractName,
+            table: "bonuspool",
+            //lower_bound:account.name,
+            //limit:1,
+            json: true
+        }).then(data => {
+            console.log("getbonuspool ",  data)
+            bonus_eos_amount = 0;
+            bonus_token_amount = 0;
+            bonus_stake_amount = 0;
+            var eos_earn = 0;
+            var token_earn = 0;
+
+            if (data.rows.length>0){
+                bonus_eos_amount = Number(parseFloat(data.rows[0].eos/10000)).toFixed(2)
+                bonus_token_amount = Number(parseFloat(data.rows[0].token/10000)).toFixed(2)
+
+                bonus_stake_amount = Number(parseFloat(data.rows[0].stake_amount/10000)).toFixed(2)
+
+                
+                eos_earn = Number((bonus_eos_amount/bonus_stake_amount)*10000).toFixed(5)
+
+                token_earn = Number((bonus_token_amount/bonus_stake_amount)*10000).toFixed(5)
+            }
+
+            $(".bonus-eos-amount").text(bonus_eos_amount)
+            $(".bonus-token-amount").text(bonus_token_amount)
+            $(".bonus-eos-earn").text(eos_earn)
+            $(".bonus-token-earn").text(token_earn)
+            $(".stake-token-amount").text(bonus_stake_amount)
+            setTimeout(function(){
+                get_stake();
+                get_unstake();
+            }, 1000)
+        }).catch(e => {
+            console.error("getInviteInfo ", e);
+        });
+
+        
+    }
+
+    var get_stake = function(){
+        
+        eoss.getTableRows({
+            code: betContract,
+            scope: betContract,
+            table: "stake",
+            lower_bound:account.name,
+            limit:1,
+            json: true
+        }).then(data => {
+            console.log("stake ",  data)
+
+            var token = 0.00
+            var eos_myearn = 0.00
+            var token_myearn = 0.00
+
+            var eos_money = 0.00
+            var token_money = 0.00
+            if(data && data.rows && data.rows.length>0){
+                var amount = Number(parseFloat(data.rows[0].amount/10000)).toFixed(2);
+                token = amount;
+
+                eos_myearn = Number((bonus_eos_amount/bonus_stake_amount)*amount).toFixed(4)
+                token_myearn = Number((bonus_token_amount/bonus_stake_amount)*amount).toFixed(4)
+
+                eos_money = Number(parseFloat(data.rows[0].eos_amount/10000)).toFixed(4);
+                token_money = Number(parseFloat(data.rows[0].token_amount/10000)).toFixed(4);
+            }
+
+            $(".bonus-eos-money").text(eos_money)
+            $(".bonus-token-money").text(token_money)
+
+
+            $(".bonus-eos-myearn").text(eos_myearn)
+            $(".bonus-token-myearn").text(token_myearn)
+
+            $(".unstake-token").text(token);
+        }).catch(e => {
+            console.error("getInviteInfo ", e);
+        });
+    }
+
+    $("#stake").click(function(){
+        $(this).addClass('disabled')
+
+        var that = this
+        var money = $("#stake-money").val();
+        
+        stake(money, function(){
+            $(that).removeClass('disabled')
+        })
+    })
+
+    $("#unstake").click(function(){
+        $(this).addClass('disabled')
+        var money = $("#unstake-money").val();
+
+        var that = this
+
+        unstake(money, function(){
+            $(that).removeClass('disabled')
+        })    })
+
+    $("#takeout").click(function(){
+        $(this).addClass('disabled')
+        
+        var that = this
+
+        eoss.contract(betContract, {accouts:[network]}).then(contract=>{
+
+            contract.getbonus(account.name, {
+                authorization:[account.name+'@active']
+            })
+            .then( ( resp ) => {
+                console.log(resp)
+                get_stake();
+                showSuccess('领取成功');
+                $(that).removeClass('disabled')
+
+            }).catch(e => {
+                showAlert('领取失败' + e.message);
+                console.error("stake err:", e);
+                $(that).removeClass('disabled')
+
+            });
+        })
+
+    })
+
+    $("#releasestake").click(function(){
+        $(this).addClass('disabled')
+        
+        var that = this
+
+        eoss.contract(betContract, {accouts:[network]}).then(contract=>{
+
+            contract.restake(account.name, {
+                authorization:[account.name+'@active']
+            })
+            .then( ( resp ) => {
+                console.log(resp)
+                get_stake();
+                get_unstake();
+                showSuccess('重新抵押成功');
+                $(that).removeClass('disabled')
+
+            }).catch(e => {
+                showAlert('重新抵押失敗' + e.message);
+                console.error("stake err:", e);
+                $(that).removeClass('disabled')
+            });
+        })
+    })
+
+
+    $("#takeoutstake").click(function(){
+        $(this).addClass('disabled')
+        
+        var that = this
+
+        eoss.contract(betContract, {accouts:[network]}).then(contract=>{
+
+            contract.release(account.name, {
+                authorization:[account.name+'@active']
+            })
+            .then( ( resp ) => {
+                console.log(resp)
+                get_stake();
+                get_unstake();
+                showSuccess('領取成功');
+                $(that).removeClass('disabled')
+
+            }).catch(e => {
+                showAlert('領取失敗' + e.message);
+                console.error("stake err:", e);
+                $(that).removeClass('disabled')
+            });
+        })
+    })
+
+
+    var stake = function(money, callback){
+        money = parseInt( money * 10000 ) / 10000
+        money = Number(money).toFixed(4)
+        money += " BUG";
+        eoss.contract(bugContract, {accouts:[network]}).then(contract=>{
+
+            var meno = 'stake'
+            console.log(meno)
+            contract.transfer(account.name, betContract, money, meno, {
+                authorization:[account.name+'@active']
+            })
+            .then( ( resp ) => {
+                console.log(resp)
+                get_stake();
+                get_unstake();
+                showSuccess('抵押成功,请等待分红');
+                callback()
+            }).catch(e => {
+                showAlert('抵押失败' + e.message);
+                console.error("stake err:", e);
+                callback()
+            });
+        })
+    }
+
+    var unstake = function(money, callback){
+        money = parseInt( money * 10000 ) / 10000
+        money = Number(money).toFixed(4)
+        money += " BUG";
+
+        eoss.contract(betContract, {accouts:[network]}).then(contract=>{
+
+            //console.log(meno)
+            contract.unstaketoken(account.name, money, {
+                authorization:[account.name+'@active']
+            })
+            .then( ( resp ) => {
+                console.log(resp)
+                showSuccess('赎回成功,请等待24小时解除抵押');
+                get_stake();
+                get_unstake();
+                callback()
+            }).catch(e => {
+                console.error("stake err:", e);
+                showAlert('赎回失败' + e.message);
+                callback()
+            });
+        })
+    }
+
+    var get_unstake = function(){
+        
+        eoss.getTableRows({
+            code: betContract,
+            scope: betContract,
+            table: "unstake",
+            lower_bound:account.name,
+            index_position:2,
+            key_type: "i64",
+            limit:1,
+            json: true
+        }).then(data => {
+            console.log("unstake ",  data)
+
+            if(data.rows && data.rows.length>0 && data.rows[0].user == account.name){
+                $("#release-item").show();
+
+                var amount = Number(parseFloat(data.rows[0].amount/10000)).toFixed(4);
+
+                var t = parseInt(data.rows[0].time);
+                var t = t + 3600*24 - parseInt(Date.now()/1000) 
+                if (t > 0){
+                    var h = parseInt(t / 3600) ;
+                    h = h> 9?h:'0'+h;
+
+
+                    var m = parseInt(parseInt(t%3600)/60);
+                    m = m > 9 ? m : '0'+m;
+
+                    var s = parseInt(m%60)
+                    s = s >9 ? s : '0'+s
+
+                    $(".release-time").text(h+':'+m+':'+s)
+                    $("#takeoutstake").hide();
+
+                }else{
+                    $(".release-time").text('00:00:00')
+                    $("#takeoutstake").show();
+                }
+                $(".release-token").text(amount)
+            }else{
+                $("#release-item").hide();
+            }
+        }).catch(e => {
+            console.error("getInviteInfo ", e);
+        });
+    }
+
     var showSuccess = function(msg){
         $( ".modal.alert-msg" ).modal( "show" );
 
@@ -760,18 +1050,23 @@
 
 
     function countdown() {//倒计时
-        end_time=1508227190; //终止时间
+        var end_time=(parseInt(Date.now()/1000/86400) +1 ) * 86400 - 8*3600;  //终止时间
         var curr_time = parseInt(Date.parse(new Date())/1000);
         var diff_time=parseInt(end_time-curr_time);// 倒计时时间差
         var h = Math.floor(diff_time / 3600);
+        h = h > 9?h:'0'+h;
         var m = Math.floor((diff_time / 60 % 60));
+        m = m > 9?m:'0'+m;
+
         var s = Math.floor((diff_time % 60));
+        s = s > 9?s:'0'+s;
+
         $('.timer').html(h + "时" + m + "分" + s + "秒");
         if (diff_time<=0) {
             $('.timer').html(0 + "时" + 0 + "分" + 0 + "秒");
         };
     }
     countdown();
-    var start_time=setInterval(countdown(),1000);
+    var start_time=setInterval(function(){countdown()},1000);
     
 } )( jQuery );
