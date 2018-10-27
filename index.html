@@ -22,7 +22,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto; opacity: 0;">
+                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto;"  data-toggle="modal" data-target="#lottery">
                         <span>幸运抽奖</span>
                     </button>
                     <div class="src-occupy">
@@ -299,7 +299,7 @@
                 </div>
             </div>
         </div>
-        -->
+
         <!-- bonus -->
         <div class="fade bonus modal" data-backdrop=static id="bonus">
             <div class="modal-dialog">
@@ -361,7 +361,9 @@
                                     <div class="row">
                                         <div class="col-md-12 col-12 center panel">
                                             <!--<div class="text"><span>0.0000</span>DICE</div>-->
-                                            <div class="text">全網已抵押<span class="stake-token-amount">0</span> <!--(/<span>100</span>的流通DICE)--></div>
+                                            <div class="text">全網已抵押<span class="stake-token-amount">0</span>
+                                                <!--(/<span>100</span>的流通DICE)-->
+                                            </div>
                                         </div>
                                         <div class="col-md-12 col-12 center panel">
                                             <div class="text">可抵押<span class="balance-token-text"></span></div>
@@ -429,7 +431,7 @@
                 </div>
             </div>
         </div>
-        -->
+
         <!-- introduction -->
         <div class="fade introduction modal" data-backdrop=static id="introduction">
             <div class="modal-dialog" role="document">
@@ -456,7 +458,60 @@
                 </div>
             </div>
         </div>
-        -->
+
+        <!-- lottery -->
+        <div class="fade lottery modal" data-backdrop=static id="lottery">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="border: none;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="container" style="margin-top: -45px;">
+                        <!-- choice token -->
+                        <div class="center">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary active" id="play-eos">EOS</button>
+                                <button type="button" class="btn btn-secondary" id="play-dice">Dice</button>
+                            </div>
+                        </div>
+                        <h2>幸运抽奖</h2>
+                        <ul data-v-b7a3121c="" class="table">
+                            <li data-v-b7a3121c="">
+                                <div data-v-b7a3121c="">幸运号码</div>
+                                <div data-v-b7a3121c="">奖励</div>
+                            </li>
+                            <li data-v-b7a3121c="" class="">
+                                <div data-v-b7a3121c="">0-9885</div>
+                                <div data-v-b7a3121c="">0.0005 EOS</div>
+                            </li>
+                            <li data-v-b7a3121c="" class="">
+                                <div data-v-b7a3121c="">9886-9985</div>
+                                <div data-v-b7a3121c="">0.0050 EOS</div>
+                            </li>
+                            <li data-v-b7a3121c="" class="">
+                                <div data-v-b7a3121c="">9986-9993</div>
+                                <div data-v-b7a3121c="">0.0500 EOS</div>
+                            </li>
+                            <li data-v-b7a3121c="" class="">
+                                <div data-v-b7a3121c="">9994-9997</div>
+                                <div data-v-b7a3121c="">0.5000 EOS</div>
+                            </li>
+                            <li data-v-b7a3121c="" class="">
+                                <div data-v-b7a3121c="">9998-9999</div>
+                                <div data-v-b7a3121c="">5.0000 EOS</div>
+                            </li>
+                            <li data-v-b7a3121c="" class="">
+                                <div data-v-b7a3121c="">10000</div>
+                                <div data-v-b7a3121c="">50.0000 EOS</div>
+                            </li>
+                        </ul>
+                        <button type="button" class="lottery_button"><span>抽奖! (0)</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="lib/jquery-3.3.1.min.js"></script>

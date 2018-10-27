@@ -99,7 +99,7 @@ textarea {
 }
 
 .modal-content {
-    background: #444d54;
+    background: #222a49;
     padding: 20px;
     font-size: 14px;
     line-height: 24px;
@@ -583,5 +583,62 @@ td {
 
 .banner-data {
     width: 90%;
+    margin: auto;
+}
+.lottery h2{
+    text-align: center;
+    padding-bottom: 18px;
+    padding-top: 0px;
+    margin: 0;
+    font-size: 30px;
+    color:#fff;
+}
+.lottery .table{
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 16px;
+}
+.lottery ul.table li {
+    background-color: #222a49;
+    min-height: 36px;
+    display: flex;
+}
+.lottery ul.table li:first-child {
+    background-color: #f0c747;
+}
+.lottery ul.table li div {
+    text-align: center;
+    padding: 13px 0;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-top: -1px;
+    color: #eee;
+    font-size: 15px;
+}
+.lottery  ul.table li:first-child div {
+    color: #fff;
+    font-weight: 700;
+    padding: 15px 0;
+}
+.lottery .lottery_button{
+    min-width: 92px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #409EFF;
+    border-color: #409EFF;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: 0;
+    margin: 0;
+    transition: .1s;
+    padding: 12px 20px;
+    border-radius: 4px;
+    display: block;
     margin: auto;
 }
