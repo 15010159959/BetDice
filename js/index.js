@@ -625,6 +625,35 @@
         return s;
     }
 
+    $(".lottery_button").click(function(){
+        $(this).addClass('disabled')
+        
+        console.log("lottery_button");
+        var that = this
+
+        eoss.contract(betContract, {accouts:[network]}).then(contract=>{
+
+            contract.draw(account.name, {
+                authorization:[account.name+'@active']
+            })
+            .then( ( resp ) => {
+                console.log(resp)
+  
+                var inline_traces = resp.processed.action_traces[ 0 ].inline_traces
+                var i = inline_traces.length -1
+                var luckey_num = inline_traces[ i ].act.data.luckey_num
+                var payout = inline_traces[ i ].act.data.payout
+
+                showSuccess('抽奖成功! 幸运数字'+luckey_num+" 奖励"+payout);
+                $(that).removeClass('disabled')
+
+            }).catch(e => {
+                showAlert('抽奖失敗' + e.message);
+                console.error("stake err:", e);
+                $(that).removeClass('disabled')
+            });
+        })
+    })
 
     var bonus_eos_amount, bonus_token_amount, bonus_stake_amount;
     var get_bonuspool = function(){
