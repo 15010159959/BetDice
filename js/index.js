@@ -482,8 +482,8 @@
             json: true
         }).then(data => {
             //console.log("getTableRows ",  data.rows,data.rows.length, bets.length)
-
-            var l = data.rows.length
+            setInterval(function(){
+                var l = data.rows.length
             var j = bets.length
 
             for( i=j-l-1;i>=0;i--){
@@ -524,6 +524,9 @@
 
             currentId = maxId
 
+            },100)
+            
+
         }).catch(e => {
             console.error("getTableRows ", e);
         });
@@ -542,7 +545,9 @@
             key_type: "i64",
             json: true
         }).then(data => {
-            var l = data.rows.length
+
+            setInterval(function(){
+                var l = data.rows.length
 
             i = l-1;
             for(;i>0;i--){
@@ -580,6 +585,9 @@
                             '</tr>';   
             }
             $(".myBetData").html(html)
+            
+            },100)
+            
 
         }).catch(e => {
             console.error("getTableRows ", e);
