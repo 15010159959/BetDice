@@ -493,7 +493,7 @@
                     }
 
             
-                    $("#remain_draw_times").text(remain_draw_times)
+                        $("#remain_draw_times").text(remain_draw_times)
                     }
                 }
             }
@@ -700,6 +700,7 @@
                     var i = inline_traces.length - 1
                     var luckey_num = inline_traces[i].act.data.luckey_num
                     var payout = inline_traces[i].act.data.payout
+                    payout = payout/10000
 
                     showSuccess('抽奖成功! 幸运数字' + luckey_num + " 奖励" + payout);
                     $(that).removeClass('disabled')
