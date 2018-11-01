@@ -201,7 +201,7 @@
                         </thead>
                         <tbody id="bet-list" class="allBetData">
                         </tbody>
-                        <tbody id="bet-my-list" class="myBetData">
+                        <tbody id="bet-my-list" class="myBetData hidden">
                         </tbody>
                     </table>
                 </div>
@@ -479,37 +479,38 @@
                         -->
                         </div>
                         <h2>幸运抽奖</h2>
-                        <ul data-v-b7a3121c="" class="table">
-                            <li data-v-b7a3121c="">
-                                <div data-v-b7a3121c="">幸运号码</div>
-                                <div data-v-b7a3121c="">奖励</div>
+                        <ul class="table">
+                            <li>
+                                <div>幸运号码</div>
+                                <div>奖励</div>
                             </li>
-                            <li data-v-b7a3121c="" class="">
-                                <div data-v-b7a3121c="">0-9885</div>
-                                <div data-v-b7a3121c="">0.0005 EOS</div>
+                            <li class="">
+                                <div>0-9885</div>
+                                <div>0.0005 EOS</div>
                             </li>
-                            <li data-v-b7a3121c="" class="">
-                                <div data-v-b7a3121c="">9886-9985</div>
-                                <div data-v-b7a3121c="">0.0050 EOS</div>
+                            <li class="">
+                                <div>9886-9985</div>
+                                <div>0.0050 EOS</div>
                             </li>
-                            <li data-v-b7a3121c="" class="">
-                                <div data-v-b7a3121c="">9986-9993</div>
-                                <div data-v-b7a3121c="">0.0500 EOS</div>
+                            <li class="">
+                                <div>9986-9993</div>
+                                <div>0.0500 EOS</div>
                             </li>
-                            <li data-v-b7a3121c="" class="">
-                                <div data-v-b7a3121c="">9994-9997</div>
-                                <div data-v-b7a3121c="">0.5000 EOS</div>
+                            <li class="">
+                                <div>9994-9997</div>
+                                <div>0.5000 EOS</div>
                             </li>
-                            <li data-v-b7a3121c="" class="">
-                                <div data-v-b7a3121c="">9998-9999</div>
-                                <div data-v-b7a3121c="">5.0000 EOS</div>
+                            <li class="">
+                                <div>9998-9999</div>
+                                <div>5.0000 EOS</div>
                             </li>
-                            <li data-v-b7a3121c="" class="">
-                                <div data-v-b7a3121c="">10000</div>
-                                <div data-v-b7a3121c="">50.0000 EOS</div>
+                            <li class="">
+                                <div>10000</div>
+                                <div>50.0000 EOS</div>
                             </li>
                         </ul>
-                        <button type="button" class="lottery_button" ><span>抽奖</span></button>
+                        <button type="button" class="btn lottery_button" ><span>抽奖</span>(<span id="remain_draw_times">0</span>)</button>
+                        <div class="center lottery-draw hidden">下次抽奖时间:<span id="lottery_draw_time"></span></div>
                     </div>
                 </div>
             </div>
