@@ -205,7 +205,7 @@ nav a:hover {
 
 #box {
     position: relative;
-    margin: 50px auto;
+    margin: 60px auto 0px;
 }
 
 #bg {
@@ -222,7 +222,7 @@ nav a:hover {
     height: 20px;
     border-radius: 5px;
     width: 50%;
-    transition: width 0.2s ease;
+    /*transition: width 0.2s ease;*/
 }
 
 #bgcolor {
@@ -253,6 +253,68 @@ nav a:hover {
     line-height: 30px;
     font-weight: 800;
     user-select: none;
+}
+
+#dice-slider-button i{
+    width: 24px;
+    height: 24px;
+    background-color: rgb(244, 244, 244);
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    top: 50%;
+    margin-top: -13px;
+    cursor: pointer;
+    /* 初始化 */
+    box-shadow: 0 0 5px #fff;
+    cursor: -webkit-grabbing;
+    z-index: 2;
+}
+
+#dice-slider-button i:after {
+    content: "";
+    display: block;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    -webkit-box-shadow: 0 0 12px #fff inset;
+    box-shadow: 0 0 12px #fff inset;
+}
+
+
+
+#dice-slider-button em {
+    font-style: normal;
+    text-decoration: none;
+    width: 58px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    position: absolute;
+    top: -44px;
+    left: 50%;
+    margin-left: -31px;
+    background-color: #5b5f62;
+    border-radius: 3px;
+    text-align: center;
+
+}
+
+#dice-slider-button em:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 24px;
+    bottom: -5px;
+    border-top: 5px solid #5b5f62;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
 }
 
 #text {
@@ -641,4 +703,22 @@ td {
     border-radius: 4px;
     display: block;
     margin: auto;
+}
+
+.row-cursor {
+    margin: 10px auto;
+    color: #949496;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+.row-cursor-right {
+    text-align: right;
+    padding-right: 0px;
+}
+
+.row-cursor-left {
+    text-align: left;
+    padding-left: 0px;
 }

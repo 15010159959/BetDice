@@ -22,7 +22,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto;"  data-toggle="modal" data-target="#lottery">
+                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto;" data-toggle="modal"
+                        data-target="#lottery">
                         <span>幸运抽奖</span>
                     </button>
                     <div class="src-occupy">
@@ -122,7 +123,26 @@
                                             <div id="bgcolor"></div>
                                             <div id="bgcolor-neg"></div>
                                         </div>
-                                        <div id="bt">50</div>
+                                        <!--<div id="bt">50</div>-->
+                                        <div id="dice-slider-button"><i id="dice-slider-button-i"></i><em id="dice-slider-button-em">50</em></div>
+                                    </div>
+
+                                </div>
+                                <div class="row row-cursor">
+                                    <div class="col-md-2 row-cursor-left">
+                                        1
+                                    </div>
+                                    <div class="col-md-2">
+                                        25
+                                    </div>
+                                    <div class="col-md-4">
+                                        50
+                                    </div>
+                                    <div class="col-md-2">
+                                        75
+                                    </div>
+                                    <div class="col-md-2 row-cursor-right">
+                                        100
                                     </div>
                                 </div>
 
@@ -509,7 +529,7 @@
                                 <div>50.0000 EOS</div>
                             </li>
                         </ul>
-                        <button type="button" class="btn lottery_button" ><span>抽奖</span>(<span id="remain_draw_times">0</span>)</button>
+                        <button type="button" class="btn lottery_button"><span>抽奖</span>(<span id="remain_draw_times">0</span>)</button>
                         <div class="center lottery-draw hidden">下次抽奖时间:<span id="lottery_draw_time"></span></div>
                     </div>
                 </div>

@@ -71,12 +71,13 @@
 
     // 进度条数字获取  $bt.html( parseInt(left / 6.5));
     var $box = $('#box');
-    var $bt = $('#bt'); //选择的数
     var $result_bt = $('#result_bt'); //结果数字
     var $bg = $('#bg');
     var $bgcolor = $('#bgcolor');
     var $bgcolor_neg = $('#bgcolor-neg');
-    var $btn = $('#bt');
+    var $btn = $('#dice-slider-button-i'); //选择的数
+    var $slider_number = $('#dice-slider-button-em'); //选择的数
+
     var $text = $('#text');
     var statu = false;
     var ox = 0;
@@ -141,10 +142,14 @@
 
         width = left - $bg.width() / 2;
         $btn.css('marginLeft', width);
+        $slider_number.css('marginLeft', width - 15)
+
         $bgcolor.width(left + 15);
         $bgcolor_neg.width(max - left + 15);
         ratio = left * 100 / max;
-        $bt.html(parseInt(ratio));
+        //$btn.html(parseInt(ratio));
+        $slider_number.text(parseInt(ratio));
+
         $('#myNumber').html(parseInt(ratio));
         var odds = Number(98.5 / (parseInt(ratio) - 1)).toFixed(2)
         $('#odds').html(odds + 'x'); //赔率计算
