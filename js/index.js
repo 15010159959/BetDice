@@ -401,8 +401,9 @@
                     .catch((err) => {
                         hideLoading()
                         console.log("err ", err, JSON.stringify(err));
+                        var errJson = JSON.parse(err)
 
-                        showAlert('执行失败' + err.message, false)
+                        showAlert('执行失败' + errJson.error.name, false)
                     });
             })
 
@@ -705,14 +706,20 @@
                     var i = inline_traces.length - 1
                     var luckey_num = inline_traces[i].act.data.luckey_num
                     var payout = inline_traces[i].act.data.payout
-                    payout = payout/10000
+                    //console.log(payout)
 
+                    //payout = parseFloat(payout)
+                    //payout = payout/10000
                     showSuccess('抽奖成功! 幸运数字' + luckey_num + " 奖励" + payout);
                     $(that).removeClass('disabled')
 
                 }).catch(e => {
-                    showAlert('抽奖失敗' + e.message);
-                    console.error("stake err:", e);
+
+                    var errJson = JSON.parse(e)
+
+                    showAlert('抽奖失敗' +err.error.name);
+
+                    console.error("stake err:", e, e.message);
                     $(that).removeClass('disabled')
                 });
         })
@@ -959,7 +966,9 @@
                     callback()
                 }).catch(e => {
                     console.error("stake err:", e);
-                    showAlert('赎回失败' + e.message);
+                    var err = JSON.parse(e)
+
+                    showAlert('赎回失败' + err.error.name);
                     callback()
                 });
         })
@@ -1099,14 +1108,14 @@
     });
 
     $('#play-dice').click(function () {
-        if (playType == 'dice') {
+        if (playType == 'ai') {
             return
         }
-        playType = 'dice'
+        playType = 'ai'
         $("#play-dice").addClass('active')
         $("#play-eos").removeClass('active')
 
-        $(".play-type").text('DICE')
+        $(".play-type").text('AI')
         $("#money").val(100.00);
     });
 
@@ -1177,9 +1186,13 @@
         s = s > 9 ? s : '0' + s;
 
         $('.timer').html(h + "时" + m + "分" + s + "秒");
+        $("#bonus-remain-time").html(h+":"+m+":"+s)
         if (diff_time <= 0) {
+            $("#bonus-remain-time").html("00:00:00")
             $('.timer').html(0 + "时" + 0 + "分" + 0 + "秒");
         };
+
+        
     }
     countdown();
     var start_time = setInterval(function () {
