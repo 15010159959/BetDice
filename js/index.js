@@ -164,7 +164,7 @@
     var tpAccount = null;
     var balanceEos = 0;
     var balanceBetDice = 0;
-    var betContract = "yangshun2532"
+    var betContract = "yangshun2541"
     var bugContract = "yangshun2534"
 
     var inviteCode = "";
@@ -351,7 +351,7 @@
             }
             
 
-            money += " BUG"
+            money += " AI"
             code = bugContract
         }
 
@@ -446,7 +446,7 @@
 
 
         eoss.getAbi({
-            account_name: "yangshun2532"
+            account_name: "yangshun2541"
         }).then(data => {
             console.log("getCode ", data)
 
@@ -914,7 +914,7 @@
     var stake = function (money, callback) {
         money = parseInt(money * 10000) / 10000
         money = Number(money).toFixed(4)
-        money += " BUG";
+        money += " AI";
         eoss.contract(bugContract, {
             accouts: [network]
         }).then(contract => {
@@ -941,7 +941,7 @@
     var unstake = function (money, callback) {
         money = parseInt(money * 10000) / 10000
         money = Number(money).toFixed(4)
-        money += " BUG";
+        money += " AI";
 
         eoss.contract(betContract, {
             accouts: [network]

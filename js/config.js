@@ -20,7 +20,7 @@ if(ENV === 'dev'){
         chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
         httpEndpoint: "http://127.0.0.1:8888"
     };
-} else if(ENV === 'testnet'){
+} else if(ENV === 'testnet1'){
     // remote testnet
     network = {
         blockchain: 'eos',
@@ -35,7 +35,7 @@ if(ENV === 'dev'){
         chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
         httpEndpoint: "http://jungle.cryptolions.io"
     };
-} else if(ENV === 'testnet1'){
+} else if(ENV === 'testnet'){
     // remote testnet
     network = {
         blockchain: 'eos',
