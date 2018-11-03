@@ -204,7 +204,7 @@
                     checkCount++
                     return
                 } else {
-                    if (status == true){
+                    if (status == true) {
                         return
                     }
                     status = true
@@ -339,17 +339,17 @@
 
                 hideLoading()
                 showAlert('EOS余额不足')
-                return 
+                return
             }
             money += " EOS"
         } else {
             if (money < 0.1 || money > parseFloat(balanceBetDice)) {
 
                 hideLoading()
-                showAlert('余额不足')   
+                showAlert('余额不足')
                 return
             }
-            
+
 
             money += " AI"
             code = bugContract
@@ -395,6 +395,7 @@
 
                         setTimeout(function () {
                             get_cpu();
+                            getBetRanks()
                         }, 1000)
 
                     })
@@ -443,8 +444,9 @@
         });
     }
 
+    var lottery_draw_time_interval;
+    var last_draw_time;
     var getBetRanks = function () {
-
 
         eoss.getAbi({
             account_name: "yangshun2541"
@@ -467,38 +469,56 @@
             var html = '';
 
             var rows = []
-            var day_time = (parseInt(Date.now() / 1000 / 86400) + 1) * 86400 - 8 * 3600 - 24*3600; //终止时间
+            var day_time = (parseInt(Date.now() / 1000 / 86400) + 1) * 86400 - 8 * 3600 - 24 * 3600; //终止时间
 
-            for (var i in data.rows){
-                if (data.rows[i].last_bet_time > day_time){
+            for (var i in data.rows) {
+                if (data.rows[i].last_bet_time > day_time) {
                     rows.push(data.rows[i])
                 }
-                if (data.rows[i].user == account.name){
+                if (data.rows[i].user == account.name) {
+                    clearInterval(lottery_draw_time_interval)
                     remain_draw_times = data.rows[i].remain_draw_times
                     last_draw_time = data.rows[i].last_draw_time
 
                     $(".lottery_button").removeClass('disabled')
-                    if (remain_draw_times == 0){
+                    if (remain_draw_times == 0) {
                         $(".lottery_button").addClass('disabled')
                         $(".lottery-draw").hide()
-                    }else{
-                    if ((Date.now()/1000 - last_draw_time)<3600){
-                        $(".lottery_button").addClass('disabled')
-                        $(".lottery-draw").show()
-                        var t = 3600 - (Date.now()/1000 - last_draw_time)
-                        var m = parseInt(t/ 60);
-                        m = m > 9 ? m : '0' + m;
-    
-                        var s = parseInt(t % 60)
-                        s = s > 9 ? s : '0' + s
+                    } else {
+                        if ((Date.now() / 1000 - last_draw_time) < 3600) {
+                            $(".lottery_button").addClass('disabled')
+                            $(".lottery-draw").show()
+                            var t = 3600 - (Date.now() / 1000 - last_draw_time)
+                            var m = parseInt(t / 60);
+                            m = m > 9 ? m : '0' + m;
 
-                        $("#lottery_draw_time").text(m+':'+s);
+                            var s = parseInt(t % 60)
+                            s = s > 9 ? s : '0' + s
 
-                    }else{
-                        $(".lottery-draw").hide()
-                    }
+                            $("#lottery_draw_time").text(m + ':' + s);
 
-            
+                            lottery_draw_time_interval = setInterval(function () {
+                                if ((Date.now() / 1000 - last_draw_time) < 3600) {
+                                    var t = 3600 - (Date.now() / 1000 - last_draw_time)
+                                    var m = parseInt(t / 60);
+                                    m = m > 9 ? m : '0' + m;
+
+                                    var s = parseInt(t % 60)
+                                    s = s > 9 ? s : '0' + s
+
+                                    $("#lottery_draw_time").text(m + ':' + s);
+                                } else {
+                                    clearInterval(lottery_draw_time_interval)
+                                    $("#lottery_draw_time").text("")
+                                    $(".lottery_button").removeClass('disabled')
+                                    $(".lottery-draw").hide()
+                                }
+                            }, 1000)
+                        } else {
+                            $(".lottery-draw").hide()
+                        }
+
+
                         $("#remain_draw_times").text(remain_draw_times)
                     }
                 }
@@ -603,44 +623,44 @@
             json: true
         }).then(data => {
 
-                var l = data.rows.length
+            var l = data.rows.length
 
-                i = l - 1;
-                for (; i > 0; i--) {
-                    if (data.rows[i].player == account.name) {
-                        break;
-                    }
+            i = l - 1;
+            for (; i > 0; i--) {
+                if (data.rows[i].player == account.name) {
+                    break;
                 }
-                var mbets = []
-                j = 0;
-                for (; i > 0 & j < 20; i--) {
-                    mbets[j] = data.rows[i]
-                    j++
-                }
-                var html = ""
-                for (var i in mbets) {
-                    var row = mbets[i]
+            }
+            var mbets = []
+            j = 0;
+            for (; i > 0 & j < 20; i--) {
+                mbets[j] = data.rows[i]
+                j++
+            }
+            var html = ""
+            for (var i in mbets) {
+                var row = mbets[i]
 
-                    var p = parseFloat(row.payout)
-                    var s = p > 0 ? 'win' : 'list'
-                    var d = new Date(row.timestamp * 1000)
+                var p = parseFloat(row.payout)
+                var s = p > 0 ? 'win' : 'list'
+                var d = new Date(row.timestamp * 1000)
 
-                    var t = d.getHours() > 9 ? d.getHours() : '0' + d.getHours()
-                    t += ':'
-                    t += d.getMinutes() > 9 ? d.getMinutes() : '0' + d.getMinutes()
-                    t += ':'
-                    t += d.getSeconds() > 9 ? d.getSeconds() : '0' + d.getSeconds()
+                var t = d.getHours() > 9 ? d.getHours() : '0' + d.getHours()
+                t += ':'
+                t += d.getMinutes() > 9 ? d.getMinutes() : '0' + d.getMinutes()
+                t += ':'
+                t += d.getSeconds() > 9 ? d.getSeconds() : '0' + d.getSeconds()
 
-                    html += '<tr class="' + s + '">' +
-                        '<td>' + t + '</td>' +
-                        '<td>' + row.player + '</td>' +
-                        '<td>' + row.roll_under + '</td>' +
-                        '<td>' + parseFloat(row.amount) + '</td>' +
-                        '<td>' + row.random_roll + '</td>' +
-                        '<td>' + row.payout + '</td>' +
-                        '</tr>';
-                }
-                $(".myBetData").html(html)
+                html += '<tr class="' + s + '">' +
+                    '<td>' + t + '</td>' +
+                    '<td>' + row.player + '</td>' +
+                    '<td>' + row.roll_under + '</td>' +
+                    '<td>' + parseFloat(row.amount) + '</td>' +
+                    '<td>' + row.random_roll + '</td>' +
+                    '<td>' + row.payout + '</td>' +
+                    '</tr>';
+            }
+            $(".myBetData").html(html)
 
         }).catch(e => {
             console.error("getTableRows ", e);
@@ -713,11 +733,13 @@
                     showSuccess('抽奖成功! 幸运数字' + luckey_num + " 奖励" + payout);
                     $(that).removeClass('disabled')
 
+                    getBetRanks()
+
                 }).catch(e => {
 
                     var errJson = JSON.parse(e)
 
-                    showAlert('抽奖失敗' +err.error.name);
+                    showAlert('抽奖失敗' + err.error.name);
 
                     console.error("stake err:", e, e.message);
                     $(that).removeClass('disabled')
@@ -788,7 +810,8 @@
 
             var eos_money = 0.00
             var token_money = 0.00
-            if (data && data.rows && data.rows.length > 0) {
+            //var stake_amount = 0.00;
+            if (data && data.rows && data.rows.length > 0 && data.rows[0].user == account.name) {
                 var amount = Number(parseFloat(data.rows[0].amount / 10000)).toFixed(2);
                 token = amount;
 
@@ -849,11 +872,14 @@
                 .then((resp) => {
                     console.log(resp)
                     get_stake();
+                    get_bonuspool();
                     showSuccess('领取成功');
                     $(that).removeClass('disabled')
 
                 }).catch(e => {
-                    showAlert('领取失败' + e.message);
+                    var err = JSON.parse(e)
+                    showAlert('领取失败' + err.error.name);
+
                     console.error("stake err:", e);
                     $(that).removeClass('disabled')
 
@@ -878,11 +904,13 @@
                     console.log(resp)
                     get_stake();
                     get_unstake();
+                    get_bonuspool();
                     showSuccess('重新抵押成功');
                     $(that).removeClass('disabled')
 
                 }).catch(e => {
-                    showAlert('重新抵押失敗' + e.message);
+                    var err = JSON.parse(e)
+                    showAlert('重新抵押失敗' + err.error.name);
                     console.error("stake err:", e);
                     $(that).removeClass('disabled')
                 });
@@ -906,6 +934,7 @@
                     console.log(resp)
                     get_stake();
                     get_unstake();
+                    get_bonuspool();
                     showSuccess('領取成功');
                     $(that).removeClass('disabled')
 
@@ -935,6 +964,7 @@
                     console.log(resp)
                     get_stake();
                     get_unstake();
+                    get_bonuspool();
                     showSuccess('抵押成功,请等待分红');
                     callback()
                 }).catch(e => {
@@ -963,6 +993,7 @@
                     showSuccess('赎回成功,请等待24小时解除抵押');
                     get_stake();
                     get_unstake();
+                    get_bonuspool();
                     callback()
                 }).catch(e => {
                     console.error("stake err:", e);
@@ -974,6 +1005,8 @@
         })
     }
 
+    var release_time_interval;
+    var release_time;
     var get_unstake = function () {
 
         eoss.getTableRows({
@@ -991,9 +1024,12 @@
             if (data.rows && data.rows.length > 0 && data.rows[0].user == account.name) {
                 $("#release-item").show();
 
+                clearInterval(release_time_interval)
                 var amount = Number(parseFloat(data.rows[0].amount / 10000)).toFixed(4);
 
                 var t = parseInt(data.rows[0].time);
+
+                release_time = t
                 var t = t + 3600 * 24 - parseInt(Date.now() / 1000)
                 if (t > 0) {
                     var h = parseInt(t / 3600);
@@ -1003,12 +1039,40 @@
                     var m = parseInt(parseInt(t % 3600) / 60);
                     m = m > 9 ? m : '0' + m;
 
-                    var s = parseInt(m % 60)
+                    var s = parseInt(parseInt(t % 3600) % 60)
                     s = s > 9 ? s : '0' + s
 
                     $(".release-time").text(h + ':' + m + ':' + s)
                     $("#takeoutstake").hide();
 
+                    
+                    release_time_interval = setInterval(function () {
+                        var t  = release_time
+                        release_time--
+                        t = t + 3600 * 24 - parseInt(Date.now() / 1000)
+
+                        console.log(parseInt(Date.now() / 1000))
+                        if (t > 0) {
+                            var h = parseInt(t / 3600);
+                            h = h > 9 ? h : '0' + h;
+
+
+                            var m = parseInt(parseInt(t % 3600) / 60);
+                            m = m > 9 ? m : '0' + m;
+
+                            var s = parseInt(parseInt(t % 3600) % 60)
+                            s = s > 9 ? s : '0' + s
+
+                            $(".release-time").text(h + ':' + m + ':' + s)
+
+
+                            $("#takeoutstake").hide();
+                        } else {
+                            clearInterval(release_time_interval)
+                            $(".release-time").text('00:00:00')
+                            $("#takeoutstake").show();
+                        }
+                    }, 1000)
                 } else {
                     $(".release-time").text('00:00:00')
                     $("#takeoutstake").show();
@@ -1186,13 +1250,13 @@
         s = s > 9 ? s : '0' + s;
 
         $('.timer').html(h + "时" + m + "分" + s + "秒");
-        $("#bonus-remain-time").html(h+":"+m+":"+s)
+        $("#bonus-remain-time").html(h + ":" + m + ":" + s)
         if (diff_time <= 0) {
             $("#bonus-remain-time").html("00:00:00")
             $('.timer').html(0 + "时" + 0 + "分" + 0 + "秒");
         };
 
-        
+
     }
     countdown();
     var start_time = setInterval(function () {
