@@ -87,7 +87,7 @@
 
     var remain_draw_times = 0;
 
-    $(".lottery_button").addClass('disabled');
+    $(".lottery_button").attr("disabled",true);
 
     $btn.on("mousedown", function (e) {
         lx = parseInt($btn.css("marginLeft")) + $bg.width() / 2;
@@ -480,13 +480,13 @@
                     remain_draw_times = data.rows[i].remain_draw_times
                     last_draw_time = data.rows[i].last_draw_time
 
-                    $(".lottery_button").removeClass('disabled')
+                    $(".lottery_button").attr("disabled",false)
                     if (remain_draw_times == 0) {
-                        $(".lottery_button").addClass('disabled')
+                        $(".lottery_button").attr("disabled",true)
                         $(".lottery-draw").hide()
                     } else {
                         if ((Date.now() / 1000 - last_draw_time) < 3600) {
-                            $(".lottery_button").addClass('disabled')
+                            $(".lottery_button").attr("disabled",true)
                             $(".lottery-draw").show()
                             var t = 3600 - (Date.now() / 1000 - last_draw_time)
                             var m = parseInt(t / 60);
@@ -510,7 +510,7 @@
                                 } else {
                                     clearInterval(lottery_draw_time_interval)
                                     $("#lottery_draw_time").text("")
-                                    $(".lottery_button").removeClass('disabled')
+                                    $(".lottery_button").attr("disabled",false)
                                     $(".lottery-draw").hide()
                                 }
                             }, 1000)
@@ -707,7 +707,8 @@
     }
 
     $(".lottery_button").click(function () {
-        $(this).addClass('disabled')
+
+        $(this).attr("disabled",true)
 
         console.log("lottery_button");
         var that = this
@@ -731,7 +732,7 @@
                     //payout = parseFloat(payout)
                     //payout = payout/10000
                     showSuccess('抽奖成功! 幸运数字' + luckey_num + " 奖励" + payout);
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
 
                     getBetRanks()
 
@@ -739,10 +740,9 @@
 
                     var errJson = JSON.parse(e)
 
-                    showAlert('抽奖失敗' + err.error.name);
+                    showAlert('抽奖失敗' + errJson.error.name);
 
-                    console.error("stake err:", e, e.message);
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
                 });
         })
     })
@@ -836,29 +836,29 @@
     }
 
     $("#stake").click(function () {
-        $(this).addClass('disabled')
+        $(this).attr("disabled",true)
 
         var that = this
         var money = $("#stake-money").val();
 
         stake(money, function () {
-            $(that).removeClass('disabled')
+            $(that).attr("disabled",false)
         })
     })
 
     $("#unstake").click(function () {
-        $(this).addClass('disabled')
+        $(this).attr("disabled",true)
         var money = $("#unstake-money").val();
 
         var that = this
 
         unstake(money, function () {
-            $(that).removeClass('disabled')
+            $(that).attr("disabled",false)
         })
     })
 
     $("#takeout").click(function () {
-        $(this).addClass('disabled')
+        $(this).attr("disabled",true)
 
         var that = this
 
@@ -874,14 +874,14 @@
                     get_stake();
                     get_bonuspool();
                     showSuccess('领取成功');
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
 
                 }).catch(e => {
                     var err = JSON.parse(e)
                     showAlert('领取失败' + err.error.name);
 
                     console.error("stake err:", e);
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
 
                 });
         })
@@ -889,7 +889,7 @@
     })
 
     $("#releasestake").click(function () {
-        $(this).addClass('disabled')
+        $(this).attr("disabled",true)
 
         var that = this
 
@@ -906,20 +906,20 @@
                     get_unstake();
                     get_bonuspool();
                     showSuccess('重新抵押成功');
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
 
                 }).catch(e => {
                     var err = JSON.parse(e)
                     showAlert('重新抵押失敗' + err.error.name);
                     console.error("stake err:", e);
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
                 });
         })
     })
 
 
     $("#takeoutstake").click(function () {
-        $(this).addClass('disabled')
+        $(this).attr("disabled",true)
 
         var that = this
 
@@ -936,12 +936,12 @@
                     get_unstake();
                     get_bonuspool();
                     showSuccess('領取成功');
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
 
                 }).catch(e => {
                     showAlert('領取失敗' + e.message);
                     console.error("stake err:", e);
-                    $(that).removeClass('disabled')
+                    $(that).attr("disabled",false)
                 });
         })
     })
@@ -1051,7 +1051,6 @@
                         release_time--
                         t = t + 3600 * 24 - parseInt(Date.now() / 1000)
 
-                        console.log(parseInt(Date.now() / 1000))
                         if (t > 0) {
                             var h = parseInt(t / 3600);
                             h = h > 9 ? h : '0' + h;
