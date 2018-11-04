@@ -1169,6 +1169,8 @@
 
         $(".play-type").text('EOS')
         $("#money").val(0.10);
+        var odds = parseFloat($("#odds").text())
+        $('#may_get_money').val(Number((odds * 0.1).toFixed(2))); //可能获得的奖金
     });
 
     $('#play-dice').click(function () {
