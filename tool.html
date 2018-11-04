@@ -1,0 +1,494 @@
+
+<html>
+
+    <head>
+      <meta charset="utf-8">
+      <title>DICE挖矿</title>
+      <link rel="shortcut icon" href="favicon.ico" />
+      <script src="https://cdn.jsdelivr.net/npm/eosjs@16.0.9/lib/eos.min.js"></script>
+      <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-core.min.js"></script>
+      <script src="https://cdn.scattercdn.com/file/scatter-cdn/js/latest/scatterjs-plugin-eosjs.min.js"></script>  
+      <script>
+        var chainId = '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca';
+    
+        var eos = null;
+        var state = 0;
+        var rollUnder = 0;
+        var betamount = '';
+        var referralsaccount = '';
+        var timeout = 0;
+        var memo = '';
+        var balance = -1;
+        var balanceUnder = 0;
+        var checkTokenQuantityTimeout = 2000;
+        var hasCPU = false;
+        var cpuAvailable = '';
+        var network = null;
+        var identity = null;
+        var cpuUnder = 0;
+        var betaccount = '';
+    
+        function randomx(t) {
+          for (var n = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890',
+            e = '', o = 0;
+            o < t; o++)
+            e += n.charAt(Math.floor(Math.random() * n.length));
+          return e
+        }
+    
+        function createMemo() {
+          return '' + rollUnder +'';
+        }
+    
+        function bet() {
+          if (state == 0) {
+            log("已经停止");
+            return;
+          }
+          if (balance == -1) {
+            log("等待检测余额");
+            setTimeout(bet, 1000);
+            return;
+          }
+    
+          checkInputs();
+    
+          if (balanceUnder > 0 && balance <= balanceUnder) {
+            log("余额达到限制边界，已经停止");
+            return;
+          }
+    
+          if (betamount == '') {
+            log('请输入下注金额');
+            return;
+          }
+    
+          if (!hasCPU) {
+            log(`CPU资源不足${cpuAvailable}，等待CPU释放后继续`);
+            setTimeout(bet, 1000);
+            return;
+          }
+    
+          if (identity == null) {
+            log("请登陆");
+            setTimeout(bet, 1000);
+            return;
+          }
+    
+          var data = {
+            from: getAccountName(),
+            to: 'yangshun2541',
+            quantity: betamount,
+            memo: memo == '' ? createMemo() : memo
+          };
+          log(new Date() + ' ' + JSON.stringify(data));
+          transfer(data.to, data.quantity, data.memo, function (trx) {
+            log(`${new Date()} 交易ID: ${trx.transaction_id}`);
+            if (timeout > 0) {
+              log(`${new Date()} 等待 ${timeout}ms`);
+              setTimeout(bet, timeout);
+            } else {
+              bet();
+            }
+          }, function (err) {
+            var message = err.message == undefined ? JSON.parse(err).error.details[0].message : err.message;
+            if (message == 'User rejected the signature request' || message == 'Invalid packed transaction') {
+              log(`${new Date()} 用户取消，已经停止。`);
+              stop();
+              return;
+            }
+            log(`${new Date()} 发现错误："${message}"`);
+            if (timeout > 0) {
+              log(`${new Date()} 等待 ${timeout}ms`);
+              setTimeout(bet, timeout);
+            } else {
+              bet();
+            }
+          });
+        }
+    
+        function rent() {
+          if (identity == null) {
+            log("请登陆");
+            return;
+          }
+          log(`${new Date()} 开始向CPU租用1天的CPU资源，价格是：0.1000 EOS 一天`);
+          transfer('cpubankeosio', "0.1000 EOS", `1d ${getAccountName()} cpu`, function (trx) {
+            document.getElementById('rentResult').innerHTML = '成功租用了1天的CPU资源';
+            log(`${new Date()} 交易ID: ${trx.transaction_id} 成功租用了1天的CPU资源`);
+          }, function (err) {
+            var message = err.message == undefined ? JSON.parse(err).error.details[0].message : err.message;
+            if (message == 'User rejected the signature request' || message == 'Invalid packed transaction') {
+              document.getElementById('rentResult').innerHTML = '用户取消租用CPU';
+              log(`${new Date()} 用户取消租用CPU`);
+              return;
+            }
+            if (message == 'assertion failure with message: overdrawn balance') {
+              document.getElementById('rentResult').innerHTML = '租用失败：CPU银行正在备货中，请稍后重试';
+              log(`${new Date()} 租用失败：CPU银行正在备货中，请稍后重试`);
+              return;
+            }
+            document.getElementById('rentResult').innerHTML = `租用失败："${message}"`;
+            log(`${new Date()} 租用失败："${message}"`);
+          });
+        }
+    
+        function log(msg) {
+          var txtResults = document.getElementById('txtResults');
+          var html = txtResults.innerHTML;
+          var items = html == '' ? [] : html.split('\n');
+          var overflow = items.length - 100;
+          if (overflow > 0) {
+            items.splice(0, overflow);
+          }
+          items.push(msg);
+          txtResults.innerHTML = items.join('\n');
+          txtResults.scrollTop = txtResults.scrollHeight;
+        }
+    
+        function checkoutNetworks() {
+          var httpEndpoint = document.getElementById('txtHttpEndpoint').value.split('://');
+          var host = httpEndpoint[1].split(':');
+    
+          network = {
+            blockchain: 'eos',
+            host: host[0],
+            port: host.length > 1 ? host[1] : (httpEndpoint[0].toLowerCase() == 'https' ? 443 : 80),
+            chainId: chainId,
+            protocol: httpEndpoint[0],
+          };
+          
+          eos = scatter.eos(network, Eos, { expireInSeconds: 60 }, "https");
+          log(`网络参数：${JSON.stringify(network)}`);
+        }
+    
+        function checkInputs() {
+          rollUnder = new Number(document.getElementById("txtRollUnder").value).valueOf();
+          if (isNaN(rollUnder)) {
+            rollUnder = 0;
+          }
+    
+          betamount = document.getElementById('txtAmount').value;
+          referralsaccount = document.getElementById('txtReferrals').value;
+          timeout = new Number(document.getElementById('txtTimeout').value).valueOf();
+          balanceUnder = new Number(document.getElementById('txtBalanceUnder').value).valueOf();
+          cpuUnder = new Number(document.getElementById('txtCPUUnder').value).valueOf();
+    
+          if (isNaN(timeout)) {
+            timeout = 0;
+          }
+    
+          if (isNaN(balanceUnder)) {
+            balanceUnder = 0;
+          }
+    
+          if (isNaN(cpuUnder)) {
+            cpuUnder = 0;
+          }
+        }
+    
+        function start() {
+          if (state == 1) {
+            return;
+          }
+    
+          if (identity == null) {
+            alert("请登陆");
+            return;
+          }
+    
+          checkInputs();
+          checkoutNetworks()
+    
+          state = 1;
+          disableInputs(true);
+          document.getElementById('txtResults').innerHTML = '';
+          setTimeout(bet, 1000);
+        }
+    
+        function stop() {
+          state = 0;
+          disableInputs(false);
+        }
+    
+        function disableInputs(disabled) {
+          document.getElementById('txtHttpEndpoint').disabled = disabled;
+          document.getElementById('txtRollUnder').disabled = disabled;
+          document.getElementById('txtAmount').disabled = disabled;
+          document.getElementById('txtBalanceUnder').disabled = disabled;
+          document.getElementById('txtReferrals').disabled = disabled;
+          document.getElementById('txtTimeout').disabled = disabled;
+    
+          document.getElementById('btnLogin').disabled = disabled;
+          document.getElementById('btnLogout').disabled = disabled;
+    
+          document.getElementById('btnUpdateAmount1').disabled = disabled;
+          document.getElementById('btnUpdateAmount2').disabled = disabled;
+          document.getElementById('btnUpdateAmount3').disabled = disabled;
+          document.getElementById('btnUpdateAmount4').disabled = disabled;
+          document.getElementById('btnUpdateAmount5').disabled = disabled;
+          document.getElementById('btnUpdateAmount6').disabled = disabled;
+    
+          document.getElementById('btnUpdateTimeout1').disabled = disabled;
+          document.getElementById('btnUpdateTimeout2').disabled = disabled;
+          document.getElementById('btnUpdateTimeout3').disabled = disabled;
+          document.getElementById('btnUpdateTimeout4').disabled = disabled;
+          document.getElementById('btnUpdateTimeout5').disabled = disabled;
+        }
+    
+        function lock() {
+          disableInputs(true);
+        }
+    
+        function unlock() {
+          disableInputs(false);
+        }
+    
+        function updateInputValue(id, value) {
+          document.getElementById(id).value = value;
+        }
+    
+        function multiplyInputValue(id, factor, defaultValue, fixedNum, unit, min, max) {
+          var originalValue = document.getElementById(id).value.split(' ')[0];
+          originalValue = new Number(originalValue).valueOf();
+          if (isNaN(originalValue)) {
+            originalValue = defaultValue;
+          }
+          var factor = new Number(factor).valueOf();
+          if (isNaN(factor)) {
+            factor = 1;
+          }
+          var newValue = originalValue * factor;
+          if (min > 0 && newValue < min) {
+            newValue = min;
+          }
+          if (max > 0 && newValue > max) {
+            newValue = max;
+          }
+          newValue = new Number(newValue).toFixed(fixedNum);
+          if (unit != undefined && unit.length > 0) {
+            newValue = `${newValue} ${unit}`;
+          }
+          document.getElementById(id).value = newValue;
+        }
+    
+        function getAccountName() {
+          return identity == null || identity.accounts == null || identity.accounts.length == 0 ? betaccount : identity.accounts[0].name;
+        }
+    
+        function isRunning() {
+          return state == 1;
+        }
+    
+        function CheckAccount() {
+          if (getAccountName() == '') {
+            setTimeout(CheckAccount, 1200);
+            return;
+          }
+    
+          try {
+            eos.getAccount({account_name: getAccountName()}).then(res => {
+              var cb = res.core_liquid_balance;
+              balance = res.length == 0 ? 0 : new Number(cb.split(' ')[0]).valueOf();
+              document.getElementById('lbBalance').innerText = cb;
+              var cl = res.cpu_limit;
+              cpuAvailable = document.getElementById('lbCPUAvailable').innerHTML = new Number((cl.available * 100 / cl.max)).toFixed(2) + '%';
+              hasCPU = cl.available > 0 && ((cl.available * 100 / cl.max) >= cpuUnder);
+              setTimeout(CheckAccount, 1200);
+            }).catch(err => {
+              log(`检查账号出错：${JSON.stringify(err)}`);
+              setTimeout(CheckAccount, 1200);
+            });
+          } catch (error) {
+            log(`检查账号出错：${JSON.stringify(error)}`);
+            setTimeout(CheckAccount, 1200);
+          }
+        }
+    
+        function open(successCallback, errorCallbak) {
+          let that = this;
+          if (!hasScatter()) {
+            errorCallbak("scatter required");
+            return;
+          }
+          checkoutNetworks();
+          scatter.suggestNetwork(network).then(() => {
+            const requirements = { accounts: [network] };
+            scatter.getIdentity(requirements).then(
+              function (i) {
+                if (!i) {
+                  return errorCallbak(null);
+                }
+                identity = i;
+                document.getElementById('lbUserName').innerHTML = identity.accounts[0].name;
+                successCallback();
+              }
+            ).catch(error => {
+              errorCallbak(error);
+            });
+          }).catch(error => {
+            errorCallbak(error);
+          });
+        }
+    
+        function transfer(recipient, amount, memo, successCallback, errorCallback) {
+          let that = this;
+          if (that.identity == null) {
+            that.open(() => {
+              transfer(recipient, amount, memo, successCallback, errorCallback);
+            }, errorCallback);
+          } else {
+            const account = that.identity.accounts.find(x => x.blockchain === that.network.blockchain);
+            const transactionOptions = { authorization: [`${account.name}@${account.authority}`], broadcast: true, sign: true };
+            that.eos.transfer(account.name, recipient, amount, memo, transactionOptions).then(trx => {
+              successCallback(trx);
+            }).catch(error => {
+              errorCallback(error);
+            });
+          }
+        }
+    
+        function login() {
+          if (!hasScatter()) {
+            alert('scatter required');
+            return;
+          }
+          scatter.connect('DICEEOSHELPER').then(connected => {
+            open(function () {
+              document.getElementById('btnLogin').style.display = 'none';
+              document.getElementById('btnLogout').style.display = '';
+              log(`登陆成功：${JSON.stringify(identity)}`);
+            }, function (error) {
+              log(`登陆出错：${JSON.stringify(error)}，请关闭重新打开或者刷新本页面`);
+            });
+          });
+        }
+    
+        function logout() {
+          if (isRunning()) {
+            alert("请先停止脚本");
+            return;
+          }
+          if (identity) {
+            identity = null;
+            if (hasScatter()) {
+              scatter.forgetIdentity().then(() => {
+                document.getElementById('lbUserName').innerHTML = '';
+                document.getElementById('btnLogin').style.display = '';
+                document.getElementById('btnLogout').style.display = 'none';
+              });
+            }
+          }
+        }
+    
+        function hasScatter() {
+          return scatter !== undefined;
+        }
+    
+        setTimeout(CheckAccount, 100);
+    
+      </script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    </head>
+    
+    <body>
+      <div class="container-fluid" style="padding-top: 5px;">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <form>
+              <div class="form-group">
+                <label for="txtHttpEndpoint">节点</label>
+                <input type="text" class="form-control" id="txtHttpEndpoint" aria-describedby="txtHttpEndpointHelp"
+                  placeholder="输入节点" value="https://jungle.eosio.cr">
+                <small id="txtHttpEndpointHelp" class="form-text text-muted">官方默认节点，可以使用一个更快的节点来挖</small>
+              </div>
+              <div class="form-group">
+                <label for="txtAccount">账号</label>
+                <span id="lbUserName"></span>
+              </div>
+              <div class="form-group">
+                <label for="txtRollUnder">概率</label>
+                <input type="text" class="form-control" id="txtRollUnder" placeholder="输入概率" value="96">
+              </div>
+              <div class="form-group">
+                <label for="txtAmount">下注</label>
+                <input type="text" class="form-control" id="txtAmount" placeholder="输入注数" value="0.1000 EOS">
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateAmount1" onclick="javascript:updateInputValue('txtAmount', '0.1000 EOS');">0.1
+                  EOS</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateAmount2" onclick="javascript:updateInputValue('txtAmount', '1.0000 EOS');">1
+                  EOS</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateAmount3" onclick="javascript:updateInputValue('txtAmount', '5.0000 EOS');">5
+                  EOS</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateAmount4" onclick="javascript:updateInputValue('txtAmount', '10.0000 EOS');">10
+                  EOS</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateAmount5" onclick="javascript:multiplyInputValue('txtAmount', 2, 0.1, 4, 'EOS', 0.1, 100);">X2
+                  EOS</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateAmount6" onclick="javascript:multiplyInputValue('txtAmount', 0.5, 0.1, 4, 'EOS', 0.1, 100);">1/2
+                  EOS</button>
+              </div>
+              <div class="form-group">
+                <label for="txtBalanceUnder">余额下限</label>
+                <input type="text" class="form-control" id="txtBalanceUnder" aria-describedby="txtBalanceUnderHelp"
+                  placeholder="输入边界" value="0">
+                <small id="txtBalanceUnderHelp" class="form-text text-muted">低于这个下限不再挖矿，用户CPU资源不能地址10%，低于此值时脚本会停止并等待，默认值0不作限制</small>
+              </div>
+              <div class="form-group">
+                <label for="txtCPUUnder">CPU限制(%)</label>
+                <input type="text" class="form-control" id="txtCPUUnder" aria-describedby="txtCPUUnderHelp" placeholder="输入边界"
+                  value="10">
+                <small id="txtCPUUnderHelp" class="form-text text-muted">用户CPU资源不能地址低于%，低于此值时脚本会停止并等待，默认值0不作限制</small>
+                <button type="button" class="btn btn-warning btn-sm" onclick="javascript:rent();" style="padding:.12rem .25rem;">一键租赁0.1EOS1天</button><span
+                  class="form-text text-muted" id="rentResult"></span>
+              </div>
+              <div class="form-group">
+                <label for="txtReferrals">Referrals</label>
+                <input type="text" class="form-control" id="txtReferrals" placeholder="Input Referrals" value="yangshun2533">
+                <small id="txtReferralsHelp" class="form-text text-muted">推荐人账号，可以返佣，不填则由项目方收取。免费工具，耗时耗力，如果能不改推荐，感谢感谢。</small>
+              </div>
+              <div class="form-group">
+                <label for="txtTimeout">频率</label>
+                <input type="text" class="form-control" id="txtTimeout" placeholder="Input txtTimeout" aria-describedby="txtTimeoutHelp"
+                  value="0">
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateTimeout1" onclick="javascript:updateInputValue('txtTimeout', '100');">快</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateTimeout2" onclick="javascript:updateInputValue('txtTimeout', '800');">中</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateTimeout3" onclick="javascript:updateInputValue('txtTimeout', '1600');">慢</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateTimeout4" onclick="javascript:multiplyInputValue('txtTimeout', 2, 1200, 0, '', 100, 0);">X2</button>
+                <button type="button" class="btn btn-info btn-sm" id="btnUpdateTimeout5" onclick="javascript:multiplyInputValue('txtTimeout', 0.5, 1200, 0, '', 100, 0);">1/2</button>
+                <small id="txtTimeoutHelp" class="form-text text-muted">频率，单位毫秒，1秒=1000毫秒，默认0毫秒</small>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-info btn-sm" id="btnLogin" onclick="javascript:login();">登陆</button>
+                <button type="button" class="btn btn-info btn-sm" style="display:none;" id="btnLogout" onclick="javascript:logout();">退出</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnStart" onclick="javascript:start();">开始</button>
+                <button type="button" class="btn btn-default btn-sm" id="btnStop" onclick="javascript:stop();">停止</button>
+                <button type="button" class="btn btn-default btn-sm" id="btnLock" onclick="javascript:lock();">锁屏</button>
+                <button type="button" class="btn btn-default btn-sm" id="btnUnlock" onclick="javascript:unlock();">解锁</button>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <form>
+              <div class="form-group">
+                <label for="txtResults">监视面板</label>
+                <div>当前余额：<span id="lbBalance"> EOS</span>，CPU可用百分比：<span id='lbCPUAvailable'>%</span></div>
+                <textarea id="txtResults" class="form-control" style="height:605px;" readonly="readonly"></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            页面脚本集成了Scatter插件，授权插件后可自动挖矿
+          </div>
+        </div>
+        <div class="raw">
+          <div class="col text-center">
+            ©2018 GBU
+          </div>
+        </div>
+      </div>
+    </body>
+    
+    </html>
