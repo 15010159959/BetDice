@@ -239,7 +239,7 @@
                                 $( '.nickname' ).html( account.name );
                                 $( "#play" ).text( "掷骰子" )
 
-                                $( "#inviteLink" ).val( docuement.location.origin + "/?ref=" + account.name );
+                                $( "#inviteLink" ).val( document.location.origin + "/?ref=" + account.name );
                             }
 
                             get_bonuspool();
