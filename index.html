@@ -129,19 +129,19 @@
 
                                 </div>
                                 <div class="row row-cursor">
-                                    <div class="col-md-2 row-cursor-left">
+                                    <div class="col-md-2 col-2 row-cursor-left">
                                         1
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 col-2">
                                         25
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 col-4">
                                         50
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 col-2">
                                         75
                                     </div>
-                                    <div class="col-md-2 row-cursor-right">
+                                    <div class="col-md-2 col-2 row-cursor-right">
                                         100
                                     </div>
                                 </div>
@@ -208,22 +208,24 @@
                         <li class="active" id="allBet">所有投注</li>
                         <li id="myBet">我的投注</li>
                     </ul>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 14%;">时间</th>
-                                <th style="width: 8%;">投注者</th>
-                                <th style="width: 12%;">小于该号码获胜</th>
-                                <th style="width: 12%;">投注</th>
-                                <th style="width: 8%;">开奖号码</th>
-                                <th style="width: 15%;">奖金</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bet-list" class="allBetData">
-                        </tbody>
-                        <tbody id="bet-my-list" class="myBetData hidden">
-                        </tbody>
-                    </table>
+                    <div class="records" style="width: 100%; overflow: scroll;">
+                        <table style="min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 14%;">时间</th>
+                                    <th style="width: 8%;">投注者</th>
+                                    <th style="width: 12%;">小于该号码获胜</th>
+                                    <th style="width: 12%;">投注</th>
+                                    <th style="width: 8%;">开奖号码</th>
+                                    <th style="width: 15%;">奖金</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bet-list" class="allBetData">
+                            </tbody>
+                            <tbody id="bet-my-list" class="myBetData hidden">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

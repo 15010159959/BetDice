@@ -255,7 +255,7 @@ nav a:hover {
     user-select: none;
 }
 
-#dice-slider-button i{
+#dice-slider-button i {
     width: 24px;
     height: 24px;
     background-color: rgb(244, 244, 244);
@@ -285,8 +285,6 @@ nav a:hover {
     box-shadow: 0 0 12px #fff inset;
 }
 
-
-
 #dice-slider-button em {
     font-style: normal;
     text-decoration: none;
@@ -303,7 +301,6 @@ nav a:hover {
     background-color: #5b5f62;
     border-radius: 3px;
     text-align: center;
-
 }
 
 #dice-slider-button em:after {
@@ -349,11 +346,12 @@ nav a:hover {
     text-align: center;
 }
 
-.alert-banner{
+.alert-banner {
     position: absolute;
-    opacity: 0; 
+    opacity: 0;
     top: 50%;
 }
+
 .alert-msg {
     text-align: center;
     vertical-align: middle;
@@ -361,7 +359,6 @@ nav a:hover {
     font-size: 14px;
     margin: 0 100px;
 }
-
 
 .result_animation {
     -webkit-animation-name: example;
@@ -469,12 +466,10 @@ nav a:hover {
         top: 50%;
         opacity: 0;
     }
-
     90% {
         top: 0%;
         opacity: 1;
     }
-
     100% {
         top: 0%;
         opacity: 1;
@@ -617,6 +612,7 @@ td {
 /* .ranking .table-list li.top1 span:first-child {
     background: url(/img/top1.png) 4px 4px no-repeat;
 } */
+
 .ranking div.flag {
     width: 97px;
     height: 97px;
@@ -647,27 +643,32 @@ td {
     width: 90%;
     margin: auto;
 }
-.lottery h2{
+
+.lottery h2 {
     text-align: center;
     padding-bottom: 18px;
     padding-top: 0px;
     margin: 0;
     font-size: 30px;
-    color:#fff;
+    color: #fff;
 }
-.lottery .table{
+
+.lottery .table {
     border-radius: 5px;
     overflow: hidden;
     font-size: 16px;
 }
+
 .lottery ul.table li {
     background-color: #222a49;
     min-height: 36px;
     display: flex;
 }
+
 .lottery ul.table li:first-child {
     background-color: #f0c747;
 }
+
 .lottery ul.table li div {
     text-align: center;
     padding: 13px 0;
@@ -678,12 +679,14 @@ td {
     color: #eee;
     font-size: 15px;
 }
-.lottery  ul.table li:first-child div {
+
+.lottery ul.table li:first-child div {
     color: #fff;
     font-weight: 700;
     padding: 15px 0;
 }
-.lottery .lottery_button{
+
+.lottery .lottery_button {
     min-width: 92px;
     font-size: 20px;
     font-weight: 700;
@@ -711,7 +714,6 @@ td {
     font-size: 13px;
     text-align: center;
 }
-
 
 .row-cursor-right {
     text-align: right;
