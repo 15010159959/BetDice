@@ -1183,6 +1183,9 @@
 
         $( ".play-type" ).text( 'AI' )
         $( "#money" ).val( 100.00 );
+
+        var odds = parseFloat( $( "#odds" ).text() )
+        $( '#may_get_money' ).val( Number( ( odds * 100.00 ).toFixed( 2 ) ) ); //可能获得的奖金
     } );
 
     checkLogin();
