@@ -318,6 +318,8 @@
             cp = data.cpu_limit.max == 0 ? 1 : data.cpu_limit.used / data.cpu_limit.max
             np = data.net_limit.max == 0 ? 1 : data.net_limit.used / data.net_limit.max
 
+            cp = cp>1?1:cp;
+            np = np>1?1:np;
             net.animate( np ); // Number from 0.0 to 1.0
             cpu.animate( cp );
         } ).catch( e => {
