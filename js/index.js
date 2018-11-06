@@ -1101,8 +1101,6 @@
     }
 
     var showAlert = function ( msg, isShow ) {
-        $( ".modal.alert-msg" ).modal( "show" );
-
         var html = '<div  class="alert alert-warning" style="padding:20px 0;">';
         if ( isShow == undefined || !isShow ) {
             html += '<a href="#" class="close" data-dismiss="alert">x</a>';
@@ -1110,14 +1108,15 @@
 
         html += msg + '</div>';
 
-        console.log( html )
         $( "#alert-msg" ).html( html )
+        $( "#alert-modal" ).modal( "show" );
         if ( isShow == undefined || !isShow ) {
             setTimeout( function () {
                 $( "#alert-modal" ).modal( "hide" );
             }, 2500 )
         }
     }
+
     var checkLogin = function () {
         if ( account == null ) {
             $( "#play" ).text( "登录中..." )
@@ -1129,7 +1128,7 @@
     }
     // play
     $( '#play' ).click( function () {
-        $( ".modal.loading" ).modal( "show" );
+        $( "#loading" ).modal( "show" );
         //init_scatter();
 
         if ( checkLogin() ) {
@@ -1141,7 +1140,7 @@
     // play
     $( '#login' ).click( function () {
         //if (account != null) return;
-        $( ".modal.loading" ).modal( "show" );
+        $( "#loading" ).modal( "show" );
         init_scatter();
     } )
 
