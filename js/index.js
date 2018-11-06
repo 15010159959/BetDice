@@ -17,7 +17,7 @@
         $( "#money" ).val( money );
 
         var odds = parseFloat( $( "#odds" ).text() )
-        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) ); //可能获得的奖金
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 3 ) ) ); //可能获得的奖金
 
     } )
     $( '#Double' ).click( function () {
@@ -34,7 +34,7 @@
         }
         $( "#money" ).val( money );
         var odds = parseFloat( $( "#odds" ).text() )
-        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) ); //可能获得的奖金
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 3 ) ) ); //可能获得的奖金
 
     } )
     $( '#Max' ).click( function () {
@@ -49,7 +49,7 @@
 
         $( "#money" ).val( money );
         var odds = parseFloat( $( "#odds" ).text() )
-        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) ); //可能获得的奖金
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 3 ) ) ); //可能获得的奖金
 
     } )
 
@@ -66,7 +66,7 @@
 
         $( "#money" ).val( money );
         var odds = parseFloat( $( "#odds" ).text() )
-        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 2 ) ) );
+        $( '#may_get_money' ).val( Number( ( odds * money ).toFixed( 3 ) ) );
     } )
 
     // 进度条数字获取  $bt.html( parseInt(left / 6.5));
@@ -154,7 +154,7 @@
         var odds = Number( 98.5 / ( parseInt( ratio ) - 1 ) ).toFixed( 2 )
         $( '#odds' ).html( odds + 'x' ); //赔率计算
         $( '#percent' ).html( parseInt( ( parseInt( ratio - 1 ) / 100 ) * 100 ) + '%' ); //中奖概率计算
-        $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 2 ) ) ); //可能获得的奖金
+        $( '#may_get_money' ).val( Number( ( odds * $( "#money" ).val() ).toFixed( 3 ) ) ); //可能获得的奖金
     }
 
     // 定义玩法函数
@@ -1170,7 +1170,7 @@
         $( ".play-type" ).text( 'EOS' )
         $( "#money" ).val( 0.10 );
         var odds = parseFloat( $( "#odds" ).text() )
-        $( '#may_get_money' ).val( Number( ( odds * 0.1 ).toFixed( 2 ) ) ); //可能获得的奖金
+        $( '#may_get_money' ).val( Number( ( odds * 0.1 ).toFixed( 3 ) ) ); //可能获得的奖金
     } );
 
     $( '#play-dice' ).click( function () {
@@ -1185,7 +1185,7 @@
         $( "#money" ).val( 100.00 );
 
         var odds = parseFloat( $( "#odds" ).text() )
-        $( '#may_get_money' ).val( Number( ( odds * 100.00 ).toFixed( 2 ) ) ); //可能获得的奖金
+        $( '#may_get_money' ).val( Number( ( odds * 100.00 ).toFixed( 3 ) ) ); //可能获得的奖金
     } );
 
     checkLogin();
