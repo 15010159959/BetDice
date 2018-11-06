@@ -162,8 +162,8 @@
     var tpAccount = null;
     var balanceEos = 0;
     var balanceBetDice = 0;
-    var betContract = "yangshun2541"
-    var bugContract = "yangshun2534"
+    var betContract = "betdice22222"
+    var bugContract = "aitoken22222"
 
     var inviteCode = "";
     var playType = 'eos'
@@ -302,7 +302,7 @@
             $('#balanceEos').text(balanceEos);
         });
 
-        eoss.getCurrencyBalance('yangshun2534', account.name).then(function (resp) {
+        eoss.getCurrencyBalance('aitoken22222', account.name).then(function (resp) {
             console.log("get_current_balance", resp);
             balanceBetDice = resp[0]
             $('.balance-token-text').text(balanceBetDice);
@@ -467,7 +467,7 @@
     var getBetRanks = function () {
 
         eoss.getAbi({
-            account_name: "yangshun2541"
+            account_name: "betdice22222"
         }).then(data => {
             console.log("getCode ", data)
 
