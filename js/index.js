@@ -1,8 +1,5 @@
 (function ($) {
-    // var money = $("#money").val(); //获取下注金额
-    // var myNumber =$('#myNumber').html(); //获取投注的数字
 
-    // 投注金额
     // 投注金额
     $('#Half').click(function () {
         var money = $("#money").val() / 2
@@ -151,6 +148,7 @@
         $slider_number.text(parseInt(ratio));
 
         $('#myNumber').html(parseInt(ratio));
+        $('#myNumberValue').val(parseInt(ratio));
         var odds = Number(98.5 / (parseInt(ratio) - 1)).toFixed(2)
         $('#odds').html(odds + 'x'); //赔率计算
         $('#percent').html(parseInt((parseInt(ratio - 1) / 100) * 100) + '%'); //中奖概率计算
@@ -363,7 +361,7 @@
                 accouts: [network]
             }).then(contract => {
 
-                var meno = $('#myNumber').html()
+                var meno = $('#myNumberValue').val()
                 meno += ' ' + inviteCode
                 console.log(meno)
                 contract.transfer(account.name, contract_name, money, meno, {
