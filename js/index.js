@@ -569,17 +569,25 @@
             //index_position:2,
             json: true
         }).then(data => {
-            //console.log("getTableRows ",  data.rows,data.rows.length, bets.length)
+            console.log("getTableRows ", currentId,  data.rows,data.rows.length, bets.length)
             var l = data.rows.length
             var j = bets.length
 
-            for (i = j - l - 1; i >= 0; i--) {
-                bets[i + l] = bets[i]
+
+            var rows = []
+            for(i = 0 ; i<l;i++){
+                rows[i] = data.rows[l-i-1] 
             }
 
-            for (var i in data.rows) {
-                bets[i] = data.rows[l - i - 1];
+            for(i=0;i<j;i++){
+                if((i+l)>=20){
+                    break
+                }
+                rows[l+i] = bets[i]
             }
+
+            bets = rows;
+
             var html = ""
             maxId = currentId
 
