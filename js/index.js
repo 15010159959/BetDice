@@ -378,7 +378,7 @@
                         var roll = inline_traces[i].act.data.result.random_roll
                         var payout = inline_traces[i].act.data.result.payout
                         */
-                        getBetById(bet_id, 0, function (data) {
+                        getBetById(bet_id, 0, function (code, data) {
 
                             hideLoading()
 
@@ -709,10 +709,12 @@
             if (data.rows && data.rows.length == 1) {
                 cb(0, data.rows[0])
             } else {
-                if (counter > 3) {
+                if (counter > 10) {
                     cb(-1, 'timeout')
                 } else {
-                    getBetById(bet_id, counter + 1, cb)
+                    setTimeout(function(){
+                        getBetById(bet_id, counter + 1, cb)
+                    }, 10)
                 }
             }
 
