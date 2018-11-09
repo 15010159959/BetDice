@@ -408,9 +408,9 @@
                                 get_cpu();
                                 getBetRanks()
                             }, 1000)
+
+                            getMyBetList();
                         })
-
-
                     })
                     .catch((err) => {
                         hideLoading()
@@ -580,14 +580,19 @@
             //index_position:2,
             json: true
         }).then(data => {
-            console.log("getTableRows ", currentId, data.rows, data.rows.length, bets.length)
+            //console.log("getTableRows ", currentId, data.rows, data.rows.length, bets.length)
             var l = data.rows.length
             var j = bets.length
 
 
             var rows = []
+            var k = 0;
             for (i = 0; i < l; i++) {
-                rows[i] = data.rows[l - i - 1]
+            
+                if (data.rows[i].bet_id > currentId){
+                    rows[k] = data.rows[l - i - 1]
+                    k++
+                }
             }
 
             for (i = 0; i < j; i++) {
