@@ -1,5 +1,6 @@
 (function ($) {
 
+
     // 投注金额
     $('#Half').click(function () {
         var money = $("#money").val() / 2
@@ -364,7 +365,7 @@
             }).then(contract => {
 
                 var meno = $('#myNumberValue').val()
-                meno += ' ' + bet_id+ ' ' + inviteCode
+                meno += ' ' + bet_id + ' ' + inviteCode
                 console.log(meno)
                 contract.transfer(account.name, contract_name, money, meno, {
                         authorization: [account.name + '@active']
@@ -407,9 +408,16 @@
                             setTimeout(function () {
                                 get_cpu();
                                 getBetRanks()
-                            }, 1000)
+                            }, 200)
 
                             getMyBetList();
+
+
+                            if (isAuto){
+                                setTimeout(function(){
+                                    roll_by_scatter()
+                                }, 2000)
+                            }
                         })
                     })
                     .catch((err) => {
@@ -588,8 +596,8 @@
             var rows = []
             var k = 0;
             for (i = 0; i < l; i++) {
-            
-                if (data.rows[i].bet_id > currentId){
+
+                if (data.rows[i].bet_id > currentId) {
                     rows[k] = data.rows[l - i - 1]
                     k++
                 }
@@ -717,7 +725,7 @@
                 if (counter > 10) {
                     cb(-1, 'timeout')
                 } else {
-                    setTimeout(function(){
+                    setTimeout(function () {
                         getBetById(bet_id, counter + 1, cb)
                     }, 10)
                 }
@@ -1349,4 +1357,20 @@
         countdown()
     }, 1000);
 
+    var isAuto = false;
+    $('#bet-dice-auto').on('click', function (event) {
+        event.preventDefault();
+
+        if (isAuto) {
+            $(".auto-ctrl .el-switch").removeClass("is-checked")
+            $(".auto-ctrl .el-switch__core").removeClass("open")
+            $(".auto-ctrl .el-switch__core").addClass("close")
+            isAuto = false;
+        } else {
+            $(".auto-ctrl .el-switch").addClass("is-checked")
+            $(".auto-ctrl .el-switch__core").removeClass("close")
+            $(".auto-ctrl .el-switch__core").addClass("open")
+            isAuto = true;
+        }
+    });
 })(jQuery);

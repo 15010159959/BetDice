@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/element-index.css">
     <link rel="stylesheet" href="css/index.css">
     <title>BetDice</title>
 
@@ -148,27 +149,40 @@
                                 </div>
 
                                 <div class="balance container">
-                                    <div class="row">
-                                        <div class="center col-md-3"></div>
+                                    <div class="row balance-row justify-content-center">
+                                        <div class="center col-md-3">
+                                        </div>
                                         <div class="center col-md-6">
-                                            <button type="button" class="btn btn-primary" id="play">掷骰子</button>
+                                            <div class="auto-ctrl">
+                                                <span>自动投注</span>
+                                                <div role="switch" class="el-switch" style="display: inline-block;">
+                                                    <input type="checkbox" name="" true-value="true" class="el-switch__input">
+                                                    <span class="el-switch__core" id="bet-dice-auto"></span>
+                                                </div><span class="auto-status">关闭</span>
+                                            </div>
                                         </div>
                                         <div class="center col-md-3">
                                             <a href="tool.html" target="_blank" class="nav-link" style="padding: 2px 0px;">
-                                                自动下注 </a>
+                                                自动投注 </a>
                                         </div>
-                                        <div class="info col-md-12 center">
-                                            <div class="row">
-                                                <div class="balanceEos shake-hard col-md-6 text-center">EOS余额 :
-                                                    <span id="balanceEos">
-                                                    </span>
-                                                </div>
-                                                <div class="balanceBetDice col-md-6 text-center">AI余额 :
-                                                    <span class="balance-token-text">
-                                                    </span>
-                                                </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="center col-md-5">
+                                            <div class="balanceEos shake-hard text-center">EOS余额 :
+                                                <span id="balanceEos">
+                                                </span>
                                             </div>
                                         </div>
+                                        <div class="center col-md-2">
+                                            <button type="button" class="btn btn-primary" id="play">掷骰子</button>
+                                        </div>
+                                        <div class="center col-md-5">
+                                            <div class="balanceBetDice text-center">AI余额 :
+                                                <span class="balance-token-text">
+                                                </span>
+                                            </div>
+                                        </div>
+
                                         <div id="result" class="col-md-12">
                                         </div>
                                     </div>
@@ -303,8 +317,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group">
-                            <input id="inviteLink" type="text" class="form-control"
-                                aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <input id="inviteLink" type="text" class="form-control" aria-label="Input group example"
+                                aria-describedby="btnGroupAddon">
                         </div>
                         <div class="reward">
                             <div class="container">
