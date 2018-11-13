@@ -62,9 +62,60 @@ textarea {
     /* 用 ascii 字符表示，使得在任何编码下都无问题 */
 }
 
+
+
+.bgc{
+    background:#1e1e1e;
+    box-shadow:0 20px 40px 0 rgba(0,0,0,0.20);
+}
+
+.navbar-nav a{
+    font-family: HYQiHei-EZS;
+    font-size: 16px;
+}
+
+.logo{
+    width:60px;
+    height:33px;
+    margin-right: 6px;
+}
+
+.navbar-brand{
+    font-family: DIN-Bold;
+    font-size: 16px;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 43px;
+}
+
+.lottery_btn{
+    background-image: linear-gradient(-225deg, #ff2366 0%, #8d4de8 100%);
+    box-shadow:0 10px 10px 0 rgba(0,0,0,0.20);
+    border-radius:100px;
+    width: 153px;
+    height:40px;
+    font-family: HYQiHei-EZS;
+    font-size:18px;
+    color:#ffffff;
+    letter-spacing:0;
+    text-align:center;
+    padding: 8px 33px;
+}
+
+
 .account {
     float: left;
     padding: 6px 0;
+}
+
+.account img{
+    width:44px;
+    height:44px;
+    border-radius:100%;
+}
+
+.account button{
+    line-height: 40px;
 }
 
 .btn-custom {
@@ -109,7 +160,7 @@ textarea {
 nav a,
 nav a:visited,
 nav a:active {
-    color: #7887a7 !important;
+    color: #fff !important;
     text-decoration: none;
 }
 
@@ -138,8 +189,7 @@ nav a:hover {
 }
 
 .banner {
-    /* width: 100%; */
-    background: url(../images/bg.png)repeat;
+    background:#1e1e1e;
     padding-bottom: 20px;
 }
 
@@ -176,7 +226,7 @@ nav a:hover {
 
 .orderList {
     margin: auto;
-    background-color: #1c233f;
+    background:#151515;
     border-radius: 3px;
     text-align: center;
 }
@@ -489,17 +539,19 @@ nav a:hover {
 
 .tabs {
     display: flex;
-    background-color: #1c233f;
-    border-bottom: 1px solid #333853;
     font-size: 18px;
     color: #fff;
     width: 100%;
+    margin-bottom: 12px;
 }
 
 .tabs>li {
-    margin-left: 50px;
-    padding: 17px 5px;
-    cursor: pointer;
+    background: #1e1e1e;
+    width: 159px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 12px;
 }
 
 table {
@@ -511,14 +563,14 @@ table {
 }
 
 thead {
+    background:#1e1e1e;
     display: table-header-group;
     vertical-align: middle;
     border-color: inherit;
 }
 
 th {
-    background-color: #1d233e;
-    color: #989a99;
+    color: #ffffff;;
     line-height: 45px;
     text-align: center;
 }
@@ -549,7 +601,7 @@ td {
 
 .ranking {
     max-width: 768px;
-    background-color: #1c233f;
+    background:#151515;
     position: relative;
     border-radius: 2px;
     overflow: hidden;
@@ -790,4 +842,20 @@ td {
 .auto-ctrl .auto-status {
     color: rgb(255, 255, 255);
     font-weight: 600;
+}
+
+#play{
+    box-shadow:0 10px 10px 0 rgba(0,0,0,0.20);
+    border-radius:100px;
+    width:140px;
+    height:41px;
+    border: none !important;
+}
+
+.btn_bgc{
+    background-image:linear-gradient(-225deg, #8d4de8 0%, #ff2366 100%) !important;
+}
+.bgc_btn{
+    background:#151515 !important;
+    border: none;
 }

@@ -15,17 +15,17 @@
 <body>
     <div>
         <!-- header -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bgc">
             <div class="container">
-                <a class="navbar-brand" href="#">BetDice2.0</a>
+                <a class="navbar-brand" href="#"><img class="logo" src="./images/logo@2x.png" alt="">EOSER</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <button type="button" class="btn btn-primary btn-custom" style="margin: 10px auto;" data-toggle="modal"
+                    <button type="button"  style="margin: 10px auto;" data-toggle="modal"
                         data-target="#lottery">
-                        <span>幸运抽奖</span>
+                        <span class="lottery_btn">幸运抽奖</span>
                     </button>
                     <div class="src-occupy">
                         <a id="cpu" href="https://cpuemergency.com/" target="_blank"></a>
@@ -45,6 +45,7 @@
                         </li>
                     </ul>
                     <div class="account">
+                        <img src="./images/user_img@2x.png" alt="">
                         <button type="button" class="btn btn-primary btn-custom" id="login">
                             <span>登录</span>
                         </button>
@@ -63,7 +64,7 @@
                             <!-- choice token -->
                             <div class="center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-secondary active" id="play-eos">EOS</button>
+                                    <button type="button" class="btn btn-secondary active btn_bgc" id="play-eos">EOS</button>
                                     <button type="button" class="btn btn-secondary" id="play-dice">AI</button>
                                 </div>
                             </div>
@@ -79,10 +80,10 @@
                                                     <input id="money" type="text" class="form-control" value="0.1"
                                                         aria-label="Input group example" aria-describedby="btnGroupAddon">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <button type="button" class="btn btn-secondary active play-type">EOS</button>
-                                                        <button type="button" class="btn btn-secondary" id="Half">1/2</button>
-                                                        <button type="button" class="btn btn-secondary" id="Double">2X</button>
-                                                        <button type="button" class="btn btn-secondary" id="Max">MAX</button>
+                                                        <button type="button" class="btn btn-secondary active play-type btn_bgc">EOS</button>
+                                                        <button type="button" class="btn btn-secondary bgc_btn" id="Half">1/2</button>
+                                                        <button type="button" class="btn btn-secondary bgc_btn" id="Double">2X</button>
+                                                        <button type="button" class="btn btn-secondary bgc_btn" id="Max">MAX</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,7 +98,7 @@
                                                     <input id="may_get_money" type="text" class="form-control" value="0.201"
                                                         aria-label="Input group example" aria-describedby="btnGroupAddon"
                                                         disabled="true" />
-                                                    <button type="button" class="btn btn-secondary active play-type">EOS</button>
+                                                    <button type="button" class="btn btn-secondary active play-type btn_bgc">EOS</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,7 +175,7 @@
                                             </div>
                                         </div>
                                         <div class="center col-md-2">
-                                            <button type="button" class="btn btn-primary" id="play">掷骰子</button>
+                                            <button type="button" class="btn btn-primary btn_bgc" id="play">掷骰子</button>
                                         </div>
                                         <div class="center col-md-5">
                                             <div class="balanceBetDice text-center">AI余额 :
@@ -222,7 +223,7 @@
         </div>
 
         <div class="banner">
-            <div class="container">
+            <div class="container" style="background:#151515;padding: 21px 31px;">
                 <div class="row">
                     <ul class="tabs">
                         <li class="active" id="allBet">所有投注</li>
@@ -251,7 +252,7 @@
         </div>
 
         <!-- footer -->
-        <footer style="background-color: #1c233f; color: #72778d;">
+        <footer style="background:#1e1e1e; color: #7f7f7f;">
             <!--采用container，使得页尾内容居中 -->
             <div class="container">
                 <div class="row">
